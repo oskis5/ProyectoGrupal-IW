@@ -15,7 +15,12 @@ class CreateEstanciasTable extends Migration
     {
         Schema::create('estancias', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('nombre', 127);
+            $table->string('descripcion', 255);
+            $table->integer('planta');
+            $table->string('puerta');
             $table->timestamps();
+            $table->double('precio_unitario');
         });
     }
 
