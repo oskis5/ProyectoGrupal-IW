@@ -19,7 +19,7 @@ class CreateTipoReservaTable extends Migration
             $table->string('nombre');
             $table->mediumText('descripcion');
             $table->float('precio');
-            $table->integer('tipo_estancia');
+            $table->integer('tipo_estancia')->nullable(false);
         });
     }
 

@@ -15,6 +15,10 @@ class CreateReservaTable extends Migration
     {
         Schema::create('reserva', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('estancia_id');
+            $table->unsignedBigInteger('cliente_id');
+            $table->unsignedBigInteger('tipo_id');
+            $table->unsignedBigInteger('temporada_id');
             $table->date('f_entrada');
             $table->date('f_salida');
             $table->foreign('estancia_id')->references('id')->on('estancia');

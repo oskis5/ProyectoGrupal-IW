@@ -15,16 +15,22 @@ class CreateEstanciaTable extends Migration
     {
         Schema::create('estancia', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('tipo_id');
             $table->foreign('tipo_id')->references('id')->on('tipo_habitacion');
             $table->integer('planta');
             $table->integer('puerta');
             $table->string('nombre');
             $table->mediumText('descripcion');
             $table->boolean('reservada');
-            $table->float('precio_unitario');
-            $table->integer('capacidad');
+            $table->float('precio_base');
+
+            //Habitaciones
             $table->float('metros_cuadrados');
             $table->integer('camas');
+
+            //Sala reuniones
+            $table->integer('capacidad');
+            
             $table->timestamps();
         });
     }
