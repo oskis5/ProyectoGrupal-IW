@@ -17,5 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('estancias', 'EstanciaController@index');
 Route::get('estancias/{id}','EstanciaController@show');
-
+Route::post('estancias', 'EstanciaController@store');
+Route::put('estancias/{id}', 'EstanciaController@update');
+Route::delete('estancias/{id}', 'EstanciaController@delete');
