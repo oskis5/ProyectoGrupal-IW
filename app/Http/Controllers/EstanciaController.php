@@ -22,7 +22,7 @@ class EstanciaController extends Controller
     public function store(Request $request)
     {
         $estancia = Estancia::create($request->all());
-        return response()->json($estancia, 200);
+        return response()->json($estancia, 201);
     }
 
     public function update(Request $request, $id)
