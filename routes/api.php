@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Estancia;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,3 +21,9 @@ Route::get('estancias/{id}','EstanciaController@show');
 Route::post('estancias', 'EstanciaController@store');
 Route::put('estancias/{id}', 'EstanciaController@update');
 Route::delete('estancias/{id}', 'EstanciaController@delete');
+
+Route::get('users', 'UserController@index');
+Route::get('users/{id}','UserController@show');
+Route::post('users', 'UserController@store');
+Route::put('users/{id}', 'UserController@update');
+Route::delete('users/{id}', 'UserController@delete');
