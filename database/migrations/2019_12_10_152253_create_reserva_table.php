@@ -13,7 +13,7 @@ class CreateReservaTable extends Migration
      */
     public function up()
     {
-        Schema::create('reserva', function (Blueprint $table) {
+        Schema::create('reservas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('estancia_id');
             $table->unsignedBigInteger('cliente_id');
@@ -21,11 +21,11 @@ class CreateReservaTable extends Migration
             $table->unsignedBigInteger('temporada_id');
             $table->date('f_entrada');
             $table->date('f_salida');
-            $table->foreign('estancia_id')->references('id')->on('estancia');
+            $table->foreign('estancia_id')->references('id')->on('estancias');
             $table->foreign('cliente_id')->references('id')->on('users');
             $table->float('precio_total');
-            $table->foreign('tipo_id')->references('id')->on('tipo_reserva');
-            $table->foreign('temporada_id')->references('id')->on('temporada');
+            $table->foreign('tipo_id')->references('id')->on('tipo_reservas');
+            $table->foreign('temporada_id')->references('id')->on('temporadas');
             $table->timestamps();
         });
     }
@@ -37,6 +37,6 @@ class CreateReservaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reserva');
+        Schema::dropIfExists('reservas');
     }
 }

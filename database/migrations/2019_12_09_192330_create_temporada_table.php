@@ -13,7 +13,7 @@ class CreateTemporadaTable extends Migration
      */
     public function up()
     {
-        Schema::create('temporada', function (Blueprint $table) {
+        Schema::create('temporadas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nombre');
             $table->date('fecha_inicio');
@@ -30,6 +30,6 @@ class CreateTemporadaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('temporada');
+        Schema::dropIfExists('temporadas');
     }
 }
