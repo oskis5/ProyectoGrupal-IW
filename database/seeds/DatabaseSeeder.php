@@ -24,6 +24,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PermissionsTableSeeder::class,
             UsersTableSeeder::class,
+            TemporadaTableSeed::class,
+            TipoEstanciaSeeder::class,
+            TipoReservaSeeder::class,
+            EstanciasSeeder::class,
+            ReservaTableSeeder::class
         ]);
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
