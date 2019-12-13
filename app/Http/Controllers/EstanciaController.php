@@ -37,7 +37,7 @@ class EstanciaController extends Controller
         $estancia = Estancia::findOrFail($id);
         $estancia->delete();
 
-        return 204;
+        return response()->json(null, 204);
     }
 
 }
