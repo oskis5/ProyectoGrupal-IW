@@ -13,21 +13,23 @@
           </template>
           <b-dropdown-item href="#">Perfil</b-dropdown-item>
           <b-dropdown-item href="#">Cerrar sesión</b-dropdown-item>
+          <b-dropdown-item>
+            <router-link :to="{name: 'prueba'}">Home</router-link>
+          </b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
-    
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    HelloWorld,
   }
 }
 </script>
