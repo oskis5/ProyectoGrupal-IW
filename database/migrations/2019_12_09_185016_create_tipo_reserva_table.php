@@ -13,7 +13,7 @@ class CreateTipoReservaTable extends Migration
      */
     public function up()
     {
-        Schema::create('tipo_reserva', function (Blueprint $table) {
+        Schema::create('tipo_reservas', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->timestamps();
             $table->string('nombre');
@@ -30,6 +30,6 @@ class CreateTipoReservaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tipo_reserva');
+        Schema::dropIfExists('tipo_reservas');
     }
 }

@@ -13,10 +13,10 @@ class CreateEstanciaTable extends Migration
      */
     public function up()
     {
-        Schema::create('estancia', function (Blueprint $table) {
+        Schema::create('estancias', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('tipo_id');
-            $table->foreign('tipo_id')->references('id')->on('tipo_habitacion');
+            $table->foreign('tipo_id')->references('id')->on('tipo_habitaciones');
             $table->integer('planta');
             $table->integer('puerta');
             $table->string('nombre');
@@ -42,6 +42,6 @@ class CreateEstanciaTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('estancia');
+        Schema::dropIfExists('estancias');
     }
 }
