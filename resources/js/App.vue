@@ -17,7 +17,9 @@
       </b-navbar-nav>
     </b-navbar>
     
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+      <li>
+          <router-link :to="{name: 'prueba'}">Home</router-link>
+      </li>
     <router-view></router-view>
   </div>
 </template>

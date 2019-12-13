@@ -9,12 +9,12 @@ const router= new Router({
     mode: 'history',
     routes: [
         {
-        path: '/',
+        path: '/ProyectoGrupal-IW/public/home',
         name: 'home',
         component: HelloWorld 
         },
         {
-         path: '/prueba',
+         path: '/ProyectoGrupal-IW/public/prueba',
          name : 'prueba',
          component: HelloWorld2
         }

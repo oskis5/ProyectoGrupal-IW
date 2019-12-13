@@ -120,6 +120,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'app',
@@ -33525,7 +33527,15 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("HelloWorld", { attrs: { msg: "Welcome to Your Vue.js App" } }),
+      _c(
+        "li",
+        [
+          _c("router-link", { attrs: { to: { name: "prueba" } } }, [
+            _vm._v("Home")
+          ])
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("router-view")
     ],
@@ -50251,11 +50261,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: [{
-    path: '/',
+    path: '/ProyectoGrupal-IW/public/home',
     name: 'home',
     component: _components_HelloWorld__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
-    path: '/prueba',
+    path: '/ProyectoGrupal-IW/public/prueba',
     name: 'prueba',
     component: _components_HelloWorld2__WEBPACK_IMPORTED_MODULE_3__["default"]
   }]
