@@ -33516,23 +33516,23 @@ var render = function() {
                   _vm._v(" "),
                   _c("b-dropdown-item", { attrs: { href: "#" } }, [
                     _vm._v("Cerrar sesión")
-                  ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-dropdown-item",
+                    [
+                      _c("router-link", { attrs: { to: { name: "prueba" } } }, [
+                        _vm._v("Home")
+                      ])
+                    ],
+                    1
+                  )
                 ],
                 1
               )
             ],
             1
           )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        [
-          _c("router-link", { attrs: { to: { name: "prueba" } } }, [
-            _vm._v("Home")
-          ])
         ],
         1
       ),

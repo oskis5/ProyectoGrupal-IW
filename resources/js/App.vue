@@ -13,13 +13,13 @@
           </template>
           <b-dropdown-item href="#">Perfil</b-dropdown-item>
           <b-dropdown-item href="#">Cerrar sesión</b-dropdown-item>
+          <b-dropdown-item>
+            <router-link :to="{name: 'prueba'}">Home</router-link>
+          </b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
-    
-      <li>
-          <router-link :to="{name: 'prueba'}">Home</router-link>
-      </li>
+
     <router-view></router-view>
   </div>
 </template>
