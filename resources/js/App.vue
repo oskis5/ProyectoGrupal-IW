@@ -1,11 +1,15 @@
 <template>
   <div id="app">
     <b-navbar toggleable="lg" type="light" variant="light" class="py-0">
-      <a class="navbar-brand my-0" href="#">
+      <router-link class="navbar-brand my-0" :to="{name: 'home'}">
         <img alt="Vue logo" :src="'images/logo-h.png'" class="img-fluid" style="height: 70px">
-      </a>
+      </router-link>
 
       <b-navbar-nav class="ml-auto">
+        <b-nav-item href="#">
+          <router-link :to="{name: 'prueba'}">Home</router-link>
+        </b-nav-item>
+        
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
           <template v-slot:button-content>
@@ -13,9 +17,6 @@
           </template>
           <b-dropdown-item href="#">Perfil</b-dropdown-item>
           <b-dropdown-item href="#">Cerrar sesión</b-dropdown-item>
-          <b-dropdown-item>
-            <router-link :to="{name: 'prueba'}">Home</router-link>
-          </b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>

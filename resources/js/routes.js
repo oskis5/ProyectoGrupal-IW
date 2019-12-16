@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import HelloWorld from './components/HelloWorld';
+import Home from './components/Home';
 import HelloWorld2 from './components/HelloWorld2';
 
 Vue.use(Router);
@@ -9,9 +9,9 @@ const router= new Router({
     mode: 'history',
     routes: [
         {
-        path: '/ProyectoGrupal-IW/public/home',
+        path: '/ProyectoGrupal-IW/public/',
         name: 'home',
-        component: HelloWorld 
+        component: Home 
         },
         {
          path: '/ProyectoGrupal-IW/public/prueba',
