@@ -11,7 +11,7 @@ const router= new Router({
         {
         path: '/ProyectoGrupal-IW/public/home',
         name: 'home',
-        component: HelloWorld 
+        component: HelloWorld
         },
         {
          path: '/ProyectoGrupal-IW/public/prueba',

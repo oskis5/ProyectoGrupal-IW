@@ -5,12 +5,14 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import router from './routes.js';
+import store from './store/store.js'
 Vue.use(BootstrapVue);
 Vue.use(Vuex);
 
 const app = new Vue({
     el: '#app',
     router,
+    store,
     render: h => h(App),
 });
 
