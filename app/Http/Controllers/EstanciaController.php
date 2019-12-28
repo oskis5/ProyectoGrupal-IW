@@ -13,5 +13,8 @@ class EstanciaController extends Controller
         $estancia = Estancia::find($id); 
         return response()->json($estancia,200);
     }
-    //
+    
+    public function list(){
+        return Estancia::all();
+    }
 }

@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::get('estancias/{id}','EstanciaController@show');
 
+Route::get('estancias', 'EstanciaController@list');
+

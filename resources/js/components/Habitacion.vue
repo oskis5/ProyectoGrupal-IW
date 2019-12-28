@@ -1,11 +1,17 @@
 <template>
     <div class="habitacion container p-3">
-        <!-- Parte la tarjeta en dos, arriba la foto y la info, abajo precio y selección de tipo de estancia -->
         <div class="row align-items-center">
             <img class="col-4 p-2" :src="img"/>
             <div class="col-6 info-habitacion text-left">
-                <p class="hab-nombre text-uppercase"><strong>{{name}}</strong></p>
-                <p class="hab-desc">{{description}}</p>
+                <p class="hab-nombre text-uppercase"><strong>{{item.nombre}}</strong></p>
+                <p class="hab-desc">{{item.descripcion}}</p>
+
+                <!-- Render si es habitación -->
+                <p v-if="item.tipo_id != 4" class="hab-detalles"><b>Camas:</b> {{item.camas}}</p>
+                <p v-if="item.tipo_id != 4" class="hab-detalles"><b>Tamaño:</b> {{item.metros_cuadrados}} metros cuadrados</p>
+
+                <!-- Render si es sala de reuniones -->
+                <p v-if="item.tipo_id == 4" class="hab-detalles"><b>Capacidad:</b> {{item.capacidad}} personas</p>
             </div>
         </div>
 
@@ -15,7 +21,7 @@
                 <option value="completa">Pensión completa</option>
                 <option value="media">Media pensión</option>
             </select> 
-            <p class="hab-precio col-6"><strong>{{price}}</strong></p>
+            <p class="hab-precio col-6"><strong>{{item.precio}}</strong></p>
             <button type="button" class="hab-boton-reserva btn btn-secondary col-2">Reservar</button>
         </div>
     </div>
@@ -24,11 +30,6 @@
 <script>
 export default {
   name: 'Habitacion',
-  props: [
-      'name',
-      'img',
-      'description',
-      'price'
-  ]
+  props: ['item','img']
 }
 </script>

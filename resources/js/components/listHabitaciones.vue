@@ -1,7 +1,11 @@
 <template>
     <div class="container">
         <h1>Esto es la lista de habitaciones</h1>
-        <Habitacion name="Habitación de ejemplo" img="https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg" price="19.99$" description="Esto es una descripcion de ejemplo para una habitación con vistas al mar que no existe"/>
+        <ul class="list-unstyled">
+            <li v-for="item in habitaciones">
+                <Habitacion :item="item" img="https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg"/>
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -10,8 +14,14 @@ import Habitacion from './Habitacion.vue'
 
 export default {
   name: 'listHabitaciones',
+  props: ['habitaciones'],
   components: {
     Habitacion
+  },
+  created: async function(){
+    var res = await fetch('http://localhost:8000/api/estancias');
+    var estancias = await res.json();
+    this.habitaciones = estancias;
   }
 }
 </script>
