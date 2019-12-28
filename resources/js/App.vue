@@ -18,16 +18,19 @@
     </b-navbar>
     
     <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <listHabitaciones/>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
+import listHabitaciones from './components/listHabitaciones.vue'
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    HelloWorld,
+    listHabitaciones
   }
 }
 </script>
