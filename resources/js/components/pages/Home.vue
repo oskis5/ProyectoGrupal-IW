@@ -1,5 +1,5 @@
 <template>
-    <h1>Página principal</h1>
+    <h1>Página principal protegida</h1>
 </template>
 
 <script>

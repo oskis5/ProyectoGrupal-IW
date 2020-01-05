@@ -1,7 +1,7 @@
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
+//import jwtDecode from 'jwt-decode'
 
-const API_URL = 'http://localhost:8000/api/users/';
+const API_URL = 'http://localhost:81/ProyectoGrupal-IW/public/api/users/';
 
 export default {
     state: {
