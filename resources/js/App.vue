@@ -1,11 +1,15 @@
 <template>
   <div id="app">
     <b-navbar toggleable="lg" type="light" variant="light" class="py-0">
-      <a class="navbar-brand my-0" href="#">
+      <router-link class="navbar-brand my-0" :to="{name: 'home'}">
         <img alt="Vue logo" :src="'images/logo-h.png'" class="img-fluid" style="height: 70px">
-      </a>
+      </router-link>
 
       <b-navbar-nav class="ml-auto">
+        <b-nav-item href="#">
+          <router-link :to="{name: 'prueba'}">Home</router-link>
+        </b-nav-item>
+        
         <b-nav-item-dropdown right>
           <!-- Using 'button-content' slot -->
           <template v-slot:button-content>
@@ -16,18 +20,17 @@
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-navbar>
-    
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 import HelloWorld from './components/HelloWorld.vue'
-
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    HelloWorld,
   }
 }
 </script>

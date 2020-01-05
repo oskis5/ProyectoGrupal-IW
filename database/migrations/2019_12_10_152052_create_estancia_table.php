@@ -16,7 +16,7 @@ class CreateEstanciaTable extends Migration
         Schema::create('estancias', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('tipo_id');
-            $table->foreign('tipo_id')->references('id')->on('tipo_habitaciones');
+            $table->foreign('tipo_id')->references('id')->on('tipo_habitaciones')->nullable();
             $table->integer('planta');
             $table->integer('puerta');
             $table->string('nombre');
