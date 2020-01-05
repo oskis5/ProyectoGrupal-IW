@@ -23,7 +23,6 @@ Route::put('estancias/{id}', 'EstanciaController@update');
 Route::delete('estancias/{id}', 'EstanciaController@delete');
 
 Route::post('login', 'Auth\LoginController@login');
-
 Route::post('logout', 'Auth\LoginController@logout');
 
 Route::get('users', 'UserController@index');
