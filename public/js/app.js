@@ -1967,8 +1967,65 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Login'
+  name: 'Login',
+  data: function data() {
+    return {
+      email: "",
+      password: "",
+      toastCount: 0
+    };
+  },
+  computed: {
+    status: function status() {
+      return this.$store.getters.status;
+    }
+  },
+  methods: {
+    login: function login() {
+      var _this = this;
+
+      var data = {
+        email: this.email,
+        password: this.password
+      };
+      this.$store.dispatch('login', data).then(function () {
+        return _this.$router.push('/');
+      })["catch"](function () {
+        if (_this.email != "") _this.makeToast("El usuario con correo electr\xF3nico ".concat(_this.email, " no existe."));else _this.makeToast("Has de introducir un correo electr\xF3nico v\xE1lido.");
+      });
+    },
+    makeToast: function makeToast(message) {
+      this.toastCount++;
+      this.$bvToast.toast(message, {
+        title: 'No existe ese usuario',
+        autoHideDelay: 5000,
+        variant: 'danger',
+        toaster: 'b-toaster-bottom-center'
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -35635,7 +35692,112 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Página de login")])
+  return _c(
+    "div",
+    [
+      _c(
+        "b-form",
+        { staticClass: "w-50 mx-auto", staticStyle: { "margin-top": "10vh" } },
+        [
+          _c(
+            "b-card",
+            { staticClass: "p-2", attrs: { "bg-variant": "light" } },
+            [
+              _c("img", {
+                staticClass: "img-fluid",
+                staticStyle: { height: "170px" },
+                attrs: { alt: "Vue logo", src: "images/logo-h.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  staticStyle: { "margin-top": "10%" },
+                  attrs: { label: "Correo electrónico:" }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      name: "email",
+                      type: "email",
+                      placeholder: "example@gmail.com"
+                    },
+                    model: {
+                      value: _vm.email,
+                      callback: function($$v) {
+                        _vm.email = $$v
+                      },
+                      expression: "email"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  staticClass: "mt-5",
+                  attrs: {
+                    label: "Contraseña:",
+                    description:
+                      "La contraseña debe tener un mínimo de 6 caracteres"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: { name: "password", type: "password" },
+                    model: {
+                      value: _vm.password,
+                      callback: function($$v) {
+                        _vm.password = $$v
+                      },
+                      expression: "password"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.status == "loading"
+                ? _c("b-spinner", {
+                    staticStyle: { "margin-top": "10%" },
+                    attrs: { label: "Spinning" }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  staticClass: "mx-auto",
+                  staticStyle: { margin: "5% 0 2%", width: "200px" },
+                  attrs: {
+                    size: "lg",
+                    pill: "",
+                    block: "",
+                    variant: "success"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.login()
+                    }
+                  }
+                },
+                [_vm._v("Iniciar sesión")]
+              ),
+              _vm._v(" "),
+              _c("router-link", { attrs: { to: { name: "register" } } }, [
+                _vm._v("Registrarse")
+              ])
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -52271,7 +52433,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
  //import jwtDecode from 'jwt-decode'
 
-var API_URL = 'http://localhost:81/ProyectoGrupal-IW/public/api/users/';
+var API_URL = 'http://localhost:81/ProyectoGrupal-IW/public/api/';
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     status: '',
@@ -52337,7 +52499,7 @@ var API_URL = 'http://localhost:81/ProyectoGrupal-IW/public/api/users/';
       return new Promise(function (resolve, reject) {
         commit('auth_request');
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
-          url: API_URL,
+          url: API_URL + 'users/',
           data: user,
           method: 'POST'
         }).then(function (resp) {

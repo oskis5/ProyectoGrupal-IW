@@ -1,7 +1,7 @@
 import axios from 'axios'
 //import jwtDecode from 'jwt-decode'
 
-const API_URL = 'http://localhost:81/ProyectoGrupal-IW/public/api/users/';
+const API_URL = 'http://localhost:81/ProyectoGrupal-IW/public/api/';
 
 export default {
     state: {
@@ -56,7 +56,7 @@ export default {
         register({commit}, user) {
             return new Promise((resolve, reject) => {
                 commit('auth_request')
-                axios({url: API_URL, data: user, method: 'POST' })
+                axios({url: API_URL + 'users/', data: user, method: 'POST' })
                 .then(resp => {
                     resolve(resp)
                 })
