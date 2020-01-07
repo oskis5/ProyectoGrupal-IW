@@ -1,7 +1,8 @@
 import axios from 'axios'
 //import jwtDecode from 'jwt-decode'
 
-const API_URL = 'http://localhost:81/ProyectoGrupal-IW/public/api/';
+import {Users_API} from '../actions/users_API.js'
+const users_API = new Servicio_API("http://localhost:81/ProyectoGrupal-IW/public/api/");
 
 export default {
     state: {
@@ -35,10 +36,18 @@ export default {
     },
     actions: {
         login({commit, dispatch}, user) {
+            
+            
             return new Promise((resolve, reject) => {
                 commit('auth_request')
+
+                /*users_API.login().then(function(datos){
+                    return datos
+                })*/
+
                 axios({url: API_URL + 'login', data: user, method: 'POST' })
                 .then(resp => {
+                    
                     const token = resp.data
                     localStorage.setItem('token', token)
                     axios.defaults.headers.common['Authorization'] = token

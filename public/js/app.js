@@ -2043,8 +2043,69 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Register'
+  name: 'Register',
+  data: function data() {
+    return {
+      name: "",
+      surname: "",
+      username: "",
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    register: function register() {
+      var _this = this;
+
+      var data = {
+        name: this.name,
+        surname: this.surname,
+        username: this.username,
+        email: this.email,
+        password: this.password
+      };
+      this.$store.dispatch('register', data).then(function () {
+        return _this.$router.push('/login');
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    }
+  }
 });
 
 /***/ }),
@@ -35697,7 +35758,7 @@ var render = function() {
     [
       _c(
         "b-form",
-        { staticClass: "w-50 mx-auto", staticStyle: { "margin-top": "10vh" } },
+        { staticClass: "w-50 mx-auto", staticStyle: { padding: "6vh 10vw" } },
         [
           _c(
             "b-card",
@@ -35769,8 +35830,8 @@ var render = function() {
               _c(
                 "b-button",
                 {
-                  staticClass: "mx-auto",
-                  staticStyle: { margin: "5% 0 2%", width: "200px" },
+                  staticClass: "mx-auto mt-5 mb-3",
+                  staticStyle: { width: "200px" },
                   attrs: {
                     size: "lg",
                     pill: "",
@@ -35821,7 +35882,180 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Página de registro")])
+  return _c(
+    "div",
+    [
+      _c(
+        "b-form",
+        { staticClass: "w-50 mx-auto", staticStyle: { padding: "6vh 10vw" } },
+        [
+          _c(
+            "b-card",
+            { staticClass: "p-2", attrs: { "bg-variant": "light" } },
+            [
+              _c("img", {
+                staticClass: "img-fluid",
+                staticStyle: { height: "170px" },
+                attrs: { alt: "Vue logo", src: "images/logo-h.png" }
+              }),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  staticClass: "mt-3",
+                  attrs: {
+                    label: "Nombre de usuario:",
+                    description: "No puede superar los 15 caracteres"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: { name: "username", type: "text" },
+                    model: {
+                      value: _vm.username,
+                      callback: function($$v) {
+                        _vm.username = $$v
+                      },
+                      expression: "username"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  { staticClass: "col" },
+                  [
+                    _c(
+                      "b-form-group",
+                      { attrs: { label: "Nombre:", description: "" } },
+                      [
+                        _c("b-form-input", {
+                          attrs: { name: "name", type: "text" },
+                          model: {
+                            value: _vm.name,
+                            callback: function($$v) {
+                              _vm.name = $$v
+                            },
+                            expression: "name"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "col" },
+                  [
+                    _c(
+                      "b-form-group",
+                      { attrs: { label: "Apellidos:", description: "" } },
+                      [
+                        _c("b-form-input", {
+                          attrs: { name: "surname", type: "text" },
+                          model: {
+                            value: _vm.surname,
+                            callback: function($$v) {
+                              _vm.surname = $$v
+                            },
+                            expression: "surname"
+                          }
+                        })
+                      ],
+                      1
+                    )
+                  ],
+                  1
+                )
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  staticClass: "mt-3",
+                  attrs: { label: "Correo electrónico:", description: "" }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      name: "email",
+                      type: "email",
+                      placeholder: "email@example.com"
+                    },
+                    model: {
+                      value: _vm.email,
+                      callback: function($$v) {
+                        _vm.email = $$v
+                      },
+                      expression: "email"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  staticClass: "mt-4",
+                  attrs: {
+                    label: "Contraseña:",
+                    description:
+                      "La contraseña debe tener un mínimo de 6 caracteres"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      name: "password",
+                      type: "password",
+                      placeholder: "******"
+                    },
+                    model: {
+                      value: _vm.password,
+                      callback: function($$v) {
+                        _vm.password = $$v
+                      },
+                      expression: "password"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  staticClass: "mt-5",
+                  attrs: {
+                    size: "lg",
+                    block: "",
+                    pill: "",
+                    variant: "success"
+                  },
+                  on: {
+                    click: function($event) {
+                      return _vm.register()
+                    }
+                  }
+                },
+                [_vm._v("Continuar")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -52392,6 +52626,26 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 
 /***/ }),
 
+/***/ "./resources/js/store/actions/users_API.js":
+/*!*************************************************!*\
+  !*** ./resources/js/store/actions/users_API.js ***!
+  \*************************************************/
+/*! exports provided: Users_API */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Users_API", function() { return Users_API; });
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var Users_API = function Users_API(URL) {
+  _classCallCheck(this, Users_API);
+
+  this.URL = URL;
+};
+
+/***/ }),
+
 /***/ "./resources/js/store/index.js":
 /*!*************************************!*\
   !*** ./resources/js/store/index.js ***!
@@ -52431,9 +52685,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/users_API.js */ "./resources/js/store/actions/users_API.js");
  //import jwtDecode from 'jwt-decode'
 
-var API_URL = 'http://localhost:81/ProyectoGrupal-IW/public/api/';
+
+var users_API = new Servicio_API("http://localhost:81/ProyectoGrupal-IW/public/api/");
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     status: '',
@@ -52476,6 +52732,10 @@ var API_URL = 'http://localhost:81/ProyectoGrupal-IW/public/api/';
           dispatch = _ref.dispatch;
       return new Promise(function (resolve, reject) {
         commit('auth_request');
+        /*users_API.login().then(function(datos){
+            return datos
+        })*/
+
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
           url: API_URL + 'login',
           data: user,
