@@ -1,6 +1,6 @@
 <template>
     <div>
-        <b-form class="w-50 mx-auto" style="margin-top: 10vh">
+        <b-form class="w-50 mx-auto" style="padding: 6vh 10vw">
             <b-card class="p-2" bg-variant="light">
                 
                 <img alt="Vue logo" :src="'images/logo-h.png'" class="img-fluid" style="height: 170px">
@@ -15,7 +15,7 @@
                 
                 <b-spinner v-if="status == 'loading'" label="Spinning" style="margin-top: 10%"></b-spinner>
 
-                <b-button size="lg" pill block variant="success" v-on:click="login()" class="mx-auto" style="margin: 5% 0 2%; width: 200px">Iniciar sesión</b-button>
+                <b-button size="lg" pill block variant="success" v-on:click="login()" class="mx-auto mt-5 mb-3" style="width: 200px">Iniciar sesión</b-button>
                 <router-link :to="{name: 'register'}">Registrarse</router-link>
                 
             </b-card>
