@@ -2110,6 +2110,135 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Reserva.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Reserva.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Reserva',
+  data: function data() {
+    return {
+      form: {
+        f_inicio: '',
+        f_fin: '',
+        //precio: 0,
+        tipoEstancia: null,
+        tipoReserva: null
+      },
+      tipoEstancias: [{
+        text: 'Selecciona tipo de estancia',
+        value: null
+      }, 'Habitación simple', 'Habitación doble', 'Suite', 'Sala conferencias'],
+      tipoReservas: [{
+        text: 'Selecciona tipo de pensión',
+        value: null
+      }, 'Solo estancia', 'Desayuno incluido', 'Media pensión', 'Pensión completa', 'Catering'],
+      precio: 0
+    };
+  },
+  methods: {
+    calcularTotal: function calcularTotal(event) {
+      /*if(this.form.tipoEstancia == 'Habitación simple'){
+         this.form.precio = 50
+      }
+      */
+
+      /*
+      console.log("entrmaos")
+       switch(event){
+           case 'tipo-estancia':
+               this.form.precio = 50;
+               break;
+       }
+       */
+
+      /*
+      if(this.form.tipoEstancia != null){
+          if(this.form.tipoEstancia == 'Habitación simple'){
+               this.precio = 50
+          }
+          if(this.form.tipoReserva == "Solo estancia"){
+              this.precio += 100
+          }
+      }else if(this.form.tipoEstancia != null){
+        }
+      */
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/bootstrap-vue/dist/bootstrap-vue.css":
 /*!***********************************************************!*\
   !*** ./node_modules/bootstrap-vue/dist/bootstrap-vue.css ***!
@@ -36064,6 +36193,167 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Reserva.vue?vue&type=template&id=be238adc&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Reserva.vue?vue&type=template&id=be238adc& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "b-container",
+    { staticStyle: { "text-align": "left" }, attrs: { fluid: "" } },
+    [
+      _c(
+        "b-form-group",
+        {
+          attrs: {
+            id: "tipo-estancia",
+            label: "Tipo estancia",
+            "label-for": "tipo-estancia"
+          }
+        },
+        [
+          _c(
+            "b-form-select",
+            _vm._b(
+              {
+                attrs: {
+                  id: "tipo-estancia",
+                  options: _vm.tipoEstancias,
+                  required: ""
+                },
+                model: {
+                  value: _vm.form.tipoEstancia,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form, "tipoEstancia", $$v)
+                  },
+                  expression: "form.tipoEstancia"
+                }
+              },
+              "b-form-select",
+              _vm.calcularTotal("tipo-estancia"),
+              false
+            )
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-form-group",
+        {
+          attrs: {
+            id: "tipo-reserva",
+            label: "Tipo de pensión",
+            "label-for": "tipo-reserva"
+          }
+        },
+        [
+          _c(
+            "b-form-select",
+            _vm._b(
+              {
+                attrs: {
+                  id: "tipo-reserva",
+                  options: _vm.tipoReservas,
+                  required: ""
+                },
+                model: {
+                  value: _vm.form.tipoReserva,
+                  callback: function($$v) {
+                    _vm.$set(_vm.form, "tipoReserva", $$v)
+                  },
+                  expression: "form.tipoReserva"
+                }
+              },
+              "b-form-select",
+              _vm.calcularTotal("tipo-reserva"),
+              false
+            )
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-form-group",
+        {
+          attrs: {
+            id: "f-inicio",
+            label: "Fecha inicio:",
+            "label-for": "f-inicio"
+          }
+        },
+        [
+          _c("b-form-input", {
+            attrs: {
+              id: "f-inicio",
+              required: "",
+              type: "date",
+              placeholder: "Seleccione fecha inicio"
+            },
+            model: {
+              value: _vm.form.f_inicio,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "f_inicio", $$v)
+              },
+              expression: "form.f_inicio"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-form-group",
+        {
+          attrs: {
+            id: "f-final",
+            label: "Fecha final:",
+            "label-for": "f-final"
+          }
+        },
+        [
+          _c("b-form-input", {
+            attrs: {
+              id: "f-final",
+              required: "",
+              type: "date",
+              placeholder: "Seleccione fecha fin"
+            },
+            model: {
+              value: _vm.form.f_fin,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "f_fin", $$v)
+              },
+              expression: "form.f_fin"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("H5", [_vm._v("Valor Total " + _vm._s(_vm.precio))])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
@@ -52561,6 +52851,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/pages/Reserva.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/pages/Reserva.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Reserva_vue_vue_type_template_id_be238adc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Reserva.vue?vue&type=template&id=be238adc& */ "./resources/js/components/pages/Reserva.vue?vue&type=template&id=be238adc&");
+/* harmony import */ var _Reserva_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Reserva.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/Reserva.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Reserva_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Reserva_vue_vue_type_template_id_be238adc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Reserva_vue_vue_type_template_id_be238adc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/pages/Reserva.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Reserva.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/pages/Reserva.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Reserva_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Reserva.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Reserva.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Reserva_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Reserva.vue?vue&type=template&id=be238adc&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/pages/Reserva.vue?vue&type=template&id=be238adc& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Reserva_vue_vue_type_template_id_be238adc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Reserva.vue?vue&type=template&id=be238adc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Reserva.vue?vue&type=template&id=be238adc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Reserva_vue_vue_type_template_id_be238adc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Reserva_vue_vue_type_template_id_be238adc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/routes.js":
 /*!********************************!*\
   !*** ./resources/js/routes.js ***!
@@ -52577,6 +52936,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_Home__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/pages/Home */ "./resources/js/components/pages/Home.vue");
 /* harmony import */ var _components_pages_Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/Login */ "./resources/js/components/pages/Login.vue");
 /* harmony import */ var _components_pages_Register__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/Register */ "./resources/js/components/pages/Register.vue");
+/* harmony import */ var _components_pages_Reserva__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/Reserva */ "./resources/js/components/pages/Reserva.vue");
+
 
 
 
@@ -52606,6 +52967,11 @@ var ifAuthenticated = function ifAuthenticated(to, from, next) {
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: [{
+    path: '/ProyectoGrupal-IW/public/reservas',
+    name: 'reservas',
+    component: _components_pages_Reserva__WEBPACK_IMPORTED_MODULE_6__["default"],
+    beforeEnter: ifNotAuthenticated
+  }, {
     path: '/ProyectoGrupal-IW/public/',
     name: 'home',
     component: _components_pages_Home__WEBPACK_IMPORTED_MODULE_3__["default"],

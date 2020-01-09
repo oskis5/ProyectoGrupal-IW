@@ -5,6 +5,7 @@ import store from './store';
 import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
+import Reserva from './components/pages/Reserva';
 
 Vue.use(Router);
 
@@ -28,6 +29,12 @@ const ifAuthenticated = (to, from, next) => {
 const router= new Router({
     mode: 'history',
     routes: [
+        {
+            path: '/ProyectoGrupal-IW/public/reservas',
+            name: 'reservas',
+            component: Reserva,
+            beforeEnter: ifNotAuthenticated
+        },
         {
             path: '/ProyectoGrupal-IW/public/',
             name: 'home',
