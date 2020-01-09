@@ -31,8 +31,15 @@ Route::post('users', 'UserController@store');
 Route::put('users/{id}', 'UserController@update');
 Route::delete('users/{id}', 'UserController@delete');
 
-
+//reservas
 Route::get('reservas/{id}','ReservaController@show');
 Route::post('reservas','ReservaController@store');
 Route::put('reservas/{id}', 'ReservaController@update');
 Route::delete('reservas/{id}','ReservaController@delete');
+
+//tiposEstancias
+Route::get('tipoestancias','TipoEstanciaController@index');
+Route::get('tipoestancias/{id}','TipoEstanciaController@show');
+Route::post('tipoestancias','TipoEstanciaController@store');
+Route::put('tipoestancias/{id}', 'TipoEstanciaController@update');
+Route::delete('tipoestancias/{id}','TipoEstanciaController@delete');
