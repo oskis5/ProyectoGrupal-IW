@@ -87,20 +87,16 @@ export default {
     },
     computed : {
         precio : function(){
-          return this.$store.state.reserva.precioReserva
+          return this.$store.state.reserva.precioReserva + this.$store.state.reserva.precioReservaPension
       }
     },
     methods:{
         calcularTotal : function(event){
-                    this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
+            if(event == "tipo-estancia"){
+                this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
                     .then(resp =>{
-                        console.log("que llega? " + resp)
-                        console.log("estaado??? " + this.$store.state.reserva.precioReserva)
                     })
-        },
-        prueba : function(){
-            console.log("cada cuando entra!?")
-           
+            }       
         }
     }
 }

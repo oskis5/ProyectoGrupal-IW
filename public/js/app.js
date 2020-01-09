@@ -2221,20 +2221,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     precio: function precio() {
-      return this.$store.state.reserva.precioReserva;
+      return this.$store.state.reserva.precioReserva + this.$store.state.reserva.precioReservaPension;
     }
   },
   methods: {
     calcularTotal: function calcularTotal(event) {
-      var _this = this;
-
-      this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {
-        console.log("que llega? " + resp);
-        console.log("estaado??? " + _this.$store.state.reserva.precioReserva);
-      });
-    },
-    prueba: function prueba() {
-      console.log("cada cuando entra!?");
+      if (event == "tipo-estancia") {
+        this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {});
+      }
     }
   }
 });
@@ -53198,13 +53192,15 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
   state: {
     status: '',
     datosReserva: [],
-    precioReserva: 0
+    precioReserva: 0,
+    precioReservaPension: 0
   },
   mutations: {
     incrementarPrecio: function incrementarPrecio(state, valor) {
       console.log("entramos en incrementar valor");
-      state.precioReserva += valor;
-    }
+      state.precioReserva = valor;
+    },
+    incrementarPrecioPension: function incrementarPrecioPension(state, valor) {}
   },
   actions: {
     buscarHabitacion: function buscarHabitacion(context, idTipoHabitacion) {
@@ -53220,7 +53216,8 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
           reject(exception);
         });
       });
-    }
+    },
+    borrarValorPrecioReserva: function borrarValorPrecioReserva() {}
   }
 });
 

@@ -6,13 +6,17 @@ export default {
     state: {
         status : '',
         datosReserva: [],
-        precioReserva: 0
+        precioReserva: 0,
+        precioReservaPension: 0 
     },
     mutations:
     {
         incrementarPrecio(state,valor){
             console.log("entramos en incrementar valor")
-            state.precioReserva += valor;
+            state.precioReserva = valor;
+        },
+        incrementarPrecioPension(state,valor){
+            
         }
     },
     actions:
@@ -32,6 +36,9 @@ export default {
                     reject(exception)
             })
            })
+        },
+        borrarValorPrecioReserva(){
+
         }
     }
 }
