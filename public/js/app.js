@@ -2185,6 +2185,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2192,7 +2194,6 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         f_inicio: '',
         f_fin: '',
-        //precio: 0,
         tipoEstancia: null,
         tipoReserva: null
       },
@@ -2215,23 +2216,25 @@ __webpack_require__.r(__webpack_exports__);
       tipoReservas: [{
         text: 'Selecciona tipo de pensión',
         value: null
-      }, 'Solo estancia', 'Desayuno incluido', 'Media pensión', 'Pensión completa', 'Catering'],
-      precio: 0
+      }, 'Solo estancia', 'Desayuno incluido', 'Media pensión', 'Pensión completa', 'Catering']
     };
+  },
+  computed: {
+    precio: function precio() {
+      return this.$store.state.reserva.precioReserva;
+    }
   },
   methods: {
     calcularTotal: function calcularTotal(event) {
       var _this = this;
 
-      console.log("ENTRAMOS EN CLICK");
-      console.log(this.form.tipoEstancia);
-      console.log("distpach");
-      console.log("tipo estancia en form");
       this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {
         console.log("que llega? " + resp);
-        console.log("estaado??? " + _this.$store.state.reserva.precio);
-        _this.precio = _this.$store.state.precio;
+        console.log("estaado??? " + _this.$store.state.reserva.precioReserva);
       });
+    },
+    prueba: function prueba() {
+      console.log("cada cuando entra!?");
     }
   }
 });
@@ -36227,6 +36230,11 @@ var render = function() {
               options: _vm.tipoEstancias,
               required: ""
             },
+            on: {
+              change: function($event) {
+                return _vm.calcularTotal("tipo-estancia")
+              }
+            },
             model: {
               value: _vm.form.tipoEstancia,
               callback: function($$v) {
@@ -36254,6 +36262,11 @@ var render = function() {
               id: "tipo-reserva",
               options: _vm.tipoReservas,
               required: ""
+            },
+            on: {
+              change: function($event) {
+                return _vm.calcularTotal("tipo-reserva")
+              }
             },
             model: {
               value: _vm.form.tipoReserva,
@@ -36325,7 +36338,11 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("H5", [_vm._v("Valor Total " + _vm._s(_vm.precio))]),
+      _c(
+        "H5",
+        { attrs: { value: _vm.precio }, on: { input: _vm.calcularTotal } },
+        [_vm._v("Valor Total " + _vm._s(_vm.precio))]
+      ),
       _vm._v(" "),
       _c(
         "b-button",
@@ -53191,31 +53208,6 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
   },
   actions: {
     buscarHabitacion: function buscarHabitacion(context, idTipoHabitacion) {
-      /*
-      return new Promise((resolve, reject) => {
-          console.log(idTipoReserva + "   " + idTipoHabitacion)
-          resolve(10)
-      })
-      */
-
-      /*
-      var url = API_URL + "tipoestancias/" + idTipoHabitacion
-      console.log(url)
-      return axios.get(API_URL + "tipoestancias/" + idTipoHabitacion)
-      .then((response) => {
-           if(response.status == 200){
-               console.log(response.data.precio_tipo)
-               context.commit('incrementarPrecio', datos.precio_tipo)
-           }
-      })
-      */
-
-      /*axios({URL: API_URL + "tipoestancias/" + idTipoHabitacion ,  method: 'get'})
-       .then((datos) =>{
-           console.log(datos)
-           context.commit('incrementarPrecio', datos.precio_tipo)
-       })
-       */
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "tipoestancias/" + idTipoHabitacion).then(function (response) {
           if (response.status == 200) {

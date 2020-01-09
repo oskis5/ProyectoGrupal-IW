@@ -27,6 +27,7 @@
           id="tipo-estancia"
           v-model="form.tipoEstancia"
           :options="tipoEstancias"
+          @change="calcularTotal('tipo-estancia')"
           required
         ></b-form-select>
       </b-form-group>
@@ -35,6 +36,7 @@
           id="tipo-reserva"
           v-model="form.tipoReserva"
           :options="tipoReservas"
+          @change="calcularTotal('tipo-reserva')"
           required
         ></b-form-select>
         <!--  v-bind="calcularTotal('tipo-reserva')" -->
@@ -59,7 +61,7 @@
       </b-form-group>
         <!-- <b-form-input v-model="form.precio" type="number" debounce="500" >
         </b-form-input> -->
-        <H5>Valor Total {{ precio }}</H5>
+        <H5 :value="precio" @input="calcularTotal">Valor Total {{ precio }}</H5>
         <b-button type="Aceptar" @click="calcularTotal('tipo-estancia')" variant="primary">precio</b-button>
     </b-container>
 
@@ -73,7 +75,6 @@ export default {
             {
                 f_inicio: '',
                 f_fin: '',
-                //precio: 0,
                 tipoEstancia: null,
                 tipoReserva : null
             },
@@ -82,21 +83,24 @@ export default {
                  {text : 'Sala reuniones' , value: 4}],
                 tipoReservas:[{text: 'Selecciona tipo de pensión', value: null}, 'Solo estancia' , 'Desayuno incluido', 'Media pensión',
                 'Pensión completa', 'Catering'],
-                precio : 0,
         }
+    },
+    computed : {
+        precio : function(){
+          return this.$store.state.reserva.precioReserva
+      }
     },
     methods:{
         calcularTotal : function(event){
-            console.log("ENTRAMOS EN CLICK")
-            console.log(this.form.tipoEstancia)
-                    console.log("distpach")
-                    console.log("tipo estancia en form")
                     this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
                     .then(resp =>{
                         console.log("que llega? " + resp)
-                        console.log("estaado??? " + this.$store.state.reserva.precio)
-                        this.precio = this.$store.state.precio;
+                        console.log("estaado??? " + this.$store.state.reserva.precioReserva)
                     })
+        },
+        prueba : function(){
+            console.log("cada cuando entra!?")
+           
         }
     }
 }
