@@ -2219,11 +2219,6 @@ __webpack_require__.r(__webpack_exports__);
       precio: 0
     };
   },
-  computed: {
-    precio: function precio() {
-      return this.$store.state.reserva.precio;
-    }
-  },
   methods: {
     calcularTotal: function calcularTotal(event) {
       var _this = this;
@@ -2232,21 +2227,11 @@ __webpack_require__.r(__webpack_exports__);
       console.log(this.form.tipoEstancia);
       console.log("distpach");
       console.log("tipo estancia en form");
-      this.$store.dispatch("buscarHabitacion", 0, this.form.tipoEstancia).then(function (datos) {
-        console.log(datos);
-        _this.precio = datos;
+      this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {
+        console.log("que llega? " + resp);
+        console.log("estaado??? " + _this.$store.state.reserva.precio);
+        _this.precio = _this.$store.state.precio;
       });
-      /*
-      if(this.form.tipoEstancia != null){
-          if(this.form.tipoEstancia == 'Habitación simple'){
-               this.precio = 50
-          }
-          if(this.form.tipoReserva == "Solo estancia"){
-              this.precio += 100
-          }
-      }else if(this.form.tipoEstancia != null){
-        }
-      */
     }
   }
 });
@@ -53199,27 +53184,50 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
     precioReserva: 0
   },
   mutations: {
-    incrementarPrecio: function incrementarPrecio(valor) {
+    incrementarPrecio: function incrementarPrecio(state, valor) {
+      console.log("entramos en incrementar valor");
       state.precioReserva += valor;
     }
   },
   actions: {
-    buscarHabitacion: function buscarHabitacion(context, idTipoReserva, idTipoHabitacion) {
-      return idTipoReserva;
-      console.log(idTipoReserva);
-      console.log(idTipoHabitacion);
-      console.log(context);
-      /*return new Promise((resolve, reject) => {
+    buscarHabitacion: function buscarHabitacion(context, idTipoHabitacion) {
+      /*
+      return new Promise((resolve, reject) => {
           console.log(idTipoReserva + "   " + idTipoHabitacion)
           resolve(10)
-      })*/
+      })
+      */
 
-      /* axios({URL: API_URL + "tipoestancias/" + idTipoHabitacion ,  method: 'GET'})
+      /*
+      var url = API_URL + "tipoestancias/" + idTipoHabitacion
+      console.log(url)
+      return axios.get(API_URL + "tipoestancias/" + idTipoHabitacion)
+      .then((response) => {
+           if(response.status == 200){
+               console.log(response.data.precio_tipo)
+               context.commit('incrementarPrecio', datos.precio_tipo)
+           }
+      })
+      */
+
+      /*axios({URL: API_URL + "tipoestancias/" + idTipoHabitacion ,  method: 'get'})
        .then((datos) =>{
            console.log(datos)
            context.commit('incrementarPrecio', datos.precio_tipo)
        })
        */
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "tipoestancias/" + idTipoHabitacion).then(function (response) {
+          if (response.status == 200) {
+            console.log(response.data.precio_tipo);
+            context.commit('incrementarPrecio', response.data.precio_tipo);
+            resolve(response.data);
+          }
+        })["catch"](function (exception) {
+          console.log("error " + exception);
+          reject(exception);
+        });
+      });
     }
   }
 });

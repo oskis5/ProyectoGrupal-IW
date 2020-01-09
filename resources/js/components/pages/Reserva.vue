@@ -85,34 +85,18 @@ export default {
                 precio : 0,
         }
     },
-    computed : {
-        precio : function(){
-                    return this.$store.state.reserva.precio
-                }
-    },
     methods:{
         calcularTotal : function(event){
             console.log("ENTRAMOS EN CLICK")
             console.log(this.form.tipoEstancia)
                     console.log("distpach")
                     console.log("tipo estancia en form")
-                    this.$store.dispatch("buscarHabitacion",0,this.form.tipoEstancia)
-                    .then((datos) =>{
-                        console.log(datos)
-                        this.precio = datos
+                    this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
+                    .then(resp =>{
+                        console.log("que llega? " + resp)
+                        console.log("estaado??? " + this.$store.state.reserva.precio)
+                        this.precio = this.$store.state.precio;
                     })
-               /*
-               if(this.form.tipoEstancia != null){
-                   if(this.form.tipoEstancia == 'Habitación simple'){
-                        this.precio = 50
-                   }
-                   if(this.form.tipoReserva == "Solo estancia"){
-                       this.precio += 100
-                   }
-               }else if(this.form.tipoEstancia != null){
-
-               }
-               */
         }
     }
 }
