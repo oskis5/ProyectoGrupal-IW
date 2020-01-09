@@ -1,5 +1,7 @@
 import axios from "axios";
-const API_URL= "http://localhost:81/ProyectoGrupal-IW/public/api/";
+const API_URL= "http://localhost/ProyectoGrupal-IW/public/api/";
+
+
 export default {
     state:
     {
@@ -16,10 +18,21 @@ export default {
     },
     actions:
     {
-        buscarHabitacion(context,tipoReserva,tipoHabitacion){
-            axios({})
-            context.commit('incrementarPrecio')
+        buscarHabitacion(context,idTipoReserva,idTipoHabitacion){
+            return idTipoReserva
+            console.log(idTipoReserva)
+            console.log(idTipoHabitacion)
+            console.log(context)
+            /*return new Promise((resolve, reject) => {
+                console.log(idTipoReserva + "   " + idTipoHabitacion)
+                resolve(10)
+            })*/
+           /* axios({URL: API_URL + "tipoestancias/" + idTipoHabitacion ,  method: 'GET'})
+            .then((datos) =>{
+                console.log(datos)
+                context.commit('incrementarPrecio', datos.precio_tipo)
+            })
+            */
         }
-
     }
 }

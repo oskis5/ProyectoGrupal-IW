@@ -2184,6 +2184,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2198,7 +2199,19 @@ __webpack_require__.r(__webpack_exports__);
       tipoEstancias: [{
         text: 'Selecciona tipo de estancia',
         value: null
-      }, 'Habitación simple', 'Habitación doble', 'Suite', 'Sala conferencias'],
+      }, {
+        text: 'Habitación simple',
+        value: 1
+      }, {
+        text: 'Habitación doble',
+        value: 2
+      }, {
+        text: 'Suite',
+        value: 3
+      }, {
+        text: 'Sala reuniones',
+        value: 4
+      }],
       tipoReservas: [{
         text: 'Selecciona tipo de pensión',
         value: null
@@ -2206,22 +2219,23 @@ __webpack_require__.r(__webpack_exports__);
       precio: 0
     };
   },
+  computed: {
+    precio: function precio() {
+      return this.$store.state.reserva.precio;
+    }
+  },
   methods: {
     calcularTotal: function calcularTotal(event) {
-      /*if(this.form.tipoEstancia == 'Habitación simple'){
-         this.form.precio = 50
-      }
-      */
+      var _this = this;
 
-      /*
-      console.log("entrmaos")
-       switch(event){
-           case 'tipo-estancia':
-               this.form.precio = 50;
-               break;
-       }
-       */
-
+      console.log("ENTRAMOS EN CLICK");
+      console.log(this.form.tipoEstancia);
+      console.log("distpach");
+      console.log("tipo estancia en form");
+      this.$store.dispatch("buscarHabitacion", 0, this.form.tipoEstancia).then(function (datos) {
+        console.log(datos);
+        _this.precio = datos;
+      });
       /*
       if(this.form.tipoEstancia != null){
           if(this.form.tipoEstancia == 'Habitación simple'){
@@ -36222,28 +36236,20 @@ var render = function() {
           }
         },
         [
-          _c(
-            "b-form-select",
-            _vm._b(
-              {
-                attrs: {
-                  id: "tipo-estancia",
-                  options: _vm.tipoEstancias,
-                  required: ""
-                },
-                model: {
-                  value: _vm.form.tipoEstancia,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "tipoEstancia", $$v)
-                  },
-                  expression: "form.tipoEstancia"
-                }
+          _c("b-form-select", {
+            attrs: {
+              id: "tipo-estancia",
+              options: _vm.tipoEstancias,
+              required: ""
+            },
+            model: {
+              value: _vm.form.tipoEstancia,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "tipoEstancia", $$v)
               },
-              "b-form-select",
-              _vm.calcularTotal("tipo-estancia"),
-              false
-            )
-          )
+              expression: "form.tipoEstancia"
+            }
+          })
         ],
         1
       ),
@@ -36258,28 +36264,20 @@ var render = function() {
           }
         },
         [
-          _c(
-            "b-form-select",
-            _vm._b(
-              {
-                attrs: {
-                  id: "tipo-reserva",
-                  options: _vm.tipoReservas,
-                  required: ""
-                },
-                model: {
-                  value: _vm.form.tipoReserva,
-                  callback: function($$v) {
-                    _vm.$set(_vm.form, "tipoReserva", $$v)
-                  },
-                  expression: "form.tipoReserva"
-                }
+          _c("b-form-select", {
+            attrs: {
+              id: "tipo-reserva",
+              options: _vm.tipoReservas,
+              required: ""
+            },
+            model: {
+              value: _vm.form.tipoReserva,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "tipoReserva", $$v)
               },
-              "b-form-select",
-              _vm.calcularTotal("tipo-reserva"),
-              false
-            )
-          )
+              expression: "form.tipoReserva"
+            }
+          })
         ],
         1
       ),
@@ -36342,7 +36340,20 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("H5", [_vm._v("Valor Total " + _vm._s(_vm.precio))])
+      _c("H5", [_vm._v("Valor Total " + _vm._s(_vm.precio))]),
+      _vm._v(" "),
+      _c(
+        "b-button",
+        {
+          attrs: { type: "Aceptar", variant: "primary" },
+          on: {
+            click: function($event) {
+              return _vm.calcularTotal("tipo-estancia")
+            }
+          }
+        },
+        [_vm._v("precio")]
+      )
     ],
     1
   )
@@ -53025,6 +53036,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
+/* harmony import */ var _modules_reserva__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/reserva */ "./resources/js/store/modules/reserva.js");
+
 
 
 
@@ -53034,7 +53047,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   mutations: {},
   actions: {},
   modules: {
-    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_2__["default"]
+    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_2__["default"],
+    reserva: _modules_reserva__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 }));
 
@@ -53159,6 +53173,53 @@ var users_API = new _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__["Users_AP
           resolve(resp);
         });
       });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/reserva.js":
+/*!***********************************************!*\
+  !*** ./resources/js/store/modules/reserva.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: {
+    status: '',
+    datosReserva: [],
+    precioReserva: 0
+  },
+  mutations: {
+    incrementarPrecio: function incrementarPrecio(valor) {
+      state.precioReserva += valor;
+    }
+  },
+  actions: {
+    buscarHabitacion: function buscarHabitacion(context, idTipoReserva, idTipoHabitacion) {
+      return idTipoReserva;
+      console.log(idTipoReserva);
+      console.log(idTipoHabitacion);
+      console.log(context);
+      /*return new Promise((resolve, reject) => {
+          console.log(idTipoReserva + "   " + idTipoHabitacion)
+          resolve(10)
+      })*/
+
+      /* axios({URL: API_URL + "tipoestancias/" + idTipoHabitacion ,  method: 'GET'})
+       .then((datos) =>{
+           console.log(datos)
+           context.commit('incrementarPrecio', datos.precio_tipo)
+       })
+       */
     }
   }
 });

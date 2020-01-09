@@ -22,12 +22,12 @@
     -->
     <b-container fluid style="text-align: left">
      <b-form-group id="tipo-estancia" label="Tipo estancia" label-for="tipo-estancia" >
+        <!-- v-bind="calcularTotal('tipo-estancia')" -->
         <b-form-select
           id="tipo-estancia"
-          v-model.lazy="form.tipoEstancia"
+          v-model="form.tipoEstancia"
           :options="tipoEstancias"
           required
-          v-bind="calcularTotal('tipo-estancia')"
         ></b-form-select>
       </b-form-group>
       <b-form-group id="tipo-reserva" label="Tipo de pensión" label-for="tipo-reserva">
@@ -36,8 +36,8 @@
           v-model="form.tipoReserva"
           :options="tipoReservas"
           required
-          v-bind="calcularTotal('tipo-reserva')"
         ></b-form-select>
+        <!--  v-bind="calcularTotal('tipo-reserva')" -->
       </b-form-group>
       <b-form-group id="f-inicio" label="Fecha inicio:" label-for="f-inicio">
         <b-form-input
@@ -60,6 +60,7 @@
         <!-- <b-form-input v-model="form.precio" type="number" debounce="500" >
         </b-form-input> -->
         <H5>Valor Total {{ precio }}</H5>
+        <b-button type="Aceptar" @click="calcularTotal('tipo-estancia')" variant="primary">precio</b-button>
     </b-container>
 
 </template>
@@ -76,26 +77,30 @@ export default {
                 tipoEstancia: null,
                 tipoReserva : null
             },
-                tipoEstancias:[{text: 'Selecciona tipo de estancia', value: null}, 'Habitación simple' , 'Habitación doble', 'Suite','Sala conferencias'],
+                tipoEstancias:[{text: 'Selecciona tipo de estancia', value: null}, { text : 'Habitación simple' , value : 1}
+                 , {text : 'Habitación doble', value :  2 },{text: 'Suite', value: 3},
+                 {text : 'Sala reuniones' , value: 4}],
                 tipoReservas:[{text: 'Selecciona tipo de pensión', value: null}, 'Solo estancia' , 'Desayuno incluido', 'Media pensión',
                 'Pensión completa', 'Catering'],
-                precio : 0
+                precio : 0,
         }
+    },
+    computed : {
+        precio : function(){
+                    return this.$store.state.reserva.precio
+                }
     },
     methods:{
         calcularTotal : function(event){
-                /*if(this.form.tipoEstancia == 'Habitación simple'){
-                   this.form.precio = 50
-                }
-                */
-               /*
-               console.log("entrmaos")
-                switch(event){
-                    case 'tipo-estancia':
-                        this.form.precio = 50;
-                        break;
-                }
-                */
+            console.log("ENTRAMOS EN CLICK")
+            console.log(this.form.tipoEstancia)
+                    console.log("distpach")
+                    console.log("tipo estancia en form")
+                    this.$store.dispatch("buscarHabitacion",0,this.form.tipoEstancia)
+                    .then((datos) =>{
+                        console.log(datos)
+                        this.precio = datos
+                    })
                /*
                if(this.form.tipoEstancia != null){
                    if(this.form.tipoEstancia == 'Habitación simple'){
