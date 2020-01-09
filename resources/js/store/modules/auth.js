@@ -2,7 +2,7 @@ import axios from 'axios'
 //import jwtDecode from 'jwt-decode'
 
 import {Users_API} from '../actions/users_API.js'
-const users_API = new Servicio_API("http://localhost:81/ProyectoGrupal-IW/public/api/");
+const users_API = new Users_API("http://localhost:81/ProyectoGrupal-IW/public/api/");
 
 export default {
     state: {

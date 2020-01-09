@@ -52689,7 +52689,7 @@ __webpack_require__.r(__webpack_exports__);
  //import jwtDecode from 'jwt-decode'
 
 
-var users_API = new Servicio_API("http://localhost:81/ProyectoGrupal-IW/public/api/");
+var users_API = new _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__["Users_API"]("http://localhost:81/ProyectoGrupal-IW/public/api/");
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     status: '',
@@ -52817,8 +52817,8 @@ var users_API = new Servicio_API("http://localhost:81/ProyectoGrupal-IW/public/a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Aplicaciones\xampp\htdocs\ProyectoGrupal-IW\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Aplicaciones\xampp\htdocs\ProyectoGrupal-IW\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ProyectoGrupal-IW\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ProyectoGrupal-IW\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
