@@ -53,7 +53,7 @@ Route::delete('tiporeservas/{id}','TipoReservaController@delete');
 
 //Temporadas
 Route::get('temporadas','TemporadasController@index');
-Route::get('tiporeservas/{id}','TemporadasController@show');
-Route::post('tiporeservas','TemporadasController@store');
-Route::put('tiporeservas/{id}', 'TemporadasController@update');
-Route::delete('tiporeservas/{id}','TemporadasController@delete');
+Route::get('temporadas/{id}','TemporadasController@show');
+Route::post('temporadas','TemporadasController@store');
+Route::put('temporadas/{id}', 'TemporadasController@update');
+Route::delete('temporadas/{id}','TemporadasController@delete');
