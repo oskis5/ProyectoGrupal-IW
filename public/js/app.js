@@ -53200,7 +53200,9 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
       console.log("entramos en incrementar valor");
       state.precioReserva = valor;
     },
-    incrementarPrecioPension: function incrementarPrecioPension(state, valor) {}
+    incrementarPrecioPension: function incrementarPrecioPension(state, valor) {
+      state.precioReservaPension = valor;
+    }
   },
   actions: {
     buscarHabitacion: function buscarHabitacion(context, idTipoHabitacion) {
@@ -53217,7 +53219,20 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
         });
       });
     },
-    borrarValorPrecioReserva: function borrarValorPrecioReserva() {}
+    buscarTipoPension: function buscarTipoPension() {
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "tipoestancias/" + idTipoHabitacion).then(function (response) {
+          if (response.status == 200) {
+            console.log(response.data.precio_tipo);
+            context.commit('incrementarPrecio', response.data.precio_tipo);
+            resolve(response.data);
+          }
+        })["catch"](function (exception) {
+          console.log("error " + exception);
+          reject(exception);
+        });
+      });
+    }
   }
 });
 
