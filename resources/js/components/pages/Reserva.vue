@@ -81,8 +81,9 @@ export default {
                 tipoEstancias:[{text: 'Selecciona tipo de estancia', value: null}, { text : 'Habitación simple' , value : 1}
                  , {text : 'Habitación doble', value :  2 },{text: 'Suite', value: 3},
                  {text : 'Sala reuniones' , value: 4}],
-                tipoReservas:[{text: 'Selecciona tipo de pensión', value: null}, 'Solo estancia' , 'Desayuno incluido', 'Media pensión',
-                'Pensión completa', 'Catering'],
+                tipoReservas:[{text: 'Selecciona tipo de pensión', value: null},{text : 'Solo estancia', value: 1} , {text:'Desayuno incluido', value:2}, 
+                {text:'Media pensión', value: 3}, {text:'Pensión completa', value: 4}],
+                // 'Catering'],
         }
     },
     computed : {
@@ -96,7 +97,11 @@ export default {
                 this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
                     .then(resp =>{
                     })
-            }       
+            }else if(event == "tipo-reserva"){
+              this.$store.dispatch("buscarTipoPension",this.form.tipoReserva)
+                    .then(resp =>{
+                    })
+            }      
         }
     }
 }

@@ -43,3 +43,17 @@ Route::get('tipoestancias/{id}','TipoEstanciaController@show');
 Route::post('tipoestancias','TipoEstanciaController@store');
 Route::put('tipoestancias/{id}', 'TipoEstanciaController@update');
 Route::delete('tipoestancias/{id}','TipoEstanciaController@delete');
+
+//tiposReservas(pensiones)
+Route::get('tiporeservas','TipoReservaController@index');
+Route::get('tiporeservas/{id}','TipoReservaController@show');
+Route::post('tiporeservas','TipoReservaController@store');
+Route::put('tiporeservas/{id}', 'TipoReservaController@update');
+Route::delete('tiporeservas/{id}','TipoReservaController@delete');
+
+//Temporadas
+Route::get('temporadas','TemporadasController@index');
+Route::get('temporadas/{id}','TemporadasController@show');
+Route::post('temporadas','TemporadasController@store');
+Route::put('temporadas/{id}', 'TemporadasController@update');
+Route::delete('temporadas/{id}','TemporadasController@delete');

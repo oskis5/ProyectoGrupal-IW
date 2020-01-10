@@ -16,7 +16,7 @@ export default {
             state.precioReserva = valor;
         },
         incrementarPrecioPension(state,valor){
-            
+            state.precioReservaPension = valor;
         }
     },
     actions:
@@ -37,8 +37,21 @@ export default {
             })
            })
         },
-        borrarValorPrecioReserva(){
-
+        buscarTipoPension(context,idTipoReserva){
+            return new Promise((resolve,reject)=>{
+                axios.get(API_URL + "tiporeservas/" + idTipoReserva)
+                .then(response => {
+                        if(response.status == 200){
+                            console.log(response.data.precio)
+                            context.commit('incrementarPrecioPension', response.data.precio)
+                            resolve(response.data)
+                        }
+                })
+                .catch(exception =>{
+                        console.log("error " + exception)
+                        reject(exception)
+                })
+            })
         }
     }
 }
