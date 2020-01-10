@@ -22,18 +22,26 @@
     -->
     <b-container fluid style="text-align: left">
      <b-form-group id="tipo-estancia" label="Tipo estancia" label-for="tipo-estancia" >
-        <!-- v-bind="calcularTotal('tipo-estancia')" -->
         <b-form-select
           id="tipo-estancia"
           v-model="form.tipoEstancia"
+          v-b-toggle.collapse-foto
           :options="tipoEstancias"
           @change="calcularTotal('tipo-estancia')"
           required
         ></b-form-select>
+          <!-- v-b-toggle.collapse-foto -->
         <b-alert v-model="alertaEstanciaVisible" variant="danger" dismissible>
           ¡Seleccione una opción correcta!
         </b-alert>
       </b-form-group>
+    <!-- <b-button v-b-toggle.collapse-1 variant="primary">Toggle Collapse</b-button> -->
+    <!-- CARD CON FOTOS AL SELECCIONAR -->
+    <b-collapse id="collapse-foto" class="mt-2">
+      <b-card img-src="https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$" img-alt="Card image" img-top>
+        <p class="card-text">Foto</p>
+      </b-card>
+    </b-collapse>
       <b-form-group id="tipo-reserva" label="Tipo de pensión" label-for="tipo-reserva">
         <b-form-select
           id="tipo-reserva"
@@ -68,8 +76,9 @@
       </b-form-group>
         <!-- <b-form-input v-model="form.precio" type="number" debounce="500" >
         </b-form-input> -->
-        <H5 :value="precio" @input="calcularTotal">Valor Total {{ precio }}</H5>
-        <b-button type="Aceptar" @click="calcularTotal('tipo-estancia')" variant="primary">precio</b-button>
+        <H5 :value="precio" @input="calcularTotal">Valor total reserva </H5>
+        <h2>{{ precio }}</h2>
+        <b-button variant="outline-primary">Confirmar reserva</b-button>
     </b-container>
 
 </template>

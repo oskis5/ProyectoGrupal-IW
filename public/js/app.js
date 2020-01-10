@@ -2194,6 +2194,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -36262,6 +36271,13 @@ var render = function() {
         },
         [
           _c("b-form-select", {
+            directives: [
+              {
+                name: "b-toggle",
+                rawName: "v-b-toggle.collapse-foto",
+                modifiers: { "collapse-foto": true }
+              }
+            ],
             attrs: {
               id: "tipo-estancia",
               options: _vm.tipoEstancias,
@@ -36294,6 +36310,26 @@ var render = function() {
               }
             },
             [_vm._v("\n        ¡Seleccione una opción correcta!\n      ")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-collapse",
+        { staticClass: "mt-2", attrs: { id: "collapse-foto" } },
+        [
+          _c(
+            "b-card",
+            {
+              attrs: {
+                "img-src":
+                  "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$",
+                "img-alt": "Card image",
+                "img-top": ""
+              }
+            },
+            [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
           )
         ],
         1
@@ -36413,21 +36449,14 @@ var render = function() {
       _c(
         "H5",
         { attrs: { value: _vm.precio }, on: { input: _vm.calcularTotal } },
-        [_vm._v("Valor Total " + _vm._s(_vm.precio))]
+        [_vm._v("Valor total reserva ")]
       ),
       _vm._v(" "),
-      _c(
-        "b-button",
-        {
-          attrs: { type: "Aceptar", variant: "primary" },
-          on: {
-            click: function($event) {
-              return _vm.calcularTotal("tipo-estancia")
-            }
-          }
-        },
-        [_vm._v("precio")]
-      )
+      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
+      _vm._v(" "),
+      _c("b-button", { attrs: { variant: "outline-primary" } }, [
+        _vm._v("Confirmar reserva")
+      ])
     ],
     1
   )
@@ -53332,7 +53361,7 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
                 f_fin: new Date(response.data[i].fecha_fin)
               };
 
-              if (fechaInicio.mes >= temporada.f_inicio.getMonth() && fechaInicio.mes <= temporada.f_fin.getMonth() && fechaInicio.dia >= temporada.f_inicio.getDay() && fechaInicio.dia <= temporada.f_fin.getDay()) {
+              if (fechaInicio.mes >= temporada.f_inicio.getMonth() && fechaInicio.mes <= temporada.f_fin.getMonth()) {
                 context.commit('ponerFechas', temporada);
                 context.commit('incrementarPrecioTemporada', response.data[i].precio_unitario);
                 resolve(response.data);

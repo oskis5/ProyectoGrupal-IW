@@ -67,14 +67,13 @@ export default {
                         if(response.status == 200){
                             for(let i=0; i< response.data.length; i++){
                                 var temporada = {f_inicio : new Date(response.data[i].fecha_inicio) , f_fin : new Date(response.data[i].fecha_fin)}
-                                if(fechaInicio.mes >= temporada.f_inicio.getMonth() && fechaInicio.mes <= temporada.f_fin.getMonth() 
-                                    && fechaInicio.dia >= temporada.f_inicio.getDay() && fechaInicio.dia <= temporada.f_fin.getDay()){
+                                if(fechaInicio.mes >= temporada.f_inicio.getMonth()  && fechaInicio.mes <= temporada.f_fin.getMonth())
+                                    {
                                     context.commit('ponerFechas', temporada)
                                     context.commit('incrementarPrecioTemporada',response.data[i].precio_unitario)
                                     resolve(response.data)
                                     break;
                                 }
-
                             }
                         }
                 })
