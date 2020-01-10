@@ -77,7 +77,6 @@
         </b-form-input> -->
         <H5 :value="precio" @input="calcularTotal">Valor total reserva </H5>
         <h2>{{ precio }}</h2>
-  <row>
     <b-collapse id="collapse-foto-suite" class="mt-2">
       <b-card img-src="https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$" img-alt="Card image" img-top>
         <p class="card-text">Foto</p>
@@ -98,8 +97,10 @@
         <p class="card-text">Foto</p>
       </b-card>
     </b-collapse>
-      </row>
-        <b-button variant="outline-primary">Confirmar reserva</b-button>
+        <b-button @click="onSubmit" type="submit" variant="outline-primary">Confirmar reserva</b-button> 
+        <b-alert v-model="alertaSubtmitVisible" variant="danger" dismissible>
+            ¡Debe seleccionar todos los campos!
+        </b-alert>
     </b-container>
 
 
@@ -123,7 +124,8 @@ export default {
                 {text:'Media pensión', value: 3}, {text:'Pensión completa', value: 4}],
                 alertaEstanciaVisible : false,
                 alertaReservaVisible :  false,
-                nombreCollapse : ''
+                nombreCollapse : '',
+                alertaSubtmitVisible : false
                 // 'Catering'],
         }
     },
@@ -135,12 +137,11 @@ export default {
     },
     methods:{
         calcularTotal : function(event){
-          console.log(this.nombreCollapse)
             if(event == "tipo-estancia"){
-              this.$root.$emit('bv::toggle::collapse', this.nombreCollapse)
               if(this.form.tipoEstancia == null){
                   this.alertaEstanciaVisible = true
               }else{
+                this.$root.$emit('bv::toggle::collapse', this.nombreCollapse)
                 switch(this.form.tipoEstancia){
                   case 1:
                   this.nombreCollapse = 'collapse-foto-individual'
@@ -178,7 +179,14 @@ export default {
            this.$store.dispatch("buscarTemporadas",fecha)
                     .then(resp =>{
                     })
+        },
+      onSubmit(evt){
+        if(this.form.f_inicio=='' || this.form.f_fin =='' || tipoEstancia == null || tipoReserva == null){
+            this.alertaSubtmitVisible = true
         }
+        evt.preventDefault()
+        alert(JSON.stringify(this.form))
+      }
     }
 }
 </script>
