@@ -2218,6 +2218,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -36355,89 +36362,6 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "b-collapse",
-        { staticClass: "mt-2", attrs: { id: "collapse-foto-suite" } },
-        [
-          _c(
-            "b-card",
-            {
-              attrs: {
-                "img-src":
-                  "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$",
-                "img-alt": "Card image",
-                "img-top": ""
-              }
-            },
-            [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-collapse",
-        { staticClass: "mt-2", attrs: { id: "collapse-foto-doble" } },
-        [
-          _c(
-            "b-card",
-            {
-              attrs: {
-                "img-src":
-                  "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
-                "img-alt": "Card image",
-                "img-top": ""
-              }
-            },
-            [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-collapse",
-        { staticClass: "mt-2", attrs: { id: "collapse-foto-individual" } },
-        [
-          _c(
-            "b-card",
-            {
-              attrs: {
-                "img-src":
-                  "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
-                "img-alt": "Card image",
-                "img-top": ""
-              }
-            },
-            [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-collapse",
-        {
-          staticClass: "mt-2",
-          attrs: { id: "collapse-foto-sala-conferencias" }
-        },
-        [
-          _c(
-            "b-card",
-            {
-              attrs: {
-                "img-src":
-                  "https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg",
-                "img-alt": "Card image",
-                "img-top": ""
-              }
-            },
-            [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
         "b-form-group",
         {
           attrs: {
@@ -36555,6 +36479,95 @@ var render = function() {
       ),
       _vm._v(" "),
       _c("h2", [_vm._v(_vm._s(_vm.precio))]),
+      _vm._v(" "),
+      _c(
+        "row",
+        [
+          _c(
+            "b-collapse",
+            { staticClass: "mt-2", attrs: { id: "collapse-foto-suite" } },
+            [
+              _c(
+                "b-card",
+                {
+                  attrs: {
+                    "img-src":
+                      "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$",
+                    "img-alt": "Card image",
+                    "img-top": ""
+                  }
+                },
+                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-collapse",
+            { staticClass: "mt-2", attrs: { id: "collapse-foto-doble" } },
+            [
+              _c(
+                "b-card",
+                {
+                  attrs: {
+                    "img-src":
+                      "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
+                    "img-alt": "Card image",
+                    "img-top": ""
+                  }
+                },
+                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-collapse",
+            { staticClass: "mt-2", attrs: { id: "collapse-foto-individual" } },
+            [
+              _c(
+                "b-card",
+                {
+                  attrs: {
+                    "img-src":
+                      "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
+                    "img-alt": "Card image",
+                    "img-top": ""
+                  }
+                },
+                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-collapse",
+            {
+              staticClass: "mt-2",
+              attrs: { id: "collapse-foto-sala-conferencias" }
+            },
+            [
+              _c(
+                "b-card",
+                {
+                  attrs: {
+                    "img-src":
+                      "https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg",
+                    "img-alt": "Card image",
+                    "img-top": ""
+                  }
+                },
+                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
       _vm._v(" "),
       _c("b-button", { attrs: { variant: "outline-primary" } }, [
         _vm._v("Confirmar reserva")
