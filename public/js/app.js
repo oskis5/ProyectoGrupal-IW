@@ -2213,6 +2213,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2256,7 +2261,8 @@ __webpack_require__.r(__webpack_exports__);
         value: 4
       }],
       alertaEstanciaVisible: false,
-      alertaReservaVisible: false // 'Catering'],
+      alertaReservaVisible: false,
+      nombreCollapse: '' // 'Catering'],
 
     };
   },
@@ -2267,14 +2273,33 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     calcularTotal: function calcularTotal(event) {
+      console.log(this.nombreCollapse);
+
       if (event == "tipo-estancia") {
+        this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
+
         if (this.form.tipoEstancia == null) {
           this.alertaEstanciaVisible = true;
         } else {
-          if (this.form.tipoEstancia = 1) {
-            this.$root.$emit('bv::toggle::collapse', 'collapse-foto-individual');
+          switch (this.form.tipoEstancia) {
+            case 1:
+              this.nombreCollapse = 'collapse-foto-individual';
+              break;
+
+            case 2:
+              this.nombreCollapse = 'collapse-foto-doble';
+              break;
+
+            case 3:
+              this.nombreCollapse = 'collapse-foto-suite';
+              break;
+
+            case 4:
+              this.nombreCollapse = 'collapse-foto-sala-conferencias';
+              break;
           }
 
+          this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
           this.alertaEstanciaVisible = false;
           this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {});
         }
@@ -36358,7 +36383,7 @@ var render = function() {
             {
               attrs: {
                 "img-src":
-                  "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
+                  "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
                 "img-alt": "Card image",
                 "img-top": ""
               }
@@ -36379,6 +36404,29 @@ var render = function() {
               attrs: {
                 "img-src":
                   "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
+                "img-alt": "Card image",
+                "img-top": ""
+              }
+            },
+            [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-collapse",
+        {
+          staticClass: "mt-2",
+          attrs: { id: "collapse-foto-sala-conferencias" }
+        },
+        [
+          _c(
+            "b-card",
+            {
+              attrs: {
+                "img-src":
+                  "https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg",
                 "img-alt": "Card image",
                 "img-top": ""
               }

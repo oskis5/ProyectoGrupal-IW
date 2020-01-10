@@ -43,12 +43,17 @@
       </b-card>
     </b-collapse>
     <b-collapse id="collapse-foto-doble" class="mt-2">
-      <b-card img-src="https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg" img-alt="Card image" img-top>
+      <b-card img-src="https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg" img-alt="Card image" img-top>
         <p class="card-text">Foto</p>
       </b-card>
     </b-collapse>
     <b-collapse id="collapse-foto-individual" class="mt-2">
       <b-card img-src="https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg" img-alt="Card image" img-top>
+        <p class="card-text">Foto</p>
+      </b-card>
+    </b-collapse>
+    <b-collapse id="collapse-foto-sala-conferencias" class="mt-2">
+      <b-card img-src="https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg" img-alt="Card image" img-top>
         <p class="card-text">Foto</p>
       </b-card>
     </b-collapse>
@@ -110,7 +115,8 @@ export default {
                 tipoReservas:[{text: 'Selecciona tipo de pensión', value: null},{text : 'Solo estancia', value: 1} , {text:'Desayuno incluido', value:2}, 
                 {text:'Media pensión', value: 3}, {text:'Pensión completa', value: 4}],
                 alertaEstanciaVisible : false,
-                alertaReservaVisible :  false
+                alertaReservaVisible :  false,
+                nombreCollapse : ''
                 // 'Catering'],
         }
     },
@@ -122,14 +128,27 @@ export default {
     },
     methods:{
         calcularTotal : function(event){
+          console.log(this.nombreCollapse)
             if(event == "tipo-estancia"){
+              this.$root.$emit('bv::toggle::collapse', this.nombreCollapse)
               if(this.form.tipoEstancia == null){
                   this.alertaEstanciaVisible = true
               }else{
-                if(this.form.tipoEstancia = 1){
-                  this.$root.$emit('bv::toggle::collapse', 'collapse-foto-individual')
+                switch(this.form.tipoEstancia){
+                  case 1:
+                  this.nombreCollapse = 'collapse-foto-individual'
+                    break;
+                  case 2:
+                  this.nombreCollapse = 'collapse-foto-doble'
+                    break;
+                  case 3:
+                  this.nombreCollapse = 'collapse-foto-suite'
+                    break;
+                  case 4:
+                  this.nombreCollapse = 'collapse-foto-sala-conferencias'
+                    break;
                 }
-
+                this.$root.$emit('bv::toggle::collapse', this.nombreCollapse)
                 this.alertaEstanciaVisible = false
                   this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
                     .then(resp =>{
