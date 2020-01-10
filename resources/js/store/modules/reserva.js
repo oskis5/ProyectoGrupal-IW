@@ -37,13 +37,13 @@ export default {
             })
            })
         },
-        buscarTipoPension(){
+        buscarTipoPension(context,idTipoReserva){
             return new Promise((resolve,reject)=>{
-                axios.get(API_URL + "tipoestancias/" + idTipoHabitacion)
+                axios.get(API_URL + "tiporeservas/" + idTipoReserva)
                 .then(response => {
                         if(response.status == 200){
-                            console.log(response.data.precio_tipo)
-                            context.commit('incrementarPrecio', response.data.precio_tipo)
+                            console.log(response.data.precio)
+                            context.commit('incrementarPrecioPension', response.data.precio)
                             resolve(response.data)
                         }
                 })

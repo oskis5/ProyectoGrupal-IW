@@ -2216,7 +2216,20 @@ __webpack_require__.r(__webpack_exports__);
       tipoReservas: [{
         text: 'Selecciona tipo de pensión',
         value: null
-      }, 'Solo estancia', 'Desayuno incluido', 'Media pensión', 'Pensión completa', 'Catering']
+      }, {
+        text: 'Solo estancia',
+        value: 1
+      }, {
+        text: 'Desayuno incluido',
+        value: 2
+      }, {
+        text: 'Media pensión',
+        value: 3
+      }, {
+        text: 'Pensión completa',
+        value: 4
+      }] // 'Catering'],
+
     };
   },
   computed: {
@@ -2228,6 +2241,8 @@ __webpack_require__.r(__webpack_exports__);
     calcularTotal: function calcularTotal(event) {
       if (event == "tipo-estancia") {
         this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {});
+      } else if (event == "tipo-reserva") {
+        this.$store.dispatch("buscarTipoPension", this.form.tipoReserva).then(function (resp) {});
       }
     }
   }
@@ -53219,12 +53234,12 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
         });
       });
     },
-    buscarTipoPension: function buscarTipoPension() {
+    buscarTipoPension: function buscarTipoPension(context, idTipoReserva) {
       return new Promise(function (resolve, reject) {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "tipoestancias/" + idTipoHabitacion).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "tiporeservas/" + idTipoReserva).then(function (response) {
           if (response.status == 200) {
-            console.log(response.data.precio_tipo);
-            context.commit('incrementarPrecio', response.data.precio_tipo);
+            console.log(response.data.precio);
+            context.commit('incrementarPrecioPension', response.data.precio);
             resolve(response.data);
           }
         })["catch"](function (exception) {
