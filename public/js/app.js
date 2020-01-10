@@ -2187,6 +2187,44 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2228,22 +2266,67 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: 'Pensión completa',
         value: 4
-      }] // 'Catering'],
+      }],
+      alertaEstanciaVisible: false,
+      alertaReservaVisible: false,
+      nombreCollapse: '' // 'Catering'],
 
     };
   },
   computed: {
     precio: function precio() {
-      return this.$store.state.reserva.precioReserva + this.$store.state.reserva.precioReservaPension;
+      return this.$store.state.reserva.precioReserva + this.$store.state.reserva.precioReservaPension + this.$store.state.reserva.temporada.precioTemporada;
     }
   },
   methods: {
     calcularTotal: function calcularTotal(event) {
+      console.log(this.nombreCollapse);
+
       if (event == "tipo-estancia") {
-        this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {});
+        this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
+
+        if (this.form.tipoEstancia == null) {
+          this.alertaEstanciaVisible = true;
+        } else {
+          switch (this.form.tipoEstancia) {
+            case 1:
+              this.nombreCollapse = 'collapse-foto-individual';
+              break;
+
+            case 2:
+              this.nombreCollapse = 'collapse-foto-doble';
+              break;
+
+            case 3:
+              this.nombreCollapse = 'collapse-foto-suite';
+              break;
+
+            case 4:
+              this.nombreCollapse = 'collapse-foto-sala-conferencias';
+              break;
+          }
+
+          this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
+          this.alertaEstanciaVisible = false;
+          this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {});
+        }
       } else if (event == "tipo-reserva") {
-        this.$store.dispatch("buscarTipoPension", this.form.tipoReserva).then(function (resp) {});
+        if (this.form.tipoReserva == null) {
+          this.alertaReservaVisible = true;
+        } else {
+          this.alertaReservaVisible = false;
+          this.$store.dispatch("buscarTipoPension", this.form.tipoReserva).then(function (resp) {});
+        }
       }
+    },
+    calcularTemporada: function calcularTemporada() {
+      //Solo vamos a fijarnos en la fecha de inicio para la temporada
+      var fechaForm = new Date(this.form.f_inicio);
+      var fecha = {
+        mes: fechaForm.getMonth(),
+        dia: fechaForm.getDay()
+      };
+      this.$store.dispatch("buscarTemporadas", fecha).then(function (resp) {});
     }
   }
 });
@@ -36234,6 +36317,13 @@ var render = function() {
         },
         [
           _c("b-form-select", {
+            directives: [
+              {
+                name: "b-toggle",
+                rawName: "v-b-toggle.collapse-foto",
+                modifiers: { "collapse-foto": true }
+              }
+            ],
             attrs: {
               id: "tipo-estancia",
               options: _vm.tipoEstancias,
@@ -36251,7 +36341,22 @@ var render = function() {
               },
               expression: "form.tipoEstancia"
             }
-          })
+          }),
+          _vm._v(" "),
+          _c(
+            "b-alert",
+            {
+              attrs: { variant: "danger", dismissible: "" },
+              model: {
+                value: _vm.alertaEstanciaVisible,
+                callback: function($$v) {
+                  _vm.alertaEstanciaVisible = $$v
+                },
+                expression: "alertaEstanciaVisible"
+              }
+            },
+            [_vm._v("\n        ¡Seleccione una opción correcta!\n      ")]
+          )
         ],
         1
       ),
@@ -36284,7 +36389,22 @@ var render = function() {
               },
               expression: "form.tipoReserva"
             }
-          })
+          }),
+          _vm._v(" "),
+          _c(
+            "b-alert",
+            {
+              attrs: { variant: "danger", dismissible: "" },
+              model: {
+                value: _vm.alertaReservaVisible,
+                callback: function($$v) {
+                  _vm.alertaReservaVisible = $$v
+                },
+                expression: "alertaReservaVisible"
+              }
+            },
+            [_vm._v("\n        ¡Seleccione una opción correcta!\n      ")]
+          )
         ],
         1
       ),
@@ -36305,6 +36425,11 @@ var render = function() {
               required: "",
               type: "date",
               placeholder: "Seleccione fecha inicio"
+            },
+            on: {
+              change: function($event) {
+                return _vm.calcularTemporada()
+              }
             },
             model: {
               value: _vm.form.f_inicio,
@@ -36350,21 +36475,103 @@ var render = function() {
       _c(
         "H5",
         { attrs: { value: _vm.precio }, on: { input: _vm.calcularTotal } },
-        [_vm._v("Valor Total " + _vm._s(_vm.precio))]
+        [_vm._v("Valor total reserva ")]
       ),
       _vm._v(" "),
+      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
+      _vm._v(" "),
       _c(
-        "b-button",
-        {
-          attrs: { type: "Aceptar", variant: "primary" },
-          on: {
-            click: function($event) {
-              return _vm.calcularTotal("tipo-estancia")
-            }
-          }
-        },
-        [_vm._v("precio")]
-      )
+        "row",
+        [
+          _c(
+            "b-collapse",
+            { staticClass: "mt-2", attrs: { id: "collapse-foto-suite" } },
+            [
+              _c(
+                "b-card",
+                {
+                  attrs: {
+                    "img-src":
+                      "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$",
+                    "img-alt": "Card image",
+                    "img-top": ""
+                  }
+                },
+                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-collapse",
+            { staticClass: "mt-2", attrs: { id: "collapse-foto-doble" } },
+            [
+              _c(
+                "b-card",
+                {
+                  attrs: {
+                    "img-src":
+                      "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
+                    "img-alt": "Card image",
+                    "img-top": ""
+                  }
+                },
+                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-collapse",
+            { staticClass: "mt-2", attrs: { id: "collapse-foto-individual" } },
+            [
+              _c(
+                "b-card",
+                {
+                  attrs: {
+                    "img-src":
+                      "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
+                    "img-alt": "Card image",
+                    "img-top": ""
+                  }
+                },
+                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-collapse",
+            {
+              staticClass: "mt-2",
+              attrs: { id: "collapse-foto-sala-conferencias" }
+            },
+            [
+              _c(
+                "b-card",
+                {
+                  attrs: {
+                    "img-src":
+                      "https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg",
+                    "img-alt": "Card image",
+                    "img-top": ""
+                  }
+                },
+                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("b-button", { attrs: { variant: "outline-primary" } }, [
+        _vm._v("Confirmar reserva")
+      ])
     ],
     1
   )
@@ -53208,15 +53415,28 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
     status: '',
     datosReserva: [],
     precioReserva: 0,
-    precioReservaPension: 0
+    precioReservaPension: 0,
+    temporada: {
+      fecha_incio: "",
+      fecha_fin: "",
+      precioTemporada: 0
+    }
   },
   mutations: {
     incrementarPrecio: function incrementarPrecio(state, valor) {
-      console.log("entramos en incrementar valor");
       state.precioReserva = valor;
     },
     incrementarPrecioPension: function incrementarPrecioPension(state, valor) {
       state.precioReservaPension = valor;
+    },
+    incrementarPrecioTemporada: function incrementarPrecioTemporada(state, valor) {
+      console.log("pone valor");
+      state.temporada.precioTemporada = valor;
+    },
+    ponerFechas: function ponerFechas(state, fechas) {
+      console.log("pone fechas");
+      state.temporada.fecha_incio = fechas.f_incio;
+      state.temporada.fecha_fin = fechas.f_fin;
     }
   },
   actions: {
@@ -53224,7 +53444,6 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "tipoestancias/" + idTipoHabitacion).then(function (response) {
           if (response.status == 200) {
-            console.log(response.data.precio_tipo);
             context.commit('incrementarPrecio', response.data.precio_tipo);
             resolve(response.data);
           }
@@ -53238,9 +53457,32 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "tiporeservas/" + idTipoReserva).then(function (response) {
           if (response.status == 200) {
-            console.log(response.data.precio);
             context.commit('incrementarPrecioPension', response.data.precio);
             resolve(response.data);
+          }
+        })["catch"](function (exception) {
+          console.log("error " + exception);
+          reject(exception);
+        });
+      });
+    },
+    buscarTemporadas: function buscarTemporadas(context, fechaInicio) {
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "temporadas").then(function (response) {
+          if (response.status == 200) {
+            for (var i = 0; i < response.data.length; i++) {
+              var temporada = {
+                f_inicio: new Date(response.data[i].fecha_inicio),
+                f_fin: new Date(response.data[i].fecha_fin)
+              };
+
+              if (fechaInicio.mes >= temporada.f_inicio.getMonth() && fechaInicio.mes <= temporada.f_fin.getMonth()) {
+                context.commit('ponerFechas', temporada);
+                context.commit('incrementarPrecioTemporada', response.data[i].precio_unitario);
+                resolve(response.data);
+                break;
+              }
+            }
           }
         })["catch"](function (exception) {
           console.log("error " + exception);
