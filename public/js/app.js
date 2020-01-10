@@ -2203,6 +2203,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2261,6 +2271,10 @@ __webpack_require__.r(__webpack_exports__);
         if (this.form.tipoEstancia == null) {
           this.alertaEstanciaVisible = true;
         } else {
+          if (this.form.tipoEstancia = 1) {
+            this.$root.$emit('bv::toggle::collapse', 'collapse-foto-individual');
+          }
+
           this.alertaEstanciaVisible = false;
           this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {});
         }
@@ -36317,7 +36331,7 @@ var render = function() {
       _vm._v(" "),
       _c(
         "b-collapse",
-        { staticClass: "mt-2", attrs: { id: "collapse-foto" } },
+        { staticClass: "mt-2", attrs: { id: "collapse-foto-suite" } },
         [
           _c(
             "b-card",
@@ -36325,6 +36339,46 @@ var render = function() {
               attrs: {
                 "img-src":
                   "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$",
+                "img-alt": "Card image",
+                "img-top": ""
+              }
+            },
+            [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-collapse",
+        { staticClass: "mt-2", attrs: { id: "collapse-foto-doble" } },
+        [
+          _c(
+            "b-card",
+            {
+              attrs: {
+                "img-src":
+                  "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
+                "img-alt": "Card image",
+                "img-top": ""
+              }
+            },
+            [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-collapse",
+        { staticClass: "mt-2", attrs: { id: "collapse-foto-individual" } },
+        [
+          _c(
+            "b-card",
+            {
+              attrs: {
+                "img-src":
+                  "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
                 "img-alt": "Card image",
                 "img-top": ""
               }
