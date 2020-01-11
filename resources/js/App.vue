@@ -1,34 +1,41 @@
 <template>
   <div id="app">
+    
     <b-navbar toggleable="lg" type="light" variant="light" class="py-0">
-      <a class="navbar-brand my-0" href="#">
+      <router-link class="navbar-brand my-0" :to="{name: 'home'}">
         <img alt="Vue logo" :src="'images/logo-h.png'" class="img-fluid" style="height: 70px">
-      </a>
+      </router-link>
 
       <b-navbar-nav class="ml-auto">
-        <b-nav-item-dropdown right>
-          <!-- Using 'button-content' slot -->
+        <b-nav-item-dropdown v-if="isLoggedIn" right>
           <template v-slot:button-content>
-            <em>Nombre de usuario</em>
+            <span style="color: white; padding-right: 10px; font-size: 16px">{{loggedUser.username}}</span>
           </template>
-          <b-dropdown-item href="#">Perfil</b-dropdown-item>
-          <b-dropdown-item href="#">Cerrar sesión</b-dropdown-item>
+          <b-dropdown-item href="#">Mi perfil</b-dropdown-item>
+          <b-dropdown-item v-on:click="logout()">Cerrar sesión</b-dropdown-item>
         </b-nav-item-dropdown>
+
+        <b-nav-item v-if="!isLoggedIn" :to="{name: 'login'}">Iniciar sesión</b-nav-item>
+        <b-nav-item v-if="!isLoggedIn" :to="{name: 'register'}">Registrarse</b-nav-item>
       </b-navbar-nav>
     </b-navbar>
+
+    <router-view></router-view>
+
     
-    <listHabitaciones/>
   </div>
 </template>
 
 <script>
-import listHabitaciones from './components/listHabitaciones.vue'
-
+import HelloWorld from './components/HelloWorld.vue'
 export default {
   name: 'app',
   components: {
-    listHabitaciones
-  }
+    HelloWorld,
+  },
+  computed : {
+    isLoggedIn : function(){ return this.$store.getters.isLoggedIn }
+  },
 }
 </script>
 
