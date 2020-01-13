@@ -2336,12 +2336,13 @@ __webpack_require__.r(__webpack_exports__);
       this.$store.dispatch("buscarTemporadas", fechaForm).then(function (resp) {});
     },
     onSubmit: function onSubmit(evt) {
-      if (this.form.f_inicio == '' || this.form.f_fin == '' || tipoEstancia == null || tipoReserva == null) {
+      if (this.form.f_inicio == '' || this.form.f_fin == '' || this.form.tipoEstancia == null || this.form.tipoReserva == null) {
         this.alertaSubtmitVisible = true;
+      } else {
+        this.alertaSubtmitVisible = false;
+        evt.preventDefault();
+        alert(JSON.stringify(this.form));
       }
-
-      evt.preventDefault();
-      alert(JSON.stringify(this.form));
     }
   }
 });
@@ -36559,17 +36560,9 @@ var render = function() {
                       }
                     },
                     [
-                      _c("p", { staticClass: "card-text" }),
-                      _c(
-                        "h4",
-                        {
-                          attrs: { value: _vm.precio },
-                          on: { input: _vm.calcularTotal }
-                        },
-                        [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
-                      ),
-                      _vm._v(" "),
-                      _c("p")
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v("\n          Suite!\n        ")
+                      ])
                     ]
                   )
                 ],
@@ -36591,17 +36584,11 @@ var render = function() {
                       }
                     },
                     [
-                      _c("p", { staticClass: "card-text" }),
-                      _c(
-                        "h4",
-                        {
-                          attrs: { value: _vm.precio },
-                          on: { input: _vm.calcularTotal }
-                        },
-                        [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
-                      ),
-                      _vm._v(" "),
-                      _c("p")
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(
+                          "\n          Habitación para dos personas\n        "
+                        )
+                      ])
                     ]
                   )
                 ],
@@ -36626,17 +36613,9 @@ var render = function() {
                       }
                     },
                     [
-                      _c("p", { staticClass: "card-text" }),
-                      _c(
-                        "h4",
-                        {
-                          attrs: { value: _vm.precio },
-                          on: { input: _vm.calcularTotal }
-                        },
-                        [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
-                      ),
-                      _vm._v(" "),
-                      _c("p")
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v("\n           Habitación individual\n        ")
+                      ])
                     ]
                   )
                 ],
@@ -36661,17 +36640,11 @@ var render = function() {
                       }
                     },
                     [
-                      _c("p", { staticClass: "card-text" }),
-                      _c(
-                        "h4",
-                        {
-                          attrs: { value: _vm.precio },
-                          on: { input: _vm.calcularTotal }
-                        },
-                        [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
-                      ),
-                      _vm._v(" "),
-                      _c("p")
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(
+                          "\n          Sala de conferencias para congresos o reuniones!\n        "
+                        )
+                      ])
                     ]
                   )
                 ],

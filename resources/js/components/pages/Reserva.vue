@@ -81,28 +81,28 @@
       <b-collapse id="collapse-foto-suite" class="mt-2">
         <b-card img-src="https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$" img-alt="Card image" img-top>
           <p class="card-text">
-            <h4 :value="precio" @input="calcularTotal">Valor total reserva {{ precio }}</h4>
+            Suite!
           </p>
         </b-card>
       </b-collapse>
       <b-collapse id="collapse-foto-doble" class="mt-2">
         <b-card img-src="https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg" img-alt="Card image" img-top>
           <p class="card-text">
-            <h4 :value="precio" @input="calcularTotal">Valor total reserva {{ precio }}</h4>
+            Habitación para dos personas
           </p>
         </b-card>
       </b-collapse>
       <b-collapse id="collapse-foto-individual" class="mt-2">
         <b-card img-src="https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg" img-alt="Card image" img-top>
           <p class="card-text">
-            <h4 :value="precio" @input="calcularTotal">Valor total reserva {{ precio }}</h4>
+             Habitación individual
           </p>
         </b-card>
       </b-collapse>
       <b-collapse id="collapse-foto-sala-conferencias" class="mt-2">
         <b-card img-src="https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg" img-alt="Card image" img-top>
           <p class="card-text">
-            <h4 :value="precio" @input="calcularTotal">Valor total reserva {{ precio }}</h4>
+            Sala de conferencias para congresos o reuniones!
           </p>
         </b-card>
       </b-collapse>
@@ -191,11 +191,13 @@ export default {
                     })
         },
       onSubmit(evt){
-        if(this.form.f_inicio=='' || this.form.f_fin =='' || tipoEstancia == null || tipoReserva == null){
+        if(this.form.f_inicio=='' || this.form.f_fin =='' || this.form.tipoEstancia == null || this.form.tipoReserva == null){
             this.alertaSubtmitVisible = true
+        }else{
+            this.alertaSubtmitVisible = false
+            evt.preventDefault()
+            alert(JSON.stringify(this.form))
         }
-        evt.preventDefault()
-        alert(JSON.stringify(this.form))
       }
     }
 }
