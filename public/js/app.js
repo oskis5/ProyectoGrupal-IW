@@ -2234,6 +2234,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2330,11 +2331,9 @@ __webpack_require__.r(__webpack_exports__);
     calcularTemporada: function calcularTemporada() {
       //Solo vamos a fijarnos en la fecha de inicio para la temporada
       var fechaForm = new Date(this.form.f_inicio);
-      var fecha = {
-        mes: fechaForm.getMonth(),
-        dia: fechaForm.getDay()
-      };
-      this.$store.dispatch("buscarTemporadas", fecha).then(function (resp) {});
+      console.log(fechaForm); //var fecha = {mes : fechaForm.getMonth() ,dia :  fechaForm.getDay()}
+
+      this.$store.dispatch("buscarTemporadas", fechaForm).then(function (resp) {});
     },
     onSubmit: function onSubmit(evt) {
       if (this.form.f_inicio == '' || this.form.f_fin == '' || tipoEstancia == null || tipoReserva == null) {
@@ -36503,6 +36502,15 @@ var render = function() {
               ),
               _vm._v(" "),
               _c(
+                "h4",
+                {
+                  attrs: { value: _vm.precio },
+                  on: { input: _vm.calcularTotal }
+                },
+                [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
+              ),
+              _vm._v(" "),
+              _c(
                 "b-button",
                 {
                   attrs: { type: "submit", variant: "outline-primary" },
@@ -53579,9 +53587,10 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
                 f_fin: new Date(response.data[i].fecha_fin)
               };
 
-              if (fechaInicio.mes >= temporada.f_inicio.getMonth() && fechaInicio.mes <= temporada.f_fin.getMonth()) {
+              if (fechaInicio >= temporada.f_inicio && fechaInicio <= temporada.f_fin) {
                 context.commit('ponerFechas', temporada);
-                context.commit('incrementarPrecioTemporada', response.data[i].precio_unitario);
+                context.commit('incrementarPrecioTemporada', response.data[i].precio_unitario); //console.log(response.data)
+
                 resolve(response.data);
                 break;
               }

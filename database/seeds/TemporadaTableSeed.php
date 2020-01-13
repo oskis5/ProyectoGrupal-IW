@@ -19,32 +19,32 @@ class TemporadaTableSeed extends Seeder
     {
         DB::table('temporadas')->insert([[
             'nombre' => 'Verano',
-            'fecha_inicio' => Carbon::createFromDate(1975, 6, 22),
-            'fecha_fin' =>  Carbon::createFromDate(1975, 9, 21),
+            'fecha_inicio' => Carbon::createFromDate(2020, 6, 22),
+            'fecha_fin' =>  Carbon::createFromDate(2020, 9, 21),
             'precio_unitario' => 20
         ],
         [
             'nombre' => 'Otoño',
-            'fecha_inicio' => Carbon::createFromDate(1975, 9, 22),
-            'fecha_fin' =>  Carbon::createFromDate(1975, 12, 21),
+            'fecha_inicio' => Carbon::createFromDate(2020, 9, 22),
+            'fecha_fin' =>  Carbon::createFromDate(2020, 12, 21),
             'precio_unitario' => 8
         ],
         [
             'nombre' => 'Invierno',
-            'fecha_inicio' => Carbon::createFromDate(1975, 1, 7),
-            'fecha_fin' =>  Carbon::createFromDate(1975, 3, 21),
+            'fecha_inicio' => Carbon::createFromDate(2020, 1, 7),
+            'fecha_fin' =>  Carbon::createFromDate(2020, 3, 21),
             'precio_unitario' => 12
         ],
         [
             'nombre' => 'Navidad',
-            'fecha_inicio' => Carbon::createFromDate(1975, 12, 22),
-            'fecha_fin' =>  Carbon::createFromDate(1975, 1, 6),
+            'fecha_inicio' => Carbon::createFromDate(2020, 12, 22),
+            'fecha_fin' =>  Carbon::createFromDate(2021, 1, 6),
             'precio_unitario' => 22
         ],
         [
             'nombre' => 'Primavera',
-            'fecha_inicio' => Carbon::createFromDate(1975, 3, 22),
-            'fecha_fin' =>  Carbon::createFromDate(1975, 6, 21),
+            'fecha_inicio' => Carbon::createFromDate(2020, 3, 22),
+            'fecha_fin' =>  Carbon::createFromDate(2020, 6, 21),
             'precio_unitario' => 10
         ]]);
     }

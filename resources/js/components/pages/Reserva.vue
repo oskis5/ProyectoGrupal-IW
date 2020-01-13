@@ -71,6 +71,7 @@
             placeholder="Seleccione fecha fin"
           ></b-form-input>
         </b-form-group>
+        <h4 :value="precio" @input="calcularTotal">Valor total reserva {{ precio }}</h4>
         <b-button @click="onSubmit" type="submit" variant="outline-primary">Confirmar reserva</b-button> 
           <b-alert v-model="alertaSubtmitVisible" variant="danger" dismissible>
               ¡Debe seleccionar todos los campos!
@@ -183,8 +184,9 @@ export default {
         },
         calcularTemporada : function(){ //Solo vamos a fijarnos en la fecha de inicio para la temporada
            var fechaForm =  new Date(this.form.f_inicio)
-           var fecha = {mes : fechaForm.getMonth() ,dia :  fechaForm.getDay()}
-           this.$store.dispatch("buscarTemporadas",fecha)
+           console.log(fechaForm)
+           //var fecha = {mes : fechaForm.getMonth() ,dia :  fechaForm.getDay()}
+           this.$store.dispatch("buscarTemporadas",fechaForm)
                     .then(resp =>{
                     })
         },
