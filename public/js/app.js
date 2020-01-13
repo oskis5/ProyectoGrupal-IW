@@ -36551,22 +36551,15 @@ var render = function() {
                       }
                     },
                     [
+                      _c("p", { staticClass: "card-text" }),
                       _c(
-                        "p",
-                        { staticClass: "card-text" },
-                        [
-                          _c(
-                            "H5",
-                            {
-                              attrs: { value: _vm.precio },
-                              on: { input: _vm.calcularTotal }
-                            },
-                            [_vm._v("Valor total reserva ")]
-                          )
-                        ],
-                        1
+                        "h4",
+                        {
+                          attrs: { value: _vm.precio },
+                          on: { input: _vm.calcularTotal }
+                        },
+                        [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
                       ),
-                      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
                       _vm._v(" "),
                       _c("p")
                     ]
@@ -36590,22 +36583,15 @@ var render = function() {
                       }
                     },
                     [
+                      _c("p", { staticClass: "card-text" }),
                       _c(
-                        "p",
-                        { staticClass: "card-text" },
-                        [
-                          _c(
-                            "H5",
-                            {
-                              attrs: { value: _vm.precio },
-                              on: { input: _vm.calcularTotal }
-                            },
-                            [_vm._v("Valor total reserva ")]
-                          )
-                        ],
-                        1
+                        "h4",
+                        {
+                          attrs: { value: _vm.precio },
+                          on: { input: _vm.calcularTotal }
+                        },
+                        [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
                       ),
-                      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
                       _vm._v(" "),
                       _c("p")
                     ]
@@ -36632,22 +36618,15 @@ var render = function() {
                       }
                     },
                     [
+                      _c("p", { staticClass: "card-text" }),
                       _c(
-                        "p",
-                        { staticClass: "card-text" },
-                        [
-                          _c(
-                            "H5",
-                            {
-                              attrs: { value: _vm.precio },
-                              on: { input: _vm.calcularTotal }
-                            },
-                            [_vm._v("Valor total reserva ")]
-                          )
-                        ],
-                        1
+                        "h4",
+                        {
+                          attrs: { value: _vm.precio },
+                          on: { input: _vm.calcularTotal }
+                        },
+                        [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
                       ),
-                      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
                       _vm._v(" "),
                       _c("p")
                     ]
@@ -36674,22 +36653,15 @@ var render = function() {
                       }
                     },
                     [
+                      _c("p", { staticClass: "card-text" }),
                       _c(
-                        "p",
-                        { staticClass: "card-text" },
-                        [
-                          _c(
-                            "H5",
-                            {
-                              attrs: { value: _vm.precio },
-                              on: { input: _vm.calcularTotal }
-                            },
-                            [_vm._v("Valor total reserva ")]
-                          )
-                        ],
-                        1
+                        "h4",
+                        {
+                          attrs: { value: _vm.precio },
+                          on: { input: _vm.calcularTotal }
+                        },
+                        [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
                       ),
-                      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
                       _vm._v(" "),
                       _c("p")
                     ]
