@@ -2225,6 +2225,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2269,7 +2278,8 @@ __webpack_require__.r(__webpack_exports__);
       }],
       alertaEstanciaVisible: false,
       alertaReservaVisible: false,
-      nombreCollapse: '' // 'Catering'],
+      nombreCollapse: '',
+      alertaSubtmitVisible: false // 'Catering'],
 
     };
   },
@@ -2280,14 +2290,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     calcularTotal: function calcularTotal(event) {
-      console.log(this.nombreCollapse);
-
       if (event == "tipo-estancia") {
-        this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
-
         if (this.form.tipoEstancia == null) {
           this.alertaEstanciaVisible = true;
         } else {
+          this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
+
           switch (this.form.tipoEstancia) {
             case 1:
               this.nombreCollapse = 'collapse-foto-individual';
@@ -2327,6 +2335,14 @@ __webpack_require__.r(__webpack_exports__);
         dia: fechaForm.getDay()
       };
       this.$store.dispatch("buscarTemporadas", fecha).then(function (resp) {});
+    },
+    onSubmit: function onSubmit(evt) {
+      if (this.form.f_inicio == '' || this.form.f_fin == '' || tipoEstancia == null || tipoReserva == null) {
+        this.alertaSubtmitVisible = true;
+      }
+
+      evt.preventDefault();
+      alert(JSON.stringify(this.form));
     }
   }
 });
@@ -36307,271 +36323,386 @@ var render = function() {
     { staticStyle: { "text-align": "left" }, attrs: { fluid: "" } },
     [
       _c(
-        "b-form-group",
-        {
-          attrs: {
-            id: "tipo-estancia",
-            label: "Tipo estancia",
-            "label-for": "tipo-estancia"
-          }
-        },
-        [
-          _c("b-form-select", {
-            directives: [
-              {
-                name: "b-toggle",
-                rawName: "v-b-toggle.collapse-foto",
-                modifiers: { "collapse-foto": true }
-              }
-            ],
-            attrs: {
-              id: "tipo-estancia",
-              options: _vm.tipoEstancias,
-              required: ""
-            },
-            on: {
-              change: function($event) {
-                return _vm.calcularTotal("tipo-estancia")
-              }
-            },
-            model: {
-              value: _vm.form.tipoEstancia,
-              callback: function($$v) {
-                _vm.$set(_vm.form, "tipoEstancia", $$v)
-              },
-              expression: "form.tipoEstancia"
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "b-alert",
-            {
-              attrs: { variant: "danger", dismissible: "" },
-              model: {
-                value: _vm.alertaEstanciaVisible,
-                callback: function($$v) {
-                  _vm.alertaEstanciaVisible = $$v
-                },
-                expression: "alertaEstanciaVisible"
-              }
-            },
-            [_vm._v("\n        ¡Seleccione una opción correcta!\n      ")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-form-group",
-        {
-          attrs: {
-            id: "tipo-reserva",
-            label: "Tipo de pensión",
-            "label-for": "tipo-reserva"
-          }
-        },
-        [
-          _c("b-form-select", {
-            attrs: {
-              id: "tipo-reserva",
-              options: _vm.tipoReservas,
-              required: ""
-            },
-            on: {
-              change: function($event) {
-                return _vm.calcularTotal("tipo-reserva")
-              }
-            },
-            model: {
-              value: _vm.form.tipoReserva,
-              callback: function($$v) {
-                _vm.$set(_vm.form, "tipoReserva", $$v)
-              },
-              expression: "form.tipoReserva"
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "b-alert",
-            {
-              attrs: { variant: "danger", dismissible: "" },
-              model: {
-                value: _vm.alertaReservaVisible,
-                callback: function($$v) {
-                  _vm.alertaReservaVisible = $$v
-                },
-                expression: "alertaReservaVisible"
-              }
-            },
-            [_vm._v("\n        ¡Seleccione una opción correcta!\n      ")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-form-group",
-        {
-          attrs: {
-            id: "f-inicio",
-            label: "Fecha inicio:",
-            "label-for": "f-inicio"
-          }
-        },
-        [
-          _c("b-form-input", {
-            attrs: {
-              id: "f-inicio",
-              required: "",
-              type: "date",
-              placeholder: "Seleccione fecha inicio"
-            },
-            on: {
-              change: function($event) {
-                return _vm.calcularTemporada()
-              }
-            },
-            model: {
-              value: _vm.form.f_inicio,
-              callback: function($$v) {
-                _vm.$set(_vm.form, "f_inicio", $$v)
-              },
-              expression: "form.f_inicio"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-form-group",
-        {
-          attrs: {
-            id: "f-final",
-            label: "Fecha final:",
-            "label-for": "f-final"
-          }
-        },
-        [
-          _c("b-form-input", {
-            attrs: {
-              id: "f-final",
-              required: "",
-              type: "date",
-              placeholder: "Seleccione fecha fin"
-            },
-            model: {
-              value: _vm.form.f_fin,
-              callback: function($$v) {
-                _vm.$set(_vm.form, "f_fin", $$v)
-              },
-              expression: "form.f_fin"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "H5",
-        { attrs: { value: _vm.precio }, on: { input: _vm.calcularTotal } },
-        [_vm._v("Valor total reserva ")]
-      ),
-      _vm._v(" "),
-      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
-      _vm._v(" "),
-      _c(
-        "row",
+        "b-row",
         [
           _c(
-            "b-collapse",
-            { staticClass: "mt-2", attrs: { id: "collapse-foto-suite" } },
+            "b-col",
             [
               _c(
-                "b-card",
+                "b-form-group",
                 {
                   attrs: {
-                    "img-src":
-                      "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$",
-                    "img-alt": "Card image",
-                    "img-top": ""
+                    id: "tipo-estancia",
+                    label: "Tipo estancia",
+                    "label-for": "tipo-estancia"
                   }
                 },
-                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+                [
+                  _c("b-form-select", {
+                    directives: [
+                      {
+                        name: "b-toggle",
+                        rawName: "v-b-toggle.collapse-foto",
+                        modifiers: { "collapse-foto": true }
+                      }
+                    ],
+                    attrs: {
+                      id: "tipo-estancia",
+                      options: _vm.tipoEstancias,
+                      required: ""
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.calcularTotal("tipo-estancia")
+                      }
+                    },
+                    model: {
+                      value: _vm.form.tipoEstancia,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "tipoEstancia", $$v)
+                      },
+                      expression: "form.tipoEstancia"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "b-alert",
+                    {
+                      attrs: { variant: "danger", dismissible: "" },
+                      model: {
+                        value: _vm.alertaEstanciaVisible,
+                        callback: function($$v) {
+                          _vm.alertaEstanciaVisible = $$v
+                        },
+                        expression: "alertaEstanciaVisible"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n          ¡Seleccione una opción correcta!\n        "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "tipo-reserva",
+                    label: "Tipo de pensión",
+                    "label-for": "tipo-reserva"
+                  }
+                },
+                [
+                  _c("b-form-select", {
+                    attrs: {
+                      id: "tipo-reserva",
+                      options: _vm.tipoReservas,
+                      required: ""
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.calcularTotal("tipo-reserva")
+                      }
+                    },
+                    model: {
+                      value: _vm.form.tipoReserva,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "tipoReserva", $$v)
+                      },
+                      expression: "form.tipoReserva"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "b-alert",
+                    {
+                      attrs: { variant: "danger", dismissible: "" },
+                      model: {
+                        value: _vm.alertaReservaVisible,
+                        callback: function($$v) {
+                          _vm.alertaReservaVisible = $$v
+                        },
+                        expression: "alertaReservaVisible"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n          ¡Seleccione una opción correcta!\n        "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "f-inicio",
+                    label: "Fecha inicio:",
+                    "label-for": "f-inicio"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "f-inicio",
+                      required: "",
+                      type: "date",
+                      placeholder: "Seleccione fecha inicio"
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.calcularTemporada()
+                      }
+                    },
+                    model: {
+                      value: _vm.form.f_inicio,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "f_inicio", $$v)
+                      },
+                      expression: "form.f_inicio"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "f-final",
+                    label: "Fecha final:",
+                    "label-for": "f-final"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "f-final",
+                      required: "",
+                      type: "date",
+                      placeholder: "Seleccione fecha fin"
+                    },
+                    model: {
+                      value: _vm.form.f_fin,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "f_fin", $$v)
+                      },
+                      expression: "form.f_fin"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  attrs: { type: "submit", variant: "outline-primary" },
+                  on: { click: _vm.onSubmit }
+                },
+                [_vm._v("Confirmar reserva")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-alert",
+                {
+                  attrs: { variant: "danger", dismissible: "" },
+                  model: {
+                    value: _vm.alertaSubtmitVisible,
+                    callback: function($$v) {
+                      _vm.alertaSubtmitVisible = $$v
+                    },
+                    expression: "alertaSubtmitVisible"
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n            ¡Debe seleccionar todos los campos!\n        "
+                  )
+                ]
               )
             ],
             1
           ),
           _vm._v(" "),
           _c(
-            "b-collapse",
-            { staticClass: "mt-2", attrs: { id: "collapse-foto-doble" } },
+            "b-col",
             [
               _c(
-                "b-card",
-                {
-                  attrs: {
-                    "img-src":
-                      "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
-                    "img-alt": "Card image",
-                    "img-top": ""
-                  }
-                },
-                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-collapse",
-            { staticClass: "mt-2", attrs: { id: "collapse-foto-individual" } },
-            [
+                "b-collapse",
+                { staticClass: "mt-2", attrs: { id: "collapse-foto-suite" } },
+                [
+                  _c(
+                    "b-card",
+                    {
+                      attrs: {
+                        "img-src":
+                          "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$",
+                        "img-alt": "Card image",
+                        "img-top": ""
+                      }
+                    },
+                    [
+                      _c(
+                        "p",
+                        { staticClass: "card-text" },
+                        [
+                          _c(
+                            "H5",
+                            {
+                              attrs: { value: _vm.precio },
+                              on: { input: _vm.calcularTotal }
+                            },
+                            [_vm._v("Valor total reserva ")]
+                          )
+                        ],
+                        1
+                      ),
+                      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
+                      _vm._v(" "),
+                      _c("p")
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c(
-                "b-card",
-                {
-                  attrs: {
-                    "img-src":
-                      "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
-                    "img-alt": "Card image",
-                    "img-top": ""
-                  }
-                },
-                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-collapse",
-            {
-              staticClass: "mt-2",
-              attrs: { id: "collapse-foto-sala-conferencias" }
-            },
-            [
+                "b-collapse",
+                { staticClass: "mt-2", attrs: { id: "collapse-foto-doble" } },
+                [
+                  _c(
+                    "b-card",
+                    {
+                      attrs: {
+                        "img-src":
+                          "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
+                        "img-alt": "Card image",
+                        "img-top": ""
+                      }
+                    },
+                    [
+                      _c(
+                        "p",
+                        { staticClass: "card-text" },
+                        [
+                          _c(
+                            "H5",
+                            {
+                              attrs: { value: _vm.precio },
+                              on: { input: _vm.calcularTotal }
+                            },
+                            [_vm._v("Valor total reserva ")]
+                          )
+                        ],
+                        1
+                      ),
+                      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
+                      _vm._v(" "),
+                      _c("p")
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c(
-                "b-card",
+                "b-collapse",
                 {
-                  attrs: {
-                    "img-src":
-                      "https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg",
-                    "img-alt": "Card image",
-                    "img-top": ""
-                  }
+                  staticClass: "mt-2",
+                  attrs: { id: "collapse-foto-individual" }
                 },
-                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+                [
+                  _c(
+                    "b-card",
+                    {
+                      attrs: {
+                        "img-src":
+                          "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
+                        "img-alt": "Card image",
+                        "img-top": ""
+                      }
+                    },
+                    [
+                      _c(
+                        "p",
+                        { staticClass: "card-text" },
+                        [
+                          _c(
+                            "H5",
+                            {
+                              attrs: { value: _vm.precio },
+                              on: { input: _vm.calcularTotal }
+                            },
+                            [_vm._v("Valor total reserva ")]
+                          )
+                        ],
+                        1
+                      ),
+                      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
+                      _vm._v(" "),
+                      _c("p")
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-collapse",
+                {
+                  staticClass: "mt-2",
+                  attrs: { id: "collapse-foto-sala-conferencias" }
+                },
+                [
+                  _c(
+                    "b-card",
+                    {
+                      attrs: {
+                        "img-src":
+                          "https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg",
+                        "img-alt": "Card image",
+                        "img-top": ""
+                      }
+                    },
+                    [
+                      _c(
+                        "p",
+                        { staticClass: "card-text" },
+                        [
+                          _c(
+                            "H5",
+                            {
+                              attrs: { value: _vm.precio },
+                              on: { input: _vm.calcularTotal }
+                            },
+                            [_vm._v("Valor total reserva ")]
+                          )
+                        ],
+                        1
+                      ),
+                      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
+                      _vm._v(" "),
+                      _c("p")
+                    ]
+                  )
+                ],
+                1
               )
             ],
             1
           )
         ],
         1
-      ),
-      _vm._v(" "),
-      _c("b-button", { attrs: { variant: "outline-primary" } }, [
-        _vm._v("Confirmar reserva")
-      ])
+      )
     ],
     1
   )
