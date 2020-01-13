@@ -2235,6 +2235,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2330,8 +2331,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     calcularTemporada: function calcularTemporada() {
       //Solo vamos a fijarnos en la fecha de inicio para la temporada
-      var fechaForm = new Date(this.form.f_inicio);
-      console.log(fechaForm); //var fecha = {mes : fechaForm.getMonth() ,dia :  fechaForm.getDay()}
+      var fechaForm = new Date(this.form.f_inicio); //var fecha = {mes : fechaForm.getMonth() ,dia :  fechaForm.getDay()}
 
       this.$store.dispatch("buscarTemporadas", fechaForm).then(function (resp) {});
     },
@@ -2340,8 +2340,9 @@ __webpack_require__.r(__webpack_exports__);
         this.alertaSubtmitVisible = true;
       } else {
         this.alertaSubtmitVisible = false;
-        evt.preventDefault();
-        alert(JSON.stringify(this.form));
+        this.$root.$emit('bv::show::modal', 'modal-confirmar', '#btnSubmit');
+        /*evt.preventDefault()
+        alert(JSON.stringify(this.form))*/
       }
     }
   }
@@ -36514,6 +36515,7 @@ var render = function() {
               _c(
                 "b-button",
                 {
+                  ref: "btnSubmit",
                   attrs: { type: "submit", variant: "outline-primary" },
                   on: { click: _vm.onSubmit }
                 },
@@ -36655,6 +36657,12 @@ var render = function() {
           )
         ],
         1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        { attrs: { id: "modal-confirmar", size: "lg", title: "Large Modal" } },
+        [_vm._v("VAMOS A CONFIRMAR DATOS!")]
       )
     ],
     1
@@ -53497,7 +53505,7 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     status: '',
-    datosReserva: [],
+    datosReserva: '',
     precioReserva: 0,
     precioReservaPension: 0,
     temporada: {
@@ -53514,11 +53522,9 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
       state.precioReservaPension = valor;
     },
     incrementarPrecioTemporada: function incrementarPrecioTemporada(state, valor) {
-      console.log("pone valor");
       state.temporada.precioTemporada = valor;
     },
     ponerFechas: function ponerFechas(state, fechas) {
-      console.log("pone fechas");
       state.temporada.fecha_incio = fechas.f_incio;
       state.temporada.fecha_fin = fechas.f_fin;
     }
@@ -53574,6 +53580,19 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
           reject(exception);
         });
       });
+    },
+    realizarReserva: function realizarReserva(context, datosReserva) {
+      console.log(datosReserva);
+      /*return new Promise((resolver,reject)=>{
+          axios({
+              method: 'post',
+              url: API_URL + "temporadas",
+              data : {
+                }
+          })
+          
+            })
+      */
     }
   }
 });

@@ -5,7 +5,7 @@ const API_URL= "http://localhost/ProyectoGrupal-IW/public/api/";
 export default {
     state: {
         status : '',
-        datosReserva: [],
+        datosReserva: '',
         precioReserva: 0,
         precioReservaPension: 0,
         temporada : {fecha_incio: "" , fecha_fin : "" , precioTemporada: 0}
@@ -19,11 +19,9 @@ export default {
             state.precioReservaPension = valor;
         },
         incrementarPrecioTemporada(state,valor){
-            console.log("pone valor")
             state.temporada.precioTemporada = valor;
         },
         ponerFechas(state,fechas){
-            console.log("pone fechas")
             state.temporada.fecha_incio = fechas.f_incio;
             state.temporada.fecha_fin = fechas.f_fin;
         }
@@ -82,6 +80,23 @@ export default {
                         reject(exception)
                 })
             })
+        },
+        realizarReserva(context,datosReserva){
+            console.log(datosReserva);
+            /*return new Promise((resolver,reject)=>{
+                axios({
+                    method: 'post',
+                    url: API_URL + "temporadas",
+                    data : {
+
+                    }
+                })
+                
+
+
+
+            })
+            */
         }
     }
 }

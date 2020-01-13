@@ -72,7 +72,7 @@
           ></b-form-input>
         </b-form-group>
         <h4 :value="precio" @input="calcularTotal">Valor total reserva {{ precio }}</h4>
-        <b-button @click="onSubmit" type="submit" variant="outline-primary">Confirmar reserva</b-button> 
+        <b-button ref="btnSubmit" @click="onSubmit" type="submit" variant="outline-primary">Confirmar reserva</b-button> 
           <b-alert v-model="alertaSubtmitVisible" variant="danger" dismissible>
               ¡Debe seleccionar todos los campos!
           </b-alert>
@@ -110,6 +110,7 @@
     </b-row>  
         <!-- <b-form-input v-model="form.precio" type="number" debounce="500" >
         </b-form-input> -->
+        <b-modal id="modal-confirmar" size="lg" title="Large Modal">VAMOS A CONFIRMAR DATOS!</b-modal>
     </b-container>
 
 
@@ -184,7 +185,6 @@ export default {
         },
         calcularTemporada : function(){ //Solo vamos a fijarnos en la fecha de inicio para la temporada
            var fechaForm =  new Date(this.form.f_inicio)
-           console.log(fechaForm)
            //var fecha = {mes : fechaForm.getMonth() ,dia :  fechaForm.getDay()}
            this.$store.dispatch("buscarTemporadas",fechaForm)
                     .then(resp =>{
@@ -195,8 +195,10 @@ export default {
             this.alertaSubtmitVisible = true
         }else{
             this.alertaSubtmitVisible = false
-            evt.preventDefault()
-            alert(JSON.stringify(this.form))
+            this.$root.$emit('bv::show::modal', 'modal-confirmar', '#btnSubmit')
+            /*evt.preventDefault()
+            alert(JSON.stringify(this.form))*/
+
         }
       }
     }
