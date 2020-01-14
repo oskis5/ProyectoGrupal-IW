@@ -1941,12 +1941,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Habitacion',
   props: ['item', 'img', 'fecha'],
   data: function data() {
     return {
-      tipoPension: 1
+      tipoPension: 2
     };
   }
 });
@@ -36994,15 +36995,19 @@ var render = function() {
             }
           },
           [
-            _c("option", { attrs: { value: "1", selected: "" } }, [
+            _c("option", { attrs: { value: "1" } }, [
               _vm._v("Solo alojamiento")
             ]),
             _vm._v(" "),
             _c("option", { attrs: { value: "2" } }, [
-              _vm._v("Pensión completa")
+              _vm._v("Desayuno incluido")
             ]),
             _vm._v(" "),
-            _c("option", { attrs: { value: "3" } }, [_vm._v("Media pensión")])
+            _c("option", { attrs: { value: "3" } }, [_vm._v("Media pensión")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "4" } }, [
+              _vm._v("Pensión completa")
+            ])
           ]
         ),
         _vm._v(" "),

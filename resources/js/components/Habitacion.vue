@@ -20,9 +20,10 @@
         <!--Precio y selector de estancia-->
         <div class="row price-row justify-content-start justify-content-sm-center align-items-center">
             <select v-model="tipoPension" class="selectpicker tipo-reserva-select col-6 col-sm-4">
-                <option value="1" selected>Solo alojamiento</option>
-                <option value="2" >Pensión completa</option>
+                <option value="1">Solo alojamiento</option>
+                <option value="2">Desayuno incluido</option>
                 <option value="3">Media pensión</option>
+                <option value="4">Pensión completa</option>
             </select> 
             <p class="hab-precio col-2 offset-2 offset-sm-0 col-sm-6 my-0"><strong>{{item.precio_base + item.tipo.precio_tipo}}€</strong></p>
             <button type="button" class="hab-boton-reserva btn btn-secondary col-12 mt-3 mt-sm-0 col-sm-2">
@@ -42,7 +43,7 @@ export default {
   props: ['item','img', 'fecha'],
   data(){
       return{
-          tipoPension: 1
+          tipoPension: 2
       }
   }
 }
