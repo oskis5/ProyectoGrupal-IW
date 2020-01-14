@@ -9,7 +9,7 @@
                   <input v-model="fecha" class="date-picker form-control mb-3" id="date-picker" type="date" name="bday">
                   <label for="type-sel">Tipo de estancia</label>
                   <select v-model="tipoEstancia" class="form-control" id="type-sel">
-                    <option value="" selected>Todas</option>
+                    <option selected>Todas</option>
                     <option>Sencilla</option>
                     <option>Doble</option>
                     <option>Suite</option>
@@ -43,7 +43,7 @@
         <div class="hab-list-cont container">
           <ul id="ListHabitaciones" class="hab-list list-unstyled">
             <li v-for="item in habitaciones">
-                <Habitacion :item="item" img="https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg"/>
+                <Habitacion :item="item" img="https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg" :fecha="fecha"/>
             </li>
           </ul>
         </div>
@@ -193,4 +193,5 @@ form label{
   margin-bottom: 0;
   font-weight: 600;
 }
+
 </style>

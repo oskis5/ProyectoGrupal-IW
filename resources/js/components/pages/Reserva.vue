@@ -139,6 +139,20 @@ export default {
                 // 'Catering'],
         }
     },
+    created: function(){
+      if(this.$route.params){
+        //Fecha inicio
+        this.form.f_inicio = this.$route.params.fecha;
+        //Tipo de estancia
+        this.form.tipoEstancia = parseInt(this.$route.params.tipoHab);
+        //Tipo reserva
+        this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
+
+        //Mostrar la imagen - no funciona
+        /*this.switchNombreCollapse();
+        this.$root.$emit('bv::toggle::collapse', 'collapse-foto-individual');*/
+      }
+    },
     computed : {
         precio : function(){
           return this.$store.state.reserva.precioReserva + this.$store.state.reserva.precioReservaPension
@@ -152,20 +166,7 @@ export default {
                   this.alertaEstanciaVisible = true
               }else{
                 this.$root.$emit('bv::toggle::collapse', this.nombreCollapse)
-                switch(this.form.tipoEstancia){
-                  case 1:
-                  this.nombreCollapse = 'collapse-foto-individual'
-                    break;
-                  case 2:
-                  this.nombreCollapse = 'collapse-foto-doble'
-                    break;
-                  case 3:
-                  this.nombreCollapse = 'collapse-foto-suite'
-                    break;
-                  case 4:
-                  this.nombreCollapse = 'collapse-foto-sala-conferencias'
-                    break;
-                }
+                this.switchNombreCollapse();
                 this.$root.$emit('bv::toggle::collapse', this.nombreCollapse)
                 this.alertaEstanciaVisible = false
                   this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
@@ -182,6 +183,22 @@ export default {
                   })
               }
             }      
+        },
+        switchNombreCollapse: function(){
+          switch(this.form.tipoEstancia){
+            case 1:
+            this.nombreCollapse = 'collapse-foto-individual'
+              break;
+            case 2:
+            this.nombreCollapse = 'collapse-foto-doble'
+              break;
+            case 3:
+            this.nombreCollapse = 'collapse-foto-suite'
+              break;
+            case 4:
+            this.nombreCollapse = 'collapse-foto-sala-conferencias'
+              break;
+          }
         },
         calcularTemporada : function(){ //Solo vamos a fijarnos en la fecha de inicio para la temporada
            var fechaForm =  new Date(this.form.f_inicio)

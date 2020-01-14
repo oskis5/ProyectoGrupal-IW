@@ -1934,9 +1934,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Habitacion',
-  props: ['item', 'img']
+  props: ['item', 'img', 'fecha'],
+  data: function data() {
+    return {
+      tipoPension: 1
+    };
+  }
 });
 
 /***/ }),
@@ -2582,6 +2594,19 @@ __webpack_require__.r(__webpack_exports__);
 
     };
   },
+  created: function created() {
+    if (this.$route.params) {
+      //Fecha inicio
+      this.form.f_inicio = this.$route.params.fecha; //Tipo de estancia
+
+      this.form.tipoEstancia = parseInt(this.$route.params.tipoHab); //Tipo reserva
+
+      this.form.tipoReserva = parseInt(this.$route.params.tipoPension); //Mostrar la imagen - no funciona
+
+      /*this.switchNombreCollapse();
+      this.$root.$emit('bv::toggle::collapse', 'collapse-foto-individual');*/
+    }
+  },
   computed: {
     precio: function precio() {
       return this.$store.state.reserva.precioReserva + this.$store.state.reserva.precioReservaPension + this.$store.state.reserva.temporada.precioTemporada;
@@ -2594,25 +2619,7 @@ __webpack_require__.r(__webpack_exports__);
           this.alertaEstanciaVisible = true;
         } else {
           this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
-
-          switch (this.form.tipoEstancia) {
-            case 1:
-              this.nombreCollapse = 'collapse-foto-individual';
-              break;
-
-            case 2:
-              this.nombreCollapse = 'collapse-foto-doble';
-              break;
-
-            case 3:
-              this.nombreCollapse = 'collapse-foto-suite';
-              break;
-
-            case 4:
-              this.nombreCollapse = 'collapse-foto-sala-conferencias';
-              break;
-          }
-
+          this.switchNombreCollapse();
           this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
           this.alertaEstanciaVisible = false;
           this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {});
@@ -2624,6 +2631,25 @@ __webpack_require__.r(__webpack_exports__);
           this.alertaReservaVisible = false;
           this.$store.dispatch("buscarTipoPension", this.form.tipoReserva).then(function (resp) {});
         }
+      }
+    },
+    switchNombreCollapse: function switchNombreCollapse() {
+      switch (this.form.tipoEstancia) {
+        case 1:
+          this.nombreCollapse = 'collapse-foto-individual';
+          break;
+
+        case 2:
+          this.nombreCollapse = 'collapse-foto-doble';
+          break;
+
+        case 3:
+          this.nombreCollapse = 'collapse-foto-suite';
+          break;
+
+        case 4:
+          this.nombreCollapse = 'collapse-foto-sala-conferencias';
+          break;
       }
     },
     calcularTemporada: function calcularTemporada() {
@@ -31432,7 +31458,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.habitacion{\r\n  padding: 0rem 1rem 0 1rem !important;\r\n  background: #ddd;\r\n  margin-bottom: 1.75rem;\n}\n.habitacion:hover{\r\n  background: #eee;\r\n  -webkit-transform: scale(1.01);\r\n          transform: scale(1.01);\r\n  -webkit-transition: all ease 0.3ms;\r\n  transition: all ease 0.3ms;\n}\n.habitacion select{\r\n    padding: 0.75rem;\r\n    font-family: inherit;\r\n    font-weight: inherit;\n}\n.price-row{\r\n    background:#bbb;\r\n    padding: 1rem;\n}\n.price-row select, .price-row button{\r\n    font-size: 0.8rem;\r\n    font-weight: 400;\r\n    padding: 0.65rem 0.25rem;\n}\r\n", ""]);
+exports.push([module.i, "\n.habitacion{\r\n  padding: 0rem 1rem 0 1rem !important;\r\n  background: #ddd;\r\n  margin-bottom: 1.75rem;\n}\n.habitacion:hover{\r\n  background: #eee;\r\n  -webkit-transform: scale(1.01);\r\n          transform: scale(1.01);\r\n  -webkit-transition: all ease 0.3ms;\r\n  transition: all ease 0.3ms;\n}\n.habitacion select{\r\n    padding: 0.75rem;\r\n    font-family: inherit;\r\n    font-weight: inherit;\n}\n.price-row{\r\n    background:#bbb;\r\n    padding: 1rem;\n}\n.price-row select, .price-row button{\r\n    font-size: 0.8rem;\r\n    font-weight: 400;\r\n    padding: 0.65rem 0.25rem;\n}\n.price-row button a{\r\n    color: white !important;\n}\r\n", ""]);
 
 // exports
 
@@ -31470,7 +31496,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.hab-counter[data-v-2adc3e34]{\r\n  font-size: 0.75rem;\r\n  margin-left: 20px;\n}\n.range-picker[data-v-2adc3e34]{\r\n  -webkit-box-pack: justify;\r\n          justify-content: space-between;\n}\n#min-textInput[data-v-2adc3e34], #max-textInput[data-v-2adc3e34]{\r\n  font-size:0.75rem;\r\n  border:none;\r\n  height: 75%;\r\n  text-align: center;\n}\nform[data-v-2adc3e34]{\r\n  background: #ddd;\r\n  padding: 1rem 1rem 0 1rem;\r\n  margin: 1rem;\n}\nform label[data-v-2adc3e34]{\r\n  font-size: 0.8rem;\r\n  margin-bottom: 0;\r\n  font-weight: 600;\n}\r\n", ""]);
+exports.push([module.i, "\n.hab-counter[data-v-2adc3e34]{\r\n  font-size: 0.75rem;\r\n  margin-left: 20px;\n}\n.range-picker[data-v-2adc3e34]{\r\n  -webkit-box-pack: justify;\r\n          justify-content: space-between;\n}\n#min-textInput[data-v-2adc3e34], #max-textInput[data-v-2adc3e34]{\r\n  font-size:0.75rem;\r\n  border:none;\r\n  height: 75%;\r\n  text-align: center;\n}\nform[data-v-2adc3e34]{\r\n  background: #ddd;\r\n  padding: 1rem 1rem 0 1rem;\r\n  margin: 1rem;\n}\nform label[data-v-2adc3e34]{\r\n  font-size: 0.8rem;\r\n  margin-bottom: 0;\r\n  font-weight: 600;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -36897,7 +36923,46 @@ var render = function() {
           "row price-row justify-content-start justify-content-sm-center align-items-center"
       },
       [
-        _vm._m(0),
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.tipoPension,
+                expression: "tipoPension"
+              }
+            ],
+            staticClass: "selectpicker tipo-reserva-select col-6 col-sm-4",
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.tipoPension = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          [
+            _c("option", { attrs: { value: "1", selected: "" } }, [
+              _vm._v("Solo alojamiento")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "2" } }, [
+              _vm._v("Pensión completa")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "3" } }, [_vm._v("Media pensión")])
+          ]
+        ),
         _vm._v(" "),
         _c(
           "p",
@@ -36920,30 +36985,31 @@ var render = function() {
               "hab-boton-reserva btn btn-secondary col-12 mt-3 mt-sm-0 col-sm-2",
             attrs: { type: "button" }
           },
-          [_vm._v("Reservar")]
+          [
+            _c(
+              "router-link",
+              {
+                attrs: {
+                  to: {
+                    name: "reservas",
+                    params: {
+                      tipoPension: this.tipoPension,
+                      fecha: this.fecha,
+                      tipoHab: this.item.tipo.id
+                    }
+                  }
+                }
+              },
+              [_vm._v("\n                Reservar\n            ")]
+            )
+          ],
+          1
         )
       ]
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "select",
-      { staticClass: "selectpicker tipo-reserva-select col-6 col-sm-4" },
-      [
-        _c("option", { attrs: { value: "completa" } }, [
-          _vm._v("Pensión completa")
-        ]),
-        _vm._v(" "),
-        _c("option", { attrs: { value: "media" } }, [_vm._v("Media pensión")])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -37315,9 +37381,7 @@ var render = function() {
                 }
               },
               [
-                _c("option", { attrs: { value: "", selected: "" } }, [
-                  _vm._v("Todas")
-                ]),
+                _c("option", { attrs: { selected: "" } }, [_vm._v("Todas")]),
                 _vm._v(" "),
                 _c("option", [_vm._v("Sencilla")]),
                 _vm._v(" "),
@@ -37467,7 +37531,8 @@ var render = function() {
                 attrs: {
                   item: item,
                   img:
-                    "https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg"
+                    "https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg",
+                  fecha: _vm.fecha
                 }
               })
             ],
@@ -54980,7 +55045,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/ProyectoGrupal-IW/public/',
     name: 'home',
     component: _components_pages_Home__WEBPACK_IMPORTED_MODULE_3__["default"],
-    beforeEnter: ifAuthenticated
+    beforeEnter: ifNotAuthenticated
   }, {
     path: '/ProyectoGrupal-IW/public/login',
     name: 'login',

@@ -19,12 +19,19 @@
 
         <!--Precio y selector de estancia-->
         <div class="row price-row justify-content-start justify-content-sm-center align-items-center">
-            <select class="selectpicker tipo-reserva-select col-6 col-sm-4">
-                <option value="completa">Pensión completa</option>
-                <option value="media">Media pensión</option>
+            <select v-model="tipoPension" class="selectpicker tipo-reserva-select col-6 col-sm-4">
+                <option value="1" selected>Solo alojamiento</option>
+                <option value="2" >Pensión completa</option>
+                <option value="3">Media pensión</option>
             </select> 
             <p class="hab-precio col-2 offset-2 offset-sm-0 col-sm-6 my-0"><strong>{{item.precio_base + item.tipo.precio_tipo}}€</strong></p>
-            <button type="button" class="hab-boton-reserva btn btn-secondary col-12 mt-3 mt-sm-0 col-sm-2">Reservar</button>
+            <button type="button" class="hab-boton-reserva btn btn-secondary col-12 mt-3 mt-sm-0 col-sm-2">
+                <router-link :to="{ name: 'reservas', params: { tipoPension: this.tipoPension , fecha: this.fecha, tipoHab: this.item.tipo.id}}">
+                    Reservar
+                </router-link>
+            </button>
+            
+            
         </div>
     </div>
 </template>
@@ -32,7 +39,12 @@
 <script>
 export default {
   name: 'Habitacion',
-  props: ['item','img']
+  props: ['item','img', 'fecha'],
+  data(){
+      return{
+          tipoPension: 1
+      }
+  }
 }
 </script>
 
@@ -64,5 +76,9 @@ export default {
     font-size: 0.8rem;
     font-weight: 400;
     padding: 0.65rem 0.25rem;
+}
+
+.price-row button a{
+    color: white !important;
 }
 </style>
