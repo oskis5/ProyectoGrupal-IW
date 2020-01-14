@@ -1,42 +1,44 @@
 <template>
-    <div class="container-fluid">
+    <div class="container">
         <!-- Filtros -->
-        <form>
+        <form @submit="filtraEstancias">
           <div class="container my-3">
             <div class="row align-content-between">
                 <div class="form-group text-left col-12 col-sm-6">
                   <label for="date-picker">Fecha</label>
-                  <input class="date-picker form-control mb-3" id="date-picker" type="date" name="bday">
+                  <input v-model="fecha" class="date-picker form-control mb-3" id="date-picker" type="date" name="bday">
                   <label for="type-sel">Tipo de estancia</label>
-                  <select class="form-control" id="type-sel">
+                  <select v-model="tipoEstancia" class="form-control" id="type-sel">
                     <option>Habitación</option>
                     <option>Sala de reuniones</option>
                   </select>
                 </div>
                 <!-- Precios -->
-                <div class="form-group filter-container col-12 offset-sm-2 col-sm-4 px-0 text-left">
+                <div class="form-group filter-container col-12 offset-sm-2 col-sm-4 px-4 px-xs-0 text-left">
                   <label for="sl-min">Precio min.</label>
                   <div class="row range-picker align-content-between">
-                    <input class="form-control col-8 p-0" id="sl-min" type="range" name="points" min="0" max="600" step="5" @input="rangeUpdate">
-                    <input class="col-2 p-1" classtype="text" id="min-textInput" value="00" >
+                    <input v-model="precioMin" class="form-control col-8 p-0" id="sl-min" type="range" name="points" min="0" max="600" step="5" @input="rangeUpdate">
+                    <input class="col-2 p-1" classtype="text" id="min-textInput" value="0" >
                   </div>
 
                   <label for="sl-max">Precio max.</label>
                   <div class="row range-picker text-left">
-                    <input class="form-control col-8 p-0" id="sl-max" type="range" name="points" min="50" max="600" step="5"  @input="rangeUpdate">
-                    <input class="col-2 p-1" type="text" id="max-textInput" value="00">
+                    <input v-model="precioMax" class="form-control col-8 p-0" id="sl-max" type="range" name="points" min="50" max="600" step="5"  @input="rangeUpdate">
+                    <input class="col-2 p-1" type="text" id="max-textInput" value="600">
                   </div>
                 </div>
               </div>
               <!-- Buscar -->
-              <button type="button" class="btn btn-secondary colxs-12 offset-sm-8 col-sm-4 my-2">Buscar</button>
-              <p class="hab-counter font-weight-light text-left"><i>{{habitaciones.length}} estancias encontradas.</i></p>
+              <div class="container row align-items-center">
+                <button type="submit" value="submit" class="btn btn-secondary col-12 col-sm-6 my-2">Buscar</button>
+                <p class="hab-counter font-weight-light text-left col-12 col-sm-4 mb-2 mb-sm-0 px-0"><i>{{habitaciones.length}} estancias encontradas.</i></p>
+              </div>
             </div>
         </form>
         
         <!--Lista de habitaciones -->
         <div class="hab-list-cont container">
-          <ul class="hab-list list-unstyled">
+          <ul id="ListHabitaciones" class="hab-list list-unstyled">
             <li v-for="item in habitaciones">
                 <Habitacion :item="item" img="https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg"/>
             </li>
@@ -51,25 +53,37 @@ import Habitacion from '../Habitacion.vue'
 
 export default {
   name: 'ListHabitaciones',
-  props: ['habitaciones'],
+  data(){
+    return {
+      tipoEstancia : null,
+      precioMin: 0,
+      precioMax: 600,
+      fecha: null,
+      errors: [],
+      habitaciones: []
+    }
+  } ,
   components: {
     Habitacion
   },
   created: async function(){
-    var res = await fetch('http://localhost:8000/api/estancias');
-    var estancias = await res.json();
-
-    var tipo_res = await fetch('http://localhost:8000/api/tipoestancias');
-    var tipos = await tipo_res.json();
-
-    //Obtén el tipo de cada estancia
-    estancias.forEach(function(hab){
-      hab.tipo = tipos[hab.tipo_id - 1];
-    });
-
-    this.habitaciones = estancias;
+    this.getHabitaciones();
   },
   methods:{
+    getHabitaciones: async function(){
+      var res = await fetch('http://localhost:8000/api/estancias');
+      var estancias = await res.json();
+
+      var tipo_res = await fetch('http://localhost:8000/api/tipoestancias');
+      var tipos = await tipo_res.json();
+
+      //Obtén el tipo de cada estancia
+      estancias.forEach(function(hab){
+        hab.tipo = tipos[hab.tipo_id - 1];
+      });
+
+      this.habitaciones = estancias;
+    },
     rangeUpdate(event){
       //Cambia el valor del campo de text de los filtros de precio
       var textTarget;
@@ -80,6 +94,69 @@ export default {
         textTarget = "max-textInput";
       }
       document.getElementById(textTarget).value = event.target.value;
+    },
+    filtraEstancias: async function(e){
+      e.preventDefault();
+      this.errors = [];
+
+      //Verifica precios
+      if(this.precioMin > this.precioMax){
+        this.errors.push("El precio mínimo debe ser mayor que el máximo.");
+      }
+
+      //Verifica fecha
+      if(this.fecha){
+          var hoy = new Date();
+          var d = new Date(this.fecha);
+
+          if(hoy.getTime() > d.getTime()){
+            this.errors.push("Seleccione una fecha válida.");
+          }
+      }
+
+      if(this.errors.length == 0){
+        await this.getHabitaciones();
+        var d = new Date(this.fecha);
+        var habs = this.habitaciones;
+        var excluidas = [];
+
+        console.log('Buscando reservas...');
+        var res = await fetch('http://localhost:8000/api/reservas');
+        var reservas = await res.json();
+        
+        //Comprobar disponibilidad
+        reservas.forEach(function(reserva){
+          var f_entrada = new Date(reserva.f_entrada);
+          var f_salida = new Date(reserva.f_salida);
+          if(f_entrada.getTime() <= d.getTime() && f_salida.getTime() >= d.getTime()){
+            var ocupadas = habs.filter(function(item){
+                return item.id == reserva.estancia_id;
+              });
+
+            excluidas.push(ocupadas[0]);
+          }
+        });
+
+        var tipo = this.tipoEstancia;
+        var pmin = this.precioMin;
+        var pmax = this.precioMax;
+        habs.forEach(function(hab){
+          if(tipo){
+            if(tipo == "Habitación" && hab.tipo_id == 4){
+              excluidas.push(hab);
+            }
+            else if(tipo == "Sala de reuniones" && hab.tipo_id < 4){
+              excluidas.push(hab);
+            }
+
+            var precio = hab.precio_base + hab.tipo.precio_tipo;
+            if( precio < pmin || precio > pmax){
+              excluidas.push(hab);
+            }
+          }
+        });
+        this.habitaciones = this.habitaciones.filter(function(i){return excluidas.indexOf(i) === -1});
+      }
     }
   }
 }
@@ -96,9 +173,21 @@ export default {
 }
 
 #min-textInput, #max-textInput{
-  font-size:0.8rem;
+  font-size:0.75rem;
   border:none;
-  background: #ddd;
   height: 75%;
+  text-align: center;
+}
+
+form{
+  background: #ddd;
+  padding: 1rem 1rem 0 1rem;
+  margin: 1rem;
+}
+
+form label{
+  font-size: 0.8rem;
+  margin-bottom: 0;
+  font-weight: 600;
 }
 </style>

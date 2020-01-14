@@ -32,6 +32,7 @@ Route::put('users/{id}', 'UserController@update');
 Route::delete('users/{id}', 'UserController@delete');
 
 //reservas
+Route::get('reservas', 'ReservaController@index');
 Route::get('reservas/{id}','ReservaController@show');
 Route::post('reservas','ReservaController@store');
 Route::put('reservas/{id}', 'ReservaController@update');
