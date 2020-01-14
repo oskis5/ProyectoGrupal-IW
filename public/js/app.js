@@ -2091,17 +2091,26 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ListHabitaciones',
   data: function data() {
     return {
-      tipoEstancia: null,
+      tipoEstancia: 0,
       precioMin: 0,
       precioMax: 600,
       fecha: null,
       errors: [],
-      habitaciones: []
+      habitaciones: [],
+      etiquetas: []
     };
   },
   components: {
@@ -2180,6 +2189,7 @@ __webpack_require__.r(__webpack_exports__);
           switch (_context3.prev = _context3.next) {
             case 0:
               e.preventDefault();
+              this.actualizaEtiquetas();
               this.errors = []; //Verifica precios
 
               if (this.precioMin > this.precioMax) {
@@ -2197,27 +2207,27 @@ __webpack_require__.r(__webpack_exports__);
               }
 
               if (!(this.errors.length == 0)) {
-                _context3.next = 23;
+                _context3.next = 24;
                 break;
               }
 
-              _context3.next = 7;
+              _context3.next = 8;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.getHabitaciones());
 
-            case 7:
+            case 8:
               d = new Date(this.fecha);
               habs = this.habitaciones;
               excluidas = [];
               console.log('Buscando reservas...');
-              _context3.next = 13;
+              _context3.next = 14;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost:8000/api/reservas'));
 
-            case 13:
+            case 14:
               res = _context3.sent;
-              _context3.next = 16;
+              _context3.next = 17;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(res.json());
 
-            case 16:
+            case 17:
               reservas = _context3.sent;
               //Comprobar disponibilidad
               reservas.forEach(function (reserva) {
@@ -2231,12 +2241,12 @@ __webpack_require__.r(__webpack_exports__);
                   excluidas.push(ocupadas[0]);
                 }
               });
-              tipo = this.tipoEstancia;
+              tipo = parseInt(this.tipoEstancia);
               pmin = this.precioMin;
               pmax = this.precioMax;
               habs.forEach(function (hab) {
                 if (tipo) {
-                  if (tipo == "Sencilla" && hab.tipo_id != 1 || tipo == "Doble" && hab.tipo_id != 2 || tipo == "Suite" && hab.tipo_id != 3 || tipo == "Sala de reuniones" && hab.tipo_id != 4) {
+                  if (tipo != hab.tipo_id) {
                     excluidas.push(hab);
                   }
 
@@ -2251,12 +2261,44 @@ __webpack_require__.r(__webpack_exports__);
                 return excluidas.indexOf(i) === -1;
               });
 
-            case 23:
+            case 24:
             case "end":
               return _context3.stop();
           }
         }
       }, null, this);
+    },
+    actualizaEtiquetas: function actualizaEtiquetas() {
+      this.etiquetas = [];
+
+      if (this.fecha) {
+        this.etiquetas.push(this.fecha);
+      }
+
+      if (this.tipoEstancia) {
+        this.etiquetas.push(this.getNombreTipo(parseInt(this.tipoEstancia)));
+      }
+
+      this.etiquetas.push(this.precioMin);
+      this.etiquetas.push(this.precioMax);
+    },
+    getNombreTipo: function getNombreTipo(tipoId) {
+      switch (tipoId) {
+        case 1:
+          return "Sencilla";
+
+        case 2:
+          return "Doble";
+
+        case 3:
+          return "Suite";
+
+        case 4:
+          return "Sala de reuniones";
+
+        default:
+          return "Todas";
+      }
     }
   }
 });
@@ -37381,15 +37423,17 @@ var render = function() {
                 }
               },
               [
-                _c("option", { attrs: { selected: "" } }, [_vm._v("Todas")]),
+                _c("option", { attrs: { value: "0" } }, [_vm._v("Todas")]),
                 _vm._v(" "),
-                _c("option", [_vm._v("Sencilla")]),
+                _c("option", { attrs: { value: "1" } }, [_vm._v("Sencilla")]),
                 _vm._v(" "),
-                _c("option", [_vm._v("Doble")]),
+                _c("option", { attrs: { value: "2" } }, [_vm._v("Doble")]),
                 _vm._v(" "),
-                _c("option", [_vm._v("Suite")]),
+                _c("option", { attrs: { value: "3" } }, [_vm._v("Suite")]),
                 _vm._v(" "),
-                _c("option", [_vm._v("Sala de reuniones")])
+                _c("option", { attrs: { value: "4" } }, [
+                  _vm._v("Sala de reuniones")
+                ])
               ]
             )
           ]),
@@ -37514,6 +37558,26 @@ var render = function() {
           )
         ])
       ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "nube-etiquetas container" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "hab-list list-unstyled list-inline text-left",
+          attrs: { id: "ListHabitaciones" }
+        },
+        _vm._l(_vm.etiquetas, function(etiqueta) {
+          return _c("li", { staticClass: "list-inline-item" }, [
+            _c(
+              "span",
+              { staticClass: "badge badge-pill badge-secondary px-4" },
+              [_vm._v(_vm._s(etiqueta))]
+            )
+          ])
+        }),
+        0
+      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "hab-list-cont container" }, [

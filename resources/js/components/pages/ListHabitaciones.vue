@@ -9,11 +9,11 @@
                   <input v-model="fecha" class="date-picker form-control mb-3" id="date-picker" type="date" name="bday">
                   <label for="type-sel">Tipo de estancia</label>
                   <select v-model="tipoEstancia" class="form-control" id="type-sel">
-                    <option selected>Todas</option>
-                    <option>Sencilla</option>
-                    <option>Doble</option>
-                    <option>Suite</option>
-                    <option>Sala de reuniones</option>
+                    <option value="0">Todas</option>
+                    <option value="1">Sencilla</option>
+                    <option value="2">Doble</option>
+                    <option value="3">Suite</option>
+                    <option value="4">Sala de reuniones</option>
                   </select>
                 </div>
                 <!-- Precios -->
@@ -38,6 +38,14 @@
               </div>
             </div>
         </form>
+        <!--Nube de etiquetas -->
+        <div class="nube-etiquetas container">
+          <ul id="ListHabitaciones" class="hab-list list-unstyled list-inline text-left">
+            <li class="list-inline-item" v-for="etiqueta in etiquetas">
+                <span class="badge badge-pill badge-secondary px-4">{{etiqueta}}</span>
+            </li>
+          </ul>
+        </div>
         
         <!--Lista de habitaciones -->
         <div class="hab-list-cont container">
@@ -58,12 +66,13 @@ export default {
   name: 'ListHabitaciones',
   data(){
     return {
-      tipoEstancia : null,
+      tipoEstancia : 0,
       precioMin: 0,
       precioMax: 600,
       fecha: null,
       errors: [],
-      habitaciones: []
+      habitaciones: [],
+      etiquetas:[]
     }
   } ,
   components: {
@@ -100,6 +109,7 @@ export default {
     },
     filtraEstancias: async function(e){
       e.preventDefault();
+      this.actualizaEtiquetas();
       this.errors = [];
 
       //Verifica precios
@@ -140,15 +150,12 @@ export default {
           }
         });
 
-        var tipo = this.tipoEstancia;
+        var tipo = parseInt(this.tipoEstancia);
         var pmin = this.precioMin;
         var pmax = this.precioMax;
         habs.forEach(function(hab){
           if(tipo){
-            if((tipo == "Sencilla" && hab.tipo_id != 1)
-                || (tipo == "Doble" && hab.tipo_id != 2)
-                || (tipo == "Suite" && hab.tipo_id != 3)
-                || (tipo == "Sala de reuniones" && hab.tipo_id != 4)){
+            if(tipo != hab.tipo_id){
               excluidas.push(hab);
             }
 
@@ -159,6 +166,23 @@ export default {
           }
         });
         this.habitaciones = this.habitaciones.filter(function(i){return excluidas.indexOf(i) === -1});
+      }
+    },
+    actualizaEtiquetas: function(){
+      this.etiquetas = [];
+      if(this.fecha) {this.etiquetas.push(this.fecha);}
+      if(this.tipoEstancia) {this.etiquetas.push(this.getNombreTipo(parseInt(this.tipoEstancia)));}
+      
+      this.etiquetas.push(this.precioMin);
+      this.etiquetas.push(this.precioMax);
+    },
+    getNombreTipo: function(tipoId){
+      switch(tipoId){
+        case 1: return "Sencilla";
+        case 2: return "Doble";
+        case 3: return "Suite";
+        case 4: return "Sala de reuniones";
+        default: return "Todas";
       }
     }
   }
