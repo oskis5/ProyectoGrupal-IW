@@ -12,18 +12,27 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::get('estancias', 'EstanciaController@index');
 Route::get('estancias/{id}','EstanciaController@show');
 Route::post('estancias', 'EstanciaController@store');
 Route::put('estancias/{id}', 'EstanciaController@update');
 Route::delete('estancias/{id}', 'EstanciaController@delete');
 
-Route::post('login', 'Auth\LoginController@login');
-Route::post('logout', 'Auth\LoginController@logout');
+//Route::post('login', 'Auth\LoginController@login');
+//Route::post('logout', 'Auth\LoginController@logout');
+//Route::post('register', 'Auth\RegisterController@registered');
+Route::group(['prefix' => 'auth'], function () {
+    Route::post('login', 'AuthController@login');
+    Route::post('signup', 'AuthController@signup');
+    Route::post('logout', 'AuthController@logout');
+    Route::group(['middleware' => ['jwt.verify']], function() {
+        Route::get('user', 'AuthController@user');
+    });
+});
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+   
+});
 
 Route::get('users', 'UserController@index');
 Route::get('users/{id}','UserController@show');

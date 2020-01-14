@@ -42,21 +42,23 @@ export default {
                 email: this.email,
                 password: this.password
             }
-            this.$store.dispatch('login', data)
-            .then(() => this.$router.push('/'))
-            .catch( () => {
-                if (this.email != "") this.makeToast(`El usuario con correo electrónico ${this.email} no existe.`)
-                else this.makeToast(`Has de introducir un correo electrónico válido.`)
-            })
-                
+            if (this.email == "" || this.password == "") {
+                this.makeToast(`No puedes dejar campos vacíos.`)
+            } else {
+                this.$store.dispatch('login', data)
+                .then(() => this.$router.push('/ProyectoGrupal-IW/public/'))
+                .catch( () => {
+                    this.makeToast(`El usuario con correo electrónico ${this.email} no es correcto.`)
+                })
+            }    
         },
         makeToast(message) {
         this.toastCount++
         this.$bvToast.toast(message, {
-          title: 'No existe ese usuario',
-          autoHideDelay: 5000,
-          variant: 'danger',
-          toaster: 'b-toaster-bottom-center'
+            title: 'Error en el inicio de sesión',
+            autoHideDelay: 5000,
+            variant: 'danger',
+            toaster: 'b-toaster-bottom-center'
         })
       }
     }
