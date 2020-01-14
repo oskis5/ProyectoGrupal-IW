@@ -10,6 +10,7 @@
                 <!-- Render si es habitación -->
                 <p v-if="item.tipo_id != 4" class="hab-detalles"><b>Camas:</b> {{item.camas}}</p>
                 <p v-if="item.tipo_id != 4" class="hab-detalles"><b>Tamaño:</b> {{item.metros_cuadrados}} metros cuadrados</p>
+                <p v-if="item.tipo_id != 4" class="hab-detalles"><b>Tipo:</b> {{item.tipo.nombre}}</p>
 
                 <!-- Render si es sala de reuniones -->
                 <p v-if="item.tipo_id == 4" class="hab-detalles"><b>Capacidad:</b> {{item.capacidad}} personas</p>

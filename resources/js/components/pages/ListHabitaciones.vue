@@ -9,7 +9,10 @@
                   <input v-model="fecha" class="date-picker form-control mb-3" id="date-picker" type="date" name="bday">
                   <label for="type-sel">Tipo de estancia</label>
                   <select v-model="tipoEstancia" class="form-control" id="type-sel">
-                    <option>Habitación</option>
+                    <option value="" selected>Todas</option>
+                    <option>Sencilla</option>
+                    <option>Doble</option>
+                    <option>Suite</option>
                     <option>Sala de reuniones</option>
                   </select>
                 </div>
@@ -142,10 +145,10 @@ export default {
         var pmax = this.precioMax;
         habs.forEach(function(hab){
           if(tipo){
-            if(tipo == "Habitación" && hab.tipo_id == 4){
-              excluidas.push(hab);
-            }
-            else if(tipo == "Sala de reuniones" && hab.tipo_id < 4){
+            if((tipo == "Sencilla" && hab.tipo_id != 1)
+                || (tipo == "Doble" && hab.tipo_id != 2)
+                || (tipo == "Suite" && hab.tipo_id != 3)
+                || (tipo == "Sala de reuniones" && hab.tipo_id != 4)){
               excluidas.push(hab);
             }
 

@@ -1933,6 +1933,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Habitacion',
   props: ['item', 'img']
@@ -2025,6 +2026,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Habitacion_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Habitacion.vue */ "./resources/js/components/Habitacion.vue");
 
+//
+//
+//
 //
 //
 //
@@ -2220,9 +2224,7 @@ __webpack_require__.r(__webpack_exports__);
               pmax = this.precioMax;
               habs.forEach(function (hab) {
                 if (tipo) {
-                  if (tipo == "Habitación" && hab.tipo_id == 4) {
-                    excluidas.push(hab);
-                  } else if (tipo == "Sala de reuniones" && hab.tipo_id < 4) {
+                  if (tipo == "Sencilla" && hab.tipo_id != 1 || tipo == "Doble" && hab.tipo_id != 2 || tipo == "Suite" && hab.tipo_id != 3 || tipo == "Sala de reuniones" && hab.tipo_id != 4) {
                     excluidas.push(hab);
                   }
 
@@ -36855,6 +36857,13 @@ var render = function() {
             ])
           : _vm._e(),
         _vm._v(" "),
+        _vm.item.tipo_id != 4
+          ? _c("p", { staticClass: "hab-detalles" }, [
+              _c("b", [_vm._v("Tipo:")]),
+              _vm._v(" " + _vm._s(_vm.item.tipo.nombre))
+            ])
+          : _vm._e(),
+        _vm._v(" "),
         _vm.item.tipo_id == 4
           ? _c("p", { staticClass: "hab-detalles" }, [
               _c("b", [_vm._v("Capacidad:")]),
@@ -37289,7 +37298,15 @@ var render = function() {
                 }
               },
               [
-                _c("option", [_vm._v("Habitación")]),
+                _c("option", { attrs: { value: "", selected: "" } }, [
+                  _vm._v("Todas")
+                ]),
+                _vm._v(" "),
+                _c("option", [_vm._v("Sencilla")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("Doble")]),
+                _vm._v(" "),
+                _c("option", [_vm._v("Suite")]),
                 _vm._v(" "),
                 _c("option", [_vm._v("Sala de reuniones")])
               ]
