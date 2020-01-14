@@ -39,7 +39,7 @@ const router= new Router({
             path: '/ProyectoGrupal-IW/public/',
             name: 'home',
             component: Home,
-            beforeEnter: ifAuthenticated
+            beforeEnter: ifNotAuthenticated
         },
         {
             path: '/ProyectoGrupal-IW/public/login',

@@ -53204,7 +53204,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/ProyectoGrupal-IW/public/',
     name: 'home',
     component: _components_pages_Home__WEBPACK_IMPORTED_MODULE_3__["default"],
-    beforeEnter: ifAuthenticated
+    beforeEnter: ifNotAuthenticated
   }, {
     path: '/ProyectoGrupal-IW/public/login',
     name: 'login',
