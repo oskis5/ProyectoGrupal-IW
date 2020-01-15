@@ -145,16 +145,14 @@ export default {
     },
     created : function(){
       if(this.$route.params){
-        //Fecha inicio
-        this.form.f_inicio = this.$route.params.fecha;
-        //Tipo de estancia
-        this.form.tipoEstancia = parseInt(this.$route.params.tipoHab);
-        //Tipo reserva
-        this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
-        this.visibleCollapseDesdeRouter();
-        //Mostrar la imagen - no funciona
-        /*this.switchNombreCollapse();
-        this.$root.$emit('bv::toggle::collapse', 'collapse-foto-individual');*/
+        if(this.$route.params.fecha != null){
+          this.form.f_inicio = this.$route.params.fecha;
+        }else if(this.$route.params.tipoHab != null){
+          this.form.tipoEstancia = parseInt(this.$route.params.tipoHab);
+          this.visibleCollapseDesdeRouter();
+        }else if(this.$route.params.tipoPension != null){
+          this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
+        }
       }
     },
     computed : {
@@ -223,16 +221,18 @@ export default {
                     .then(resp =>{
                     })
         },
-      onSubmit(evt){
-        if(this.form.f_inicio=='' || this.form.f_fin =='' || this.form.tipoEstancia == null || this.form.tipoReserva == null){
-            this.alertaSubtmitVisible = true
-        }else{
-            this.alertaSubtmitVisible = false
-            this.$root.$emit('bv::show::modal', 'modal-confirmar', '#btnSubmit')
-            /*evt.preventDefault()
-            alert(JSON.stringify(this.form))*/
-
-        }
+        onSubmit(evt){
+          if(this.form.f_inicio=='' || this.form.f_fin =='' || this.form.tipoEstancia == null || this.form.tipoReserva == null){
+              this.alertaSubtmitVisible = true
+          }else{
+              this.alertaSubtmitVisible = false
+              this.$root.$emit('bv::show::modal', 'modal-confirmar', '#btnSubmit')
+              this.$store.dispatch("realizarReserva",this.form)
+                      .then(resp =>{
+                      })
+              /*evt.preventDefault()
+              alert(JSON.stringify(this.form))*/
+          }
       },
       visibleCollapseDesdeRouter(){
         switch(this.form.tipoEstancia){
