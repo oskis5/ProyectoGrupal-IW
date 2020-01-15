@@ -223,7 +223,6 @@ export default {
         },
         calcularTemporada : function(){ //Solo vamos a fijarnos en la fecha de inicio para la temporada
            var fechaForm =  new Date(this.form.f_inicio)
-           //var fecha = {mes : fechaForm.getMonth() ,dia :  fechaForm.getDay()}
            this.$store.dispatch("buscarTemporadas",fechaForm)
                     .then(resp =>{
                     })
@@ -242,7 +241,7 @@ export default {
                       })    
       },
       hideModal(){
-
+        this.$refs['modal-confirmar'].hide()
       },
       visibleCollapseDesdeRouter(){
         switch(this.form.tipoEstancia){

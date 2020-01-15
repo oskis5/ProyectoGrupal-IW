@@ -2730,8 +2730,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     calcularTemporada: function calcularTemporada() {
       //Solo vamos a fijarnos en la fecha de inicio para la temporada
-      var fechaForm = new Date(this.form.f_inicio); //var fecha = {mes : fechaForm.getMonth() ,dia :  fechaForm.getDay()}
-
+      var fechaForm = new Date(this.form.f_inicio);
       this.$store.dispatch("buscarTemporadas", fechaForm).then(function (resp) {});
     },
     onSubmit: function onSubmit(evt) {
@@ -2745,7 +2744,9 @@ __webpack_require__.r(__webpack_exports__);
     confirmReserva: function confirmReserva() {
       this.$store.dispatch("realizarReserva", this.form).then(function (resp) {});
     },
-    hideModal: function hideModal() {},
+    hideModal: function hideModal() {
+      this.$refs['modal-confirmar'].hide();
+    },
     visibleCollapseDesdeRouter: function visibleCollapseDesdeRouter() {
       switch (this.form.tipoEstancia) {
         case 1:
