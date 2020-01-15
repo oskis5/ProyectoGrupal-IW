@@ -68,7 +68,6 @@ export default {
                                 if(fechaInicio >= temporada.f_inicio && fechaInicio <= temporada.f_fin){
                                     context.commit('ponerFechas', temporada)
                                     context.commit('incrementarPrecioTemporada',response.data[i].precio_unitario)
-                                    //console.log(response.data)
                                     resolve(response.data)
                                     break;
                                 }
@@ -83,7 +82,7 @@ export default {
         },
         realizarReserva(context,datosReserva){
             console.log(datosReserva);
-            /*return new Promise((resolver,reject)=>{
+            return new Promise((resolver,reject)=>{
                 axios({
                     method: 'post',
                     url: API_URL + "temporadas",
@@ -96,7 +95,6 @@ export default {
 
 
             })
-            */
         }
     }
 }

@@ -26,7 +26,7 @@
                 <option value="4">Pensión completa</option>
             </select> 
             <p class="hab-precio col-2 offset-2 offset-sm-0 col-sm-6 my-0"><strong>{{item.precio_base + item.tipo.precio_tipo}}€</strong></p>
-            <button type="button" class="hab-boton-reserva btn btn-secondary col-12 mt-3 mt-sm-0 col-sm-2">
+            <button type="button" @click="datosState" class="hab-boton-reserva btn btn-secondary col-12 mt-3 mt-sm-0 col-sm-2">
                 <router-link :to="{ name: 'reservas', params: { tipoPension: this.tipoPension , fecha: this.fecha, tipoHab: this.item.tipo.id}}">
                     Reservar
                 </router-link>
@@ -44,6 +44,15 @@ export default {
   data(){
       return{
           tipoPension: 2
+      }
+  },methods : {
+      datosState(){
+          this.$store.dispatch("buscarHabitacion",this.item.tipo.id)
+          this.$store.dispatch("buscarTipoPension",this.tipoPension)
+          if(this.fecha != null){
+            var fechaForm =  new Date(this.fecha)
+            this.$store.dispatch("buscarTemporadas",fechaForm)
+          }
       }
   }
 }
