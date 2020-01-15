@@ -53513,8 +53513,8 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\ProyectoGrupal-IW\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\ProyectoGrupal-IW\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Aplicaciones\xampp\htdocs\ProyectoGrupal-IW\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Aplicaciones\xampp\htdocs\ProyectoGrupal-IW\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
