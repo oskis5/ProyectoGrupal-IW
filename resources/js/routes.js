@@ -14,7 +14,7 @@ const ifNotAuthenticated = (to, from, next) => {
       next()
       return
     }
-    next('/')
+    next('/ProyectoGrupal-IW/public/login')
 }
 
 const ifAuthenticated = (to, from, next) => {  
@@ -26,7 +26,7 @@ const ifAuthenticated = (to, from, next) => {
 }
 
   
-const router= new Router({
+const router = new Router({
     mode: 'history',
     routes: [
         {
@@ -39,21 +39,40 @@ const router= new Router({
             path: '/ProyectoGrupal-IW/public/',
             name: 'home',
             component: Home,
-            beforeEnter: ifAuthenticated
         },
         {
             path: '/ProyectoGrupal-IW/public/login',
             name: 'login',
             component: Login,
-            beforeEnter: ifNotAuthenticated
         },
         {
             path: '/ProyectoGrupal-IW/public/register',
             name: 'register',
             component: Register,
-            beforeEnter: ifNotAuthenticated
         }
+        /*,
+        {
+            path: '/secure',
+            name: 'secure',
+            component: Secure,
+            meta: { 
+              requiresAuth: true
+            }
+        },
+        */
     ]
+})
+
+router.beforeEach((to, from, next) => {
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.getters.isLoggedIn) {
+            next()
+            return
+        }
+        next('/ProyectoGrupal-IW/public/login') 
+    } else {
+        next() 
+    }
 })
 
 export default router;

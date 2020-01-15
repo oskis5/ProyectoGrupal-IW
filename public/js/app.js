@@ -1867,6 +1867,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'app',
@@ -1876,7 +1877,30 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     isLoggedIn: function isLoggedIn() {
       return this.$store.getters.isLoggedIn;
+    },
+    loggedUser: function loggedUser() {
+      return this.$store.getters.loggedUser;
     }
+  },
+  methods: {
+    logout: function logout() {
+      var _this = this;
+
+      this.$store.dispatch('logout').then(function () {
+        return _this.$router.push('/ProyectoGrupal-IW/public/login');
+      });
+    }
+  },
+  created: function created() {
+    this.$http.interceptors.response.use(undefined, function (err) {
+      return new Promise(function (resolve, reject) {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+          this.$store.dispatch('logout');
+        }
+
+        throw err;
+      });
+    });
   }
 });
 
@@ -2010,16 +2034,21 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password
       };
-      this.$store.dispatch('login', data).then(function () {
-        return _this.$router.push('/');
-      })["catch"](function () {
-        if (_this.email != "") _this.makeToast("El usuario con correo electr\xF3nico ".concat(_this.email, " no existe."));else _this.makeToast("Has de introducir un correo electr\xF3nico v\xE1lido.");
-      });
+
+      if (this.email == "" || this.password == "") {
+        this.makeToast("No puedes dejar campos vac\xEDos.");
+      } else {
+        this.$store.dispatch('login', data).then(function () {
+          return _this.$router.push('/ProyectoGrupal-IW/public/');
+        })["catch"](function () {
+          _this.makeToast("El usuario con correo electr\xF3nico ".concat(_this.email, " no es correcto."));
+        });
+      }
     },
     makeToast: function makeToast(message) {
       this.toastCount++;
       this.$bvToast.toast(message, {
-        title: 'No existe ese usuario',
+        title: 'Error en el inicio de sesión',
         autoHideDelay: 5000,
         variant: 'danger',
         toaster: 'b-toaster-bottom-center'
@@ -2064,26 +2093,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Register',
   data: function data() {
     return {
       name: "",
-      surname: "",
-      username: "",
       email: "",
       password: ""
     };
@@ -2094,13 +2108,11 @@ __webpack_require__.r(__webpack_exports__);
 
       var data = {
         name: this.name,
-        surname: this.surname,
-        username: this.username,
         email: this.email,
         password: this.password
       };
       this.$store.dispatch('register', data).then(function () {
-        return _this.$router.push('/login');
+        return _this.$router.push('/ProyectoGrupal-IW/public/login');
       })["catch"](function (err) {
         return console.log(err);
       });
@@ -35605,12 +35617,11 @@ var render = function() {
                                   "span",
                                   {
                                     staticStyle: {
-                                      color: "white",
                                       "padding-right": "10px",
-                                      "font-size": "16px"
+                                      "font-size": "20px"
                                     }
                                   },
-                                  [_vm._v(_vm._s(_vm.loggedUser.username))]
+                                  [_vm._v(_vm._s(_vm.loggedUser.name))]
                                 )
                               ]
                             },
@@ -35619,7 +35630,7 @@ var render = function() {
                         ],
                         null,
                         false,
-                        2430576554
+                        3736976530
                       )
                     },
                     [
@@ -35952,7 +35963,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Página principal protegida")])
+  return _c("h1", [_vm._v("Página principal")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -36124,84 +36135,26 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "b-form-group",
-                {
-                  staticClass: "mt-3",
-                  attrs: {
-                    label: "Nombre de usuario:",
-                    description: "No puede superar los 15 caracteres"
-                  }
-                },
+                { attrs: { label: "Nombre:", description: "" } },
                 [
                   _c("b-form-input", {
-                    attrs: { name: "username", type: "text" },
+                    attrs: { name: "name", type: "text" },
                     model: {
-                      value: _vm.username,
+                      value: _vm.name,
                       callback: function($$v) {
-                        _vm.username = $$v
+                        _vm.name = $$v
                       },
-                      expression: "username"
+                      expression: "name"
                     }
                   })
                 ],
                 1
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c(
-                  "div",
-                  { staticClass: "col" },
-                  [
-                    _c(
-                      "b-form-group",
-                      { attrs: { label: "Nombre:", description: "" } },
-                      [
-                        _c("b-form-input", {
-                          attrs: { name: "name", type: "text" },
-                          model: {
-                            value: _vm.name,
-                            callback: function($$v) {
-                              _vm.name = $$v
-                            },
-                            expression: "name"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col" },
-                  [
-                    _c(
-                      "b-form-group",
-                      { attrs: { label: "Apellidos:", description: "" } },
-                      [
-                        _c("b-form-input", {
-                          attrs: { name: "surname", type: "text" },
-                          model: {
-                            value: _vm.surname,
-                            callback: function($$v) {
-                              _vm.surname = $$v
-                            },
-                            expression: "surname"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
               _c(
                 "b-form-group",
                 {
-                  staticClass: "mt-3",
+                  staticClass: "mt-4",
                   attrs: { label: "Correo electrónico:", description: "" }
                 },
                 [
@@ -53181,7 +53134,7 @@ var ifNotAuthenticated = function ifNotAuthenticated(to, from, next) {
     return;
   }
 
-  next('/');
+  next('/ProyectoGrupal-IW/public/login');
 };
 
 var ifAuthenticated = function ifAuthenticated(to, from, next) {
@@ -53203,41 +53156,43 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/ProyectoGrupal-IW/public/',
     name: 'home',
-    component: _components_pages_Home__WEBPACK_IMPORTED_MODULE_3__["default"],
-    beforeEnter: ifAuthenticated
+    component: _components_pages_Home__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
     path: '/ProyectoGrupal-IW/public/login',
     name: 'login',
-    component: _components_pages_Login__WEBPACK_IMPORTED_MODULE_4__["default"],
-    beforeEnter: ifNotAuthenticated
+    component: _components_pages_Login__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
     path: '/ProyectoGrupal-IW/public/register',
     name: 'register',
-    component: _components_pages_Register__WEBPACK_IMPORTED_MODULE_5__["default"],
-    beforeEnter: ifNotAuthenticated
-  }]
+    component: _components_pages_Register__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }
+  /*,
+  {
+      path: '/secure',
+      name: 'secure',
+      component: Secure,
+      meta: { 
+        requiresAuth: true
+      }
+  },
+  */
+  ]
+});
+router.beforeEach(function (to, from, next) {
+  if (to.matched.some(function (record) {
+    return record.meta.requiresAuth;
+  })) {
+    if (_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters.isLoggedIn) {
+      next();
+      return;
+    }
+
+    next('/ProyectoGrupal-IW/public/login');
+  } else {
+    next();
+  }
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
-
-/***/ }),
-
-/***/ "./resources/js/store/actions/users_API.js":
-/*!*************************************************!*\
-  !*** ./resources/js/store/actions/users_API.js ***!
-  \*************************************************/
-/*! exports provided: Users_API */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Users_API", function() { return Users_API; });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Users_API = function Users_API(URL) {
-  _classCallCheck(this, Users_API);
-
-  this.URL = URL;
-};
 
 /***/ }),
 
@@ -53283,20 +53238,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/users_API.js */ "./resources/js/store/actions/users_API.js");
- //import jwtDecode from 'jwt-decode'
 
-
-var users_API = new _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__["Users_API"]("http://localhost:81/ProyectoGrupal-IW/public/api/");
+var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/auth/";
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     status: '',
-    token: localStorage.getItem('token') || '',
-    user: JSON.parse(localStorage.getItem('loggedUser')) || {}
+    user: JSON.parse(localStorage.getItem('loggedUser')) || ''
   },
   getters: {
     isLoggedIn: function isLoggedIn(state) {
-      return !!state.token;
+      return !!state.user;
     },
     authStatus: function authStatus(state) {
       return state.status;
@@ -53309,16 +53260,16 @@ var users_API = new _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__["Users_AP
     auth_request: function auth_request(state) {
       state.status = 'loading';
     },
-    auth_success: function auth_success(state, token, user) {
+    auth_success: function auth_success(state, user) {
       state.status = 'success';
-      state.token = token;
+      state.user = user;
     },
     auth_error: function auth_error(state) {
       state.status = 'error';
     },
     logout: function logout(state) {
       state.status = '';
-      state.token = '';
+      state.user = '';
     },
     set_user: function set_user(state, user) {
       state.user = user;
@@ -53330,24 +53281,19 @@ var users_API = new _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__["Users_AP
           dispatch = _ref.dispatch;
       return new Promise(function (resolve, reject) {
         commit('auth_request');
-        /*users_API.login().then(function(datos){
-            return datos
-        })*/
-
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
           url: API_URL + 'login',
           data: user,
           method: 'POST'
         }).then(function (resp) {
-          var token = resp.data;
-          localStorage.setItem('token', token);
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = token;
-          commit('auth_success', token, user);
-          dispatch('setLoggedUser', token);
+          var user = resp.data.user;
+          localStorage.setItem('loggedUser', JSON.stringify(user));
+          axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = "Bearer " + user.api_token;
+          commit('auth_success', user);
           resolve(resp);
         })["catch"](function (err) {
           commit('auth_error');
-          localStorage.removeItem('token');
+          localStorage.removeItem('loggedUser');
           reject(err);
         });
       });
@@ -53357,39 +53303,27 @@ var users_API = new _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__["Users_AP
       return new Promise(function (resolve, reject) {
         commit('auth_request');
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
-          url: API_URL + 'users/',
+          url: API_URL + 'signup',
           data: user,
           method: 'POST'
         }).then(function (resp) {
           resolve(resp);
         })["catch"](function (err) {
           commit('auth_error', err);
-          localStorage.removeItem('token');
+          localStorage.removeItem('loggedUser');
           reject(err);
         });
       });
     },
     logout: function logout(_ref3) {
-      var commit = _ref3.commit;
+      var state = _ref3.state,
+          commit = _ref3.commit;
       return new Promise(function (resolve, reject) {
         commit('logout');
         localStorage.clear();
-        delete axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'];
+        delete axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization']; //axios({url: API_URL + "logout", data: state.user, method: 'POST' })
+
         resolve();
-      });
-    },
-    setLoggedUser: function setLoggedUser(_ref4, token) {
-      var commit = _ref4.commit;
-      return new Promise(function (resolve, reject) {
-        var decoded_token = jwtDecode(token);
-        axios__WEBPACK_IMPORTED_MODULE_0___default()({
-          url: API_URL + decoded_token._id,
-          method: 'GET'
-        }).then(function (resp) {
-          localStorage.setItem('loggedUser', JSON.stringify(resp.data.user));
-          commit('set_user', resp.data.user);
-          resolve(resp);
-        });
       });
     }
   }
