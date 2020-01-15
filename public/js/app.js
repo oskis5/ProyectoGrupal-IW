@@ -1949,6 +1949,17 @@ __webpack_require__.r(__webpack_exports__);
     return {
       tipoPension: 2
     };
+  },
+  methods: {
+    datosState: function datosState() {
+      this.$store.dispatch("buscarHabitacion", this.item.tipo.id);
+      this.$store.dispatch("buscarTipoPension", this.tipoPension);
+
+      if (this.fecha != null) {
+        var fechaForm = new Date(this.fecha);
+        this.$store.dispatch("buscarTemporadas", fechaForm);
+      }
+    }
   }
 });
 
@@ -2227,7 +2238,7 @@ __webpack_require__.r(__webpack_exports__);
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost:8000/api/estancias'));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias'));
 
             case 2:
               res = _context2.sent;
@@ -2237,7 +2248,7 @@ __webpack_require__.r(__webpack_exports__);
             case 5:
               estancias = _context2.sent;
               _context2.next = 8;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost:8000/api/tipoestancias'));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/tipoestancias'));
 
             case 8:
               tipo_res = _context2.sent;
@@ -2309,7 +2320,7 @@ __webpack_require__.r(__webpack_exports__);
               excluidas = [];
               console.log('Buscando reservas...');
               _context3.next = 14;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost:8000/api/reservas'));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/reservas'));
 
             case 14:
               res = _context3.sent;
@@ -2721,7 +2732,11 @@ __webpack_require__.r(__webpack_exports__);
       alertaEstanciaVisible: false,
       alertaReservaVisible: false,
       nombreCollapse: '',
-      alertaSubtmitVisible: false // 'Catering'],
+      alertaSubtmitVisible: false,
+      visibleSuite: false,
+      visibleDoble: false,
+      visibleIndividual: false,
+      visibleConferencia: false // 'Catering'],
 
     };
   },
@@ -2732,7 +2747,8 @@ __webpack_require__.r(__webpack_exports__);
 
       this.form.tipoEstancia = parseInt(this.$route.params.tipoHab); //Tipo reserva
 
-      this.form.tipoReserva = parseInt(this.$route.params.tipoPension); //Mostrar la imagen - no funciona
+      this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
+      this.visibleCollapseDesdeRouter(); //Mostrar la imagen - no funciona
 
       /*this.switchNombreCollapse();
       this.$root.$emit('bv::toggle::collapse', 'collapse-foto-individual');*/
@@ -2768,18 +2784,30 @@ __webpack_require__.r(__webpack_exports__);
       switch (this.form.tipoEstancia) {
         case 1:
           this.nombreCollapse = 'collapse-foto-individual';
+          this.visibleDoble = false;
+          this.visibleSuite = false;
+          this.visibleConferencia = false;
           break;
 
         case 2:
           this.nombreCollapse = 'collapse-foto-doble';
+          this.visibleSuite = false;
+          this.visibleConferencia = false;
+          this.visibleIndividual = false;
           break;
 
         case 3:
           this.nombreCollapse = 'collapse-foto-suite';
+          this.visibleConferencia = false;
+          this.visibleConferencia = false;
+          this.visibleIndividual = false;
           break;
 
         case 4:
           this.nombreCollapse = 'collapse-foto-sala-conferencias';
+          this.visibleSuite = false;
+          this.visibleDoble = false;
+          this.visibleIndividual = false;
           break;
       }
     },
@@ -2797,6 +2825,25 @@ __webpack_require__.r(__webpack_exports__);
         this.$root.$emit('bv::show::modal', 'modal-confirmar', '#btnSubmit');
         /*evt.preventDefault()
         alert(JSON.stringify(this.form))*/
+      }
+    },
+    visibleCollapseDesdeRouter: function visibleCollapseDesdeRouter() {
+      switch (this.form.tipoEstancia) {
+        case 1:
+          this.visibleIndividual = true;
+          break;
+
+        case 2:
+          this.visibleDoble = true;
+          break;
+
+        case 3:
+          this.visibleSuite = true;
+          break;
+
+        case 4:
+          this.visibleConferencia = true;
+          break;
       }
     }
   }
@@ -37167,7 +37214,8 @@ var render = function() {
           {
             staticClass:
               "hab-boton-reserva btn btn-secondary col-12 mt-3 mt-sm-0 col-sm-2",
-            attrs: { type: "button" }
+            attrs: { type: "button" },
+            on: { click: _vm.datosState }
           },
           [
             _c(
@@ -38475,7 +38523,17 @@ var render = function() {
             [
               _c(
                 "b-collapse",
-                { staticClass: "mt-2", attrs: { id: "collapse-foto-suite" } },
+                {
+                  staticClass: "mt-2",
+                  attrs: { id: "collapse-foto-suite" },
+                  model: {
+                    value: _vm.visibleSuite,
+                    callback: function($$v) {
+                      _vm.visibleSuite = $$v
+                    },
+                    expression: "visibleSuite"
+                  }
+                },
                 [
                   _c(
                     "b-card",
@@ -38499,7 +38557,17 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "b-collapse",
-                { staticClass: "mt-2", attrs: { id: "collapse-foto-doble" } },
+                {
+                  staticClass: "mt-2",
+                  attrs: { id: "collapse-foto-doble" },
+                  model: {
+                    value: _vm.visibleDoble,
+                    callback: function($$v) {
+                      _vm.visibleDoble = $$v
+                    },
+                    expression: "visibleDoble"
+                  }
+                },
                 [
                   _c(
                     "b-card",
@@ -38527,7 +38595,14 @@ var render = function() {
                 "b-collapse",
                 {
                   staticClass: "mt-2",
-                  attrs: { id: "collapse-foto-individual" }
+                  attrs: { id: "collapse-foto-individual" },
+                  model: {
+                    value: _vm.visibleIndividual,
+                    callback: function($$v) {
+                      _vm.visibleIndividual = $$v
+                    },
+                    expression: "visibleIndividual"
+                  }
                 },
                 [
                   _c(
@@ -38554,7 +38629,14 @@ var render = function() {
                 "b-collapse",
                 {
                   staticClass: "mt-2",
-                  attrs: { id: "collapse-foto-sala-conferencias" }
+                  attrs: { id: "collapse-foto-sala-conferencias" },
+                  model: {
+                    value: _vm.visibleConferencia,
+                    callback: function($$v) {
+                      _vm.visibleConferencia = $$v
+                    },
+                    expression: "visibleConferencia"
+                  }
                 },
                 [
                   _c(
@@ -55693,8 +55775,7 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
 
               if (fechaInicio >= temporada.f_inicio && fechaInicio <= temporada.f_fin) {
                 context.commit('ponerFechas', temporada);
-                context.commit('incrementarPrecioTemporada', response.data[i].precio_unitario); //console.log(response.data)
-
+                context.commit('incrementarPrecioTemporada', response.data[i].precio_unitario);
                 resolve(response.data);
                 break;
               }
@@ -55708,16 +55789,13 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
     },
     realizarReserva: function realizarReserva(context, datosReserva) {
       console.log(datosReserva);
-      /*return new Promise((resolver,reject)=>{
-          axios({
-              method: 'post',
-              url: API_URL + "temporadas",
-              data : {
-                }
-          })
-          
-            })
-      */
+      return new Promise(function (resolver, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default()({
+          method: 'post',
+          url: API_URL + "temporadas",
+          data: {}
+        });
+      });
     }
   }
 });

@@ -78,28 +78,28 @@
           </b-alert>
       </b-col> 
       <b-col>
-      <b-collapse id="collapse-foto-suite" class="mt-2">
+      <b-collapse id="collapse-foto-suite" class="mt-2" v-model="visibleSuite">
         <b-card img-src="https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$" img-alt="Card image" img-top>
           <p class="card-text">
             Suite!
           </p>
         </b-card>
       </b-collapse>
-      <b-collapse id="collapse-foto-doble" class="mt-2">
+      <b-collapse id="collapse-foto-doble" class="mt-2" v-model="visibleDoble">
         <b-card img-src="https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg" img-alt="Card image" img-top>
           <p class="card-text">
             Habitación para dos personas
           </p>
         </b-card>
       </b-collapse>
-      <b-collapse id="collapse-foto-individual" class="mt-2">
+      <b-collapse id="collapse-foto-individual" class="mt-2" v-model="visibleIndividual">
         <b-card img-src="https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg" img-alt="Card image" img-top>
           <p class="card-text">
              Habitación individual
           </p>
         </b-card>
       </b-collapse>
-      <b-collapse id="collapse-foto-sala-conferencias" class="mt-2">
+      <b-collapse id="collapse-foto-sala-conferencias" class="mt-2" v-model="visibleConferencia">
         <b-card img-src="https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg" img-alt="Card image" img-top>
           <p class="card-text">
             Sala de conferencias para congresos o reuniones!
@@ -135,11 +135,15 @@ export default {
                 alertaEstanciaVisible : false,
                 alertaReservaVisible :  false,
                 nombreCollapse : '',
-                alertaSubtmitVisible : false
+                alertaSubtmitVisible : false,
+                visibleSuite : false,
+                visibleDoble : false,
+                visibleIndividual : false,
+                visibleConferencia : false
                 // 'Catering'],
         }
     },
-    created: function(){
+    created : function(){
       if(this.$route.params){
         //Fecha inicio
         this.form.f_inicio = this.$route.params.fecha;
@@ -147,7 +151,7 @@ export default {
         this.form.tipoEstancia = parseInt(this.$route.params.tipoHab);
         //Tipo reserva
         this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
-
+        this.visibleCollapseDesdeRouter();
         //Mostrar la imagen - no funciona
         /*this.switchNombreCollapse();
         this.$root.$emit('bv::toggle::collapse', 'collapse-foto-individual');*/
@@ -188,15 +192,27 @@ export default {
           switch(this.form.tipoEstancia){
             case 1:
             this.nombreCollapse = 'collapse-foto-individual'
+            this.visibleDoble = false
+            this.visibleSuite = false
+            this.visibleConferencia = false
               break;
             case 2:
             this.nombreCollapse = 'collapse-foto-doble'
+            this.visibleSuite = false
+            this.visibleConferencia = false
+            this.visibleIndividual =  false
               break;
             case 3:
             this.nombreCollapse = 'collapse-foto-suite'
+            this.visibleConferencia = false
+            this.visibleConferencia = false
+            this.visibleIndividual =  false
               break;
             case 4:
             this.nombreCollapse = 'collapse-foto-sala-conferencias'
+            this.visibleSuite = false
+            this.visibleDoble = false
+            this.visibleIndividual =  false
               break;
           }
         },
@@ -217,6 +233,22 @@ export default {
             alert(JSON.stringify(this.form))*/
 
         }
+      },
+      visibleCollapseDesdeRouter(){
+        switch(this.form.tipoEstancia){
+            case 1:
+              this.visibleIndividual =  true
+              break;
+            case 2:
+              this.visibleDoble = true
+              break;
+            case 3:
+              this.visibleSuite = true
+              break;
+            case 4:
+              this.visibleConferencia = true
+              break;
+          }
       }
     }
 }
