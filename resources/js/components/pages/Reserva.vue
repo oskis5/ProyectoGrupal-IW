@@ -196,6 +196,9 @@ export default {
         }else{
             this.alertaSubtmitVisible = false
             this.$root.$emit('bv::show::modal', 'modal-confirmar', '#btnSubmit')
+            this.$store.dispatch("realizarReserva",this.form)
+                    .then(resp =>{
+                    })
             /*evt.preventDefault()
             alert(JSON.stringify(this.form))*/
 

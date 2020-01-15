@@ -2341,6 +2341,7 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.alertaSubtmitVisible = false;
         this.$root.$emit('bv::show::modal', 'modal-confirmar', '#btnSubmit');
+        this.$store.dispatch("realizarReserva", this.form).then(function (resp) {});
         /*evt.preventDefault()
         alert(JSON.stringify(this.form))*/
       }
