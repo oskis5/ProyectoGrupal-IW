@@ -1867,6 +1867,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'app',
@@ -1876,7 +1877,30 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     isLoggedIn: function isLoggedIn() {
       return this.$store.getters.isLoggedIn;
+    },
+    loggedUser: function loggedUser() {
+      return this.$store.getters.loggedUser;
     }
+  },
+  methods: {
+    logout: function logout() {
+      var _this = this;
+
+      this.$store.dispatch('logout').then(function () {
+        return _this.$router.push('/ProyectoGrupal-IW/public/login');
+      });
+    }
+  },
+  created: function created() {
+    this.$http.interceptors.response.use(undefined, function (err) {
+      return new Promise(function (resolve, reject) {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+          this.$store.dispatch('logout');
+        }
+
+        throw err;
+      });
+    });
   }
 });
 
@@ -2166,16 +2190,21 @@ __webpack_require__.r(__webpack_exports__);
         email: this.email,
         password: this.password
       };
-      this.$store.dispatch('login', data).then(function () {
-        return _this.$router.push('/');
-      })["catch"](function () {
-        if (_this.email != "") _this.makeToast("El usuario con correo electr\xF3nico ".concat(_this.email, " no existe."));else _this.makeToast("Has de introducir un correo electr\xF3nico v\xE1lido.");
-      });
+
+      if (this.email == "" || this.password == "") {
+        this.makeToast("No puedes dejar campos vac\xEDos.");
+      } else {
+        this.$store.dispatch('login', data).then(function () {
+          return _this.$router.push('/ProyectoGrupal-IW/public/');
+        })["catch"](function () {
+          _this.makeToast("El usuario con correo electr\xF3nico ".concat(_this.email, " no es correcto."));
+        });
+      }
     },
     makeToast: function makeToast(message) {
       this.toastCount++;
       this.$bvToast.toast(message, {
-        title: 'No existe ese usuario',
+        title: 'Error en el inicio de sesión',
         autoHideDelay: 5000,
         variant: 'danger',
         toaster: 'b-toaster-bottom-center'
@@ -2220,6 +2249,137 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Register',
+  data: function data() {
+    return {
+      name: "",
+      email: "",
+      password: ""
+    };
+  },
+  methods: {
+    register: function register() {
+      var _this = this;
+
+      var data = {
+        name: this.name,
+        email: this.email,
+        password: this.password
+      };
+      this.$store.dispatch('register', data).then(function () {
+        return _this.$router.push('/ProyectoGrupal-IW/public/login');
+      })["catch"](function (err) {
+        return console.log(err);
+      });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Reserva.vue?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Reserva.vue?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2234,32 +2394,107 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: 'Register',
+  name: 'Reserva',
   data: function data() {
     return {
-      name: "",
-      surname: "",
-      username: "",
-      email: "",
-      password: ""
+      form: {
+        f_inicio: '',
+        f_fin: '',
+        tipoEstancia: null,
+        tipoReserva: null
+      },
+      tipoEstancias: [{
+        text: 'Selecciona tipo de estancia',
+        value: null
+      }, {
+        text: 'Habitación simple',
+        value: 1
+      }, {
+        text: 'Habitación doble',
+        value: 2
+      }, {
+        text: 'Suite',
+        value: 3
+      }, {
+        text: 'Sala reuniones',
+        value: 4
+      }],
+      tipoReservas: [{
+        text: 'Selecciona tipo de pensión',
+        value: null
+      }, {
+        text: 'Solo estancia',
+        value: 1
+      }, {
+        text: 'Desayuno incluido',
+        value: 2
+      }, {
+        text: 'Media pensión',
+        value: 3
+      }, {
+        text: 'Pensión completa',
+        value: 4
+      }],
+      alertaEstanciaVisible: false,
+      alertaReservaVisible: false,
+      nombreCollapse: '' // 'Catering'],
+
     };
   },
+  computed: {
+    precio: function precio() {
+      return this.$store.state.reserva.precioReserva + this.$store.state.reserva.precioReservaPension + this.$store.state.reserva.temporada.precioTemporada;
+    }
+  },
   methods: {
-    register: function register() {
-      var _this = this;
+    calcularTotal: function calcularTotal(event) {
+      console.log(this.nombreCollapse);
 
-      var data = {
-        name: this.name,
-        surname: this.surname,
-        username: this.username,
-        email: this.email,
-        password: this.password
+      if (event == "tipo-estancia") {
+        this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
+
+        if (this.form.tipoEstancia == null) {
+          this.alertaEstanciaVisible = true;
+        } else {
+          switch (this.form.tipoEstancia) {
+            case 1:
+              this.nombreCollapse = 'collapse-foto-individual';
+              break;
+
+            case 2:
+              this.nombreCollapse = 'collapse-foto-doble';
+              break;
+
+            case 3:
+              this.nombreCollapse = 'collapse-foto-suite';
+              break;
+
+            case 4:
+              this.nombreCollapse = 'collapse-foto-sala-conferencias';
+              break;
+          }
+
+          this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
+          this.alertaEstanciaVisible = false;
+          this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {});
+        }
+      } else if (event == "tipo-reserva") {
+        if (this.form.tipoReserva == null) {
+          this.alertaReservaVisible = true;
+        } else {
+          this.alertaReservaVisible = false;
+          this.$store.dispatch("buscarTipoPension", this.form.tipoReserva).then(function (resp) {});
+        }
+      }
+    },
+    calcularTemporada: function calcularTemporada() {
+      //Solo vamos a fijarnos en la fecha de inicio para la temporada
+      var fechaForm = new Date(this.form.f_inicio);
+      var fecha = {
+        mes: fechaForm.getMonth(),
+        dia: fechaForm.getDay()
       };
-      this.$store.dispatch('register', data).then(function () {
-        return _this.$router.push('/login');
-      })["catch"](function (err) {
-        return console.log(err);
-      });
+      this.$store.dispatch("buscarTemporadas", fecha).then(function (resp) {});
     }
   }
 });
@@ -35538,12 +35773,11 @@ var render = function() {
                                   "span",
                                   {
                                     staticStyle: {
-                                      color: "white",
                                       "padding-right": "10px",
-                                      "font-size": "16px"
+                                      "font-size": "20px"
                                     }
                                   },
-                                  [_vm._v(_vm._s(_vm.loggedUser.username))]
+                                  [_vm._v(_vm._s(_vm.loggedUser.name))]
                                 )
                               ]
                             },
@@ -35552,7 +35786,7 @@ var render = function() {
                         ],
                         null,
                         false,
-                        2430576554
+                        3736976530
                       )
                     },
                     [
@@ -35885,7 +36119,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("h1", [_vm._v("Página principal protegida")])
+  return _c("h1", [_vm._v("Página principal")])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -36306,84 +36540,26 @@ var render = function() {
               _vm._v(" "),
               _c(
                 "b-form-group",
-                {
-                  staticClass: "mt-3",
-                  attrs: {
-                    label: "Nombre de usuario:",
-                    description: "No puede superar los 15 caracteres"
-                  }
-                },
+                { attrs: { label: "Nombre:", description: "" } },
                 [
                   _c("b-form-input", {
-                    attrs: { name: "username", type: "text" },
+                    attrs: { name: "name", type: "text" },
                     model: {
-                      value: _vm.username,
+                      value: _vm.name,
                       callback: function($$v) {
-                        _vm.username = $$v
+                        _vm.name = $$v
                       },
-                      expression: "username"
+                      expression: "name"
                     }
                   })
                 ],
                 1
               ),
               _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
-                _c(
-                  "div",
-                  { staticClass: "col" },
-                  [
-                    _c(
-                      "b-form-group",
-                      { attrs: { label: "Nombre:", description: "" } },
-                      [
-                        _c("b-form-input", {
-                          attrs: { name: "name", type: "text" },
-                          model: {
-                            value: _vm.name,
-                            callback: function($$v) {
-                              _vm.name = $$v
-                            },
-                            expression: "name"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  { staticClass: "col" },
-                  [
-                    _c(
-                      "b-form-group",
-                      { attrs: { label: "Apellidos:", description: "" } },
-                      [
-                        _c("b-form-input", {
-                          attrs: { name: "surname", type: "text" },
-                          model: {
-                            value: _vm.surname,
-                            callback: function($$v) {
-                              _vm.surname = $$v
-                            },
-                            expression: "surname"
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  ],
-                  1
-                )
-              ]),
-              _vm._v(" "),
               _c(
                 "b-form-group",
                 {
-                  staticClass: "mt-3",
+                  staticClass: "mt-4",
                   attrs: { label: "Correo electrónico:", description: "" }
                 },
                 [
@@ -36458,6 +36634,302 @@ var render = function() {
         ],
         1
       )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Reserva.vue?vue&type=template&id=be238adc&":
+/*!****************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Reserva.vue?vue&type=template&id=be238adc& ***!
+  \****************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "b-container",
+    { staticStyle: { "text-align": "left" }, attrs: { fluid: "" } },
+    [
+      _c(
+        "b-form-group",
+        {
+          attrs: {
+            id: "tipo-estancia",
+            label: "Tipo estancia",
+            "label-for": "tipo-estancia"
+          }
+        },
+        [
+          _c("b-form-select", {
+            directives: [
+              {
+                name: "b-toggle",
+                rawName: "v-b-toggle.collapse-foto",
+                modifiers: { "collapse-foto": true }
+              }
+            ],
+            attrs: {
+              id: "tipo-estancia",
+              options: _vm.tipoEstancias,
+              required: ""
+            },
+            on: {
+              change: function($event) {
+                return _vm.calcularTotal("tipo-estancia")
+              }
+            },
+            model: {
+              value: _vm.form.tipoEstancia,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "tipoEstancia", $$v)
+              },
+              expression: "form.tipoEstancia"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "b-alert",
+            {
+              attrs: { variant: "danger", dismissible: "" },
+              model: {
+                value: _vm.alertaEstanciaVisible,
+                callback: function($$v) {
+                  _vm.alertaEstanciaVisible = $$v
+                },
+                expression: "alertaEstanciaVisible"
+              }
+            },
+            [_vm._v("\n        ¡Seleccione una opción correcta!\n      ")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-form-group",
+        {
+          attrs: {
+            id: "tipo-reserva",
+            label: "Tipo de pensión",
+            "label-for": "tipo-reserva"
+          }
+        },
+        [
+          _c("b-form-select", {
+            attrs: {
+              id: "tipo-reserva",
+              options: _vm.tipoReservas,
+              required: ""
+            },
+            on: {
+              change: function($event) {
+                return _vm.calcularTotal("tipo-reserva")
+              }
+            },
+            model: {
+              value: _vm.form.tipoReserva,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "tipoReserva", $$v)
+              },
+              expression: "form.tipoReserva"
+            }
+          }),
+          _vm._v(" "),
+          _c(
+            "b-alert",
+            {
+              attrs: { variant: "danger", dismissible: "" },
+              model: {
+                value: _vm.alertaReservaVisible,
+                callback: function($$v) {
+                  _vm.alertaReservaVisible = $$v
+                },
+                expression: "alertaReservaVisible"
+              }
+            },
+            [_vm._v("\n        ¡Seleccione una opción correcta!\n      ")]
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-form-group",
+        {
+          attrs: {
+            id: "f-inicio",
+            label: "Fecha inicio:",
+            "label-for": "f-inicio"
+          }
+        },
+        [
+          _c("b-form-input", {
+            attrs: {
+              id: "f-inicio",
+              required: "",
+              type: "date",
+              placeholder: "Seleccione fecha inicio"
+            },
+            on: {
+              change: function($event) {
+                return _vm.calcularTemporada()
+              }
+            },
+            model: {
+              value: _vm.form.f_inicio,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "f_inicio", $$v)
+              },
+              expression: "form.f_inicio"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-form-group",
+        {
+          attrs: {
+            id: "f-final",
+            label: "Fecha final:",
+            "label-for": "f-final"
+          }
+        },
+        [
+          _c("b-form-input", {
+            attrs: {
+              id: "f-final",
+              required: "",
+              type: "date",
+              placeholder: "Seleccione fecha fin"
+            },
+            model: {
+              value: _vm.form.f_fin,
+              callback: function($$v) {
+                _vm.$set(_vm.form, "f_fin", $$v)
+              },
+              expression: "form.f_fin"
+            }
+          })
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "H5",
+        { attrs: { value: _vm.precio }, on: { input: _vm.calcularTotal } },
+        [_vm._v("Valor total reserva ")]
+      ),
+      _vm._v(" "),
+      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
+      _vm._v(" "),
+      _c(
+        "row",
+        [
+          _c(
+            "b-collapse",
+            { staticClass: "mt-2", attrs: { id: "collapse-foto-suite" } },
+            [
+              _c(
+                "b-card",
+                {
+                  attrs: {
+                    "img-src":
+                      "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$",
+                    "img-alt": "Card image",
+                    "img-top": ""
+                  }
+                },
+                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-collapse",
+            { staticClass: "mt-2", attrs: { id: "collapse-foto-doble" } },
+            [
+              _c(
+                "b-card",
+                {
+                  attrs: {
+                    "img-src":
+                      "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
+                    "img-alt": "Card image",
+                    "img-top": ""
+                  }
+                },
+                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-collapse",
+            { staticClass: "mt-2", attrs: { id: "collapse-foto-individual" } },
+            [
+              _c(
+                "b-card",
+                {
+                  attrs: {
+                    "img-src":
+                      "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
+                    "img-alt": "Card image",
+                    "img-top": ""
+                  }
+                },
+                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+              )
+            ],
+            1
+          ),
+          _vm._v(" "),
+          _c(
+            "b-collapse",
+            {
+              staticClass: "mt-2",
+              attrs: { id: "collapse-foto-sala-conferencias" }
+            },
+            [
+              _c(
+                "b-card",
+                {
+                  attrs: {
+                    "img-src":
+                      "https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg",
+                    "img-alt": "Card image",
+                    "img-top": ""
+                  }
+                },
+                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c("b-button", { attrs: { variant: "outline-primary" } }, [
+        _vm._v("Confirmar reserva")
+      ])
     ],
     1
   )
@@ -53035,6 +53507,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/pages/Reserva.vue":
+/*!***************************************************!*\
+  !*** ./resources/js/components/pages/Reserva.vue ***!
+  \***************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Reserva_vue_vue_type_template_id_be238adc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Reserva.vue?vue&type=template&id=be238adc& */ "./resources/js/components/pages/Reserva.vue?vue&type=template&id=be238adc&");
+/* harmony import */ var _Reserva_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Reserva.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/Reserva.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Reserva_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Reserva_vue_vue_type_template_id_be238adc___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Reserva_vue_vue_type_template_id_be238adc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/pages/Reserva.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Reserva.vue?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./resources/js/components/pages/Reserva.vue?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Reserva_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Reserva.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Reserva.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Reserva_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Reserva.vue?vue&type=template&id=be238adc&":
+/*!**********************************************************************************!*\
+  !*** ./resources/js/components/pages/Reserva.vue?vue&type=template&id=be238adc& ***!
+  \**********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Reserva_vue_vue_type_template_id_be238adc___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Reserva.vue?vue&type=template&id=be238adc& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Reserva.vue?vue&type=template&id=be238adc&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Reserva_vue_vue_type_template_id_be238adc___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Reserva_vue_vue_type_template_id_be238adc___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/routes.js":
 /*!********************************!*\
   !*** ./resources/js/routes.js ***!
@@ -53052,6 +53593,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/Login */ "./resources/js/components/pages/Login.vue");
 /* harmony import */ var _components_pages_Register__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/Register */ "./resources/js/components/pages/Register.vue");
 /* harmony import */ var _components_pages_ListaClientes__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/ListaClientes */ "./resources/js/components/pages/ListaClientes.vue");
+/* harmony import */ var _components_pages_Reserva__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/Reserva */ "./resources/js/components/pages/Reserva.vue");
+
 
 
 
@@ -53067,7 +53610,7 @@ var ifNotAuthenticated = function ifNotAuthenticated(to, from, next) {
     return;
   }
 
-  next('/');
+  next('/ProyectoGrupal-IW/public/login');
 };
 
 var ifAuthenticated = function ifAuthenticated(to, from, next) {
@@ -53082,48 +53625,54 @@ var ifAuthenticated = function ifAuthenticated(to, from, next) {
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: [{
+    path: '/ProyectoGrupal-IW/public/reservas',
+    name: 'reservas',
+    component: _components_pages_Reserva__WEBPACK_IMPORTED_MODULE_7__["default"],
+    beforeEnter: ifNotAuthenticated
+  }, {
     path: '/ProyectoGrupal-IW/public/',
     name: 'home',
-    component: _components_pages_Home__WEBPACK_IMPORTED_MODULE_3__["default"],
-    beforeEnter: ifAuthenticated
+    component: _components_pages_Home__WEBPACK_IMPORTED_MODULE_3__["default"]
   }, {
     path: '/ProyectoGrupal-IW/public/login',
     name: 'login',
-    component: _components_pages_Login__WEBPACK_IMPORTED_MODULE_4__["default"],
-    beforeEnter: ifNotAuthenticated
+    component: _components_pages_Login__WEBPACK_IMPORTED_MODULE_4__["default"]
   }, {
     path: '/ProyectoGrupal-IW/public/register',
     name: 'register',
-    component: _components_pages_Register__WEBPACK_IMPORTED_MODULE_5__["default"],
-    beforeEnter: ifNotAuthenticated
+    component: _components_pages_Register__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
     path: '/ProyectoGrupal-IW/public/listaClientes',
     name: 'listaClientes',
-    component: _components_pages_ListaClientes__WEBPACK_IMPORTED_MODULE_6__["default"],
-    beforeEnter: ifNotAuthenticated
-  }]
+    component: _components_pages_ListaClientes__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }
+  /*,
+  {
+      path: '/secure',
+      name: 'secure',
+      component: Secure,
+      meta: { 
+        requiresAuth: true
+      }
+  },
+  */
+  ]
+});
+router.beforeEach(function (to, from, next) {
+  if (to.matched.some(function (record) {
+    return record.meta.requiresAuth;
+  })) {
+    if (_store__WEBPACK_IMPORTED_MODULE_2__["default"].getters.isLoggedIn) {
+      next();
+      return;
+    }
+
+    next('/ProyectoGrupal-IW/public/login');
+  } else {
+    next();
+  }
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
-
-/***/ }),
-
-/***/ "./resources/js/store/actions/users_API.js":
-/*!*************************************************!*\
-  !*** ./resources/js/store/actions/users_API.js ***!
-  \*************************************************/
-/*! exports provided: Users_API */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "Users_API", function() { return Users_API; });
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-var Users_API = function Users_API(URL) {
-  _classCallCheck(this, Users_API);
-
-  this.URL = URL;
-};
 
 /***/ }),
 
@@ -53140,6 +53689,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 /* harmony import */ var _modules_auth__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/auth */ "./resources/js/store/modules/auth.js");
+/* harmony import */ var _modules_reserva__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/reserva */ "./resources/js/store/modules/reserva.js");
+
 
 
 
@@ -53149,7 +53700,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
   mutations: {},
   actions: {},
   modules: {
-    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_2__["default"]
+    auth: _modules_auth__WEBPACK_IMPORTED_MODULE_2__["default"],
+    reserva: _modules_reserva__WEBPACK_IMPORTED_MODULE_3__["default"]
   }
 }));
 
@@ -53166,20 +53718,16 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../actions/users_API.js */ "./resources/js/store/actions/users_API.js");
- //import jwtDecode from 'jwt-decode'
 
-
-var users_API = new _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__["Users_API"]("http://localhost:81/ProyectoGrupal-IW/public/api/");
+var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/auth/";
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     status: '',
-    token: localStorage.getItem('token') || '',
-    user: JSON.parse(localStorage.getItem('loggedUser')) || {}
+    user: JSON.parse(localStorage.getItem('loggedUser')) || ''
   },
   getters: {
     isLoggedIn: function isLoggedIn(state) {
-      return !!state.token;
+      return !!state.user;
     },
     authStatus: function authStatus(state) {
       return state.status;
@@ -53192,16 +53740,16 @@ var users_API = new _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__["Users_AP
     auth_request: function auth_request(state) {
       state.status = 'loading';
     },
-    auth_success: function auth_success(state, token, user) {
+    auth_success: function auth_success(state, user) {
       state.status = 'success';
-      state.token = token;
+      state.user = user;
     },
     auth_error: function auth_error(state) {
       state.status = 'error';
     },
     logout: function logout(state) {
       state.status = '';
-      state.token = '';
+      state.user = '';
     },
     set_user: function set_user(state, user) {
       state.user = user;
@@ -53213,24 +53761,19 @@ var users_API = new _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__["Users_AP
           dispatch = _ref.dispatch;
       return new Promise(function (resolve, reject) {
         commit('auth_request');
-        /*users_API.login().then(function(datos){
-            return datos
-        })*/
-
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
           url: API_URL + 'login',
           data: user,
           method: 'POST'
         }).then(function (resp) {
-          var token = resp.data;
-          localStorage.setItem('token', token);
-          axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = token;
-          commit('auth_success', token, user);
-          dispatch('setLoggedUser', token);
+          var user = resp.data.user;
+          localStorage.setItem('loggedUser', JSON.stringify(user));
+          axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'] = "Bearer " + user.api_token;
+          commit('auth_success', user);
           resolve(resp);
         })["catch"](function (err) {
           commit('auth_error');
-          localStorage.removeItem('token');
+          localStorage.removeItem('loggedUser');
           reject(err);
         });
       });
@@ -53240,38 +53783,124 @@ var users_API = new _actions_users_API_js__WEBPACK_IMPORTED_MODULE_1__["Users_AP
       return new Promise(function (resolve, reject) {
         commit('auth_request');
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
-          url: API_URL + 'users/',
+          url: API_URL + 'signup',
           data: user,
           method: 'POST'
         }).then(function (resp) {
           resolve(resp);
         })["catch"](function (err) {
           commit('auth_error', err);
-          localStorage.removeItem('token');
+          localStorage.removeItem('loggedUser');
           reject(err);
         });
       });
     },
     logout: function logout(_ref3) {
-      var commit = _ref3.commit;
+      var state = _ref3.state,
+          commit = _ref3.commit;
       return new Promise(function (resolve, reject) {
         commit('logout');
         localStorage.clear();
-        delete axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization'];
+        delete axios__WEBPACK_IMPORTED_MODULE_0___default.a.defaults.headers.common['Authorization']; //axios({url: API_URL + "logout", data: state.user, method: 'POST' })
+
         resolve();
       });
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./resources/js/store/modules/reserva.js":
+/*!***********************************************!*\
+  !*** ./resources/js/store/modules/reserva.js ***!
+  \***********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
+/* harmony default export */ __webpack_exports__["default"] = ({
+  state: {
+    status: '',
+    datosReserva: [],
+    precioReserva: 0,
+    precioReservaPension: 0,
+    temporada: {
+      fecha_incio: "",
+      fecha_fin: "",
+      precioTemporada: 0
+    }
+  },
+  mutations: {
+    incrementarPrecio: function incrementarPrecio(state, valor) {
+      state.precioReserva = valor;
     },
-    setLoggedUser: function setLoggedUser(_ref4, token) {
-      var commit = _ref4.commit;
+    incrementarPrecioPension: function incrementarPrecioPension(state, valor) {
+      state.precioReservaPension = valor;
+    },
+    incrementarPrecioTemporada: function incrementarPrecioTemporada(state, valor) {
+      console.log("pone valor");
+      state.temporada.precioTemporada = valor;
+    },
+    ponerFechas: function ponerFechas(state, fechas) {
+      console.log("pone fechas");
+      state.temporada.fecha_incio = fechas.f_incio;
+      state.temporada.fecha_fin = fechas.f_fin;
+    }
+  },
+  actions: {
+    buscarHabitacion: function buscarHabitacion(context, idTipoHabitacion) {
       return new Promise(function (resolve, reject) {
-        var decoded_token = jwtDecode(token);
-        axios__WEBPACK_IMPORTED_MODULE_0___default()({
-          url: API_URL + decoded_token._id,
-          method: 'GET'
-        }).then(function (resp) {
-          localStorage.setItem('loggedUser', JSON.stringify(resp.data.user));
-          commit('set_user', resp.data.user);
-          resolve(resp);
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "tipoestancias/" + idTipoHabitacion).then(function (response) {
+          if (response.status == 200) {
+            context.commit('incrementarPrecio', response.data.precio_tipo);
+            resolve(response.data);
+          }
+        })["catch"](function (exception) {
+          console.log("error " + exception);
+          reject(exception);
+        });
+      });
+    },
+    buscarTipoPension: function buscarTipoPension(context, idTipoReserva) {
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "tiporeservas/" + idTipoReserva).then(function (response) {
+          if (response.status == 200) {
+            context.commit('incrementarPrecioPension', response.data.precio);
+            resolve(response.data);
+          }
+        })["catch"](function (exception) {
+          console.log("error " + exception);
+          reject(exception);
+        });
+      });
+    },
+    buscarTemporadas: function buscarTemporadas(context, fechaInicio) {
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "temporadas").then(function (response) {
+          if (response.status == 200) {
+            for (var i = 0; i < response.data.length; i++) {
+              var temporada = {
+                f_inicio: new Date(response.data[i].fecha_inicio),
+                f_fin: new Date(response.data[i].fecha_fin)
+              };
+
+              if (fechaInicio.mes >= temporada.f_inicio.getMonth() && fechaInicio.mes <= temporada.f_fin.getMonth()) {
+                context.commit('ponerFechas', temporada);
+                context.commit('incrementarPrecioTemporada', response.data[i].precio_unitario);
+                resolve(response.data);
+                break;
+              }
+            }
+          }
+        })["catch"](function (exception) {
+          console.log("error " + exception);
+          reject(exception);
         });
       });
     }

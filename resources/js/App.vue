@@ -1,15 +1,16 @@
+<script src="http://localhost:8098"></script>
+
 <template>
   <div id="app">
-    
     <b-navbar toggleable="lg" type="light" variant="light" class="py-0">
       <router-link class="navbar-brand my-0" :to="{name: 'home'}">
         <img alt="Vue logo" :src="'images/logo-h.png'" class="img-fluid" style="height: 70px">
       </router-link>
-
+      
       <b-navbar-nav class="ml-auto">
         <b-nav-item-dropdown v-if="isLoggedIn" right>
           <template v-slot:button-content>
-            <span style="color: white; padding-right: 10px; font-size: 16px">{{loggedUser.username}}</span>
+            <span style="padding-right: 10px; font-size: 20px">{{loggedUser.name}}</span>
           </template>
           <b-dropdown-item href="#">Mi perfil</b-dropdown-item>
           <b-dropdown-item v-on:click="logout()">Cerrar sesión</b-dropdown-item>
@@ -34,8 +35,25 @@ export default {
     HelloWorld,
   },
   computed : {
-    isLoggedIn : function(){ return this.$store.getters.isLoggedIn }
+    isLoggedIn : function(){ return this.$store.getters.isLoggedIn },
+    loggedUser : function(){ return this.$store.getters.loggedUser }
   },
+  methods: {
+      logout: function () { 
+          this.$store.dispatch('logout')
+          .then(() => this.$router.push('/ProyectoGrupal-IW/public/login'))
+      }
+  },
+  created: function () {
+    this.$http.interceptors.response.use(undefined, function (err) {
+      return new Promise(function (resolve, reject) {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+          this.$store.dispatch('logout')
+        }
+        throw err;
+      });
+    });
+  }
 }
 </script>
 
