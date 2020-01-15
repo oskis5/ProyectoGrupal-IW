@@ -2599,6 +2599,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2732,12 +2739,13 @@ __webpack_require__.r(__webpack_exports__);
         this.alertaSubtmitVisible = true;
       } else {
         this.alertaSubtmitVisible = false;
-        this.$root.$emit('bv::show::modal', 'modal-confirmar', '#btnSubmit');
-        this.$store.dispatch("realizarReserva", this.form).then(function (resp) {});
-        /*evt.preventDefault()
-        alert(JSON.stringify(this.form))*/
+        this.$refs['modal-confirmar'].show();
       }
     },
+    confirmReserva: function confirmReserva() {
+      this.$store.dispatch("realizarReserva", this.form).then(function (resp) {});
+    },
+    hideModal: function hideModal() {},
     visibleCollapseDesdeRouter: function visibleCollapseDesdeRouter() {
       switch (this.form.tipoEstancia) {
         case 1:
@@ -38069,7 +38077,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          ¡Seleccione una opción correcta!\n        "
+                        "\n            ¡Seleccione una opción correcta!\n          "
                       )
                     ]
                   )
@@ -38121,7 +38129,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          ¡Seleccione una opción correcta!\n        "
+                        "\n            ¡Seleccione una opción correcta!\n          "
                       )
                     ]
                   )
@@ -38225,7 +38233,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n            ¡Debe seleccionar todos los campos!\n        "
+                    "\n              ¡Debe seleccionar todos los campos!\n          "
                   )
                 ]
               )
@@ -38262,7 +38270,7 @@ var render = function() {
                     },
                     [
                       _c("p", { staticClass: "card-text" }, [
-                        _vm._v("\n          Suite!\n        ")
+                        _vm._v("\n            Suite!\n          ")
                       ])
                     ]
                   )
@@ -38297,7 +38305,7 @@ var render = function() {
                     [
                       _c("p", { staticClass: "card-text" }, [
                         _vm._v(
-                          "\n          Habitación para dos personas\n        "
+                          "\n            Habitación para dos personas\n          "
                         )
                       ])
                     ]
@@ -38332,7 +38340,9 @@ var render = function() {
                     },
                     [
                       _c("p", { staticClass: "card-text" }, [
-                        _vm._v("\n           Habitación individual\n        ")
+                        _vm._v(
+                          "\n            Habitación individual\n          "
+                        )
                       ])
                     ]
                   )
@@ -38367,7 +38377,7 @@ var render = function() {
                     [
                       _c("p", { staticClass: "card-text" }, [
                         _vm._v(
-                          "\n          Sala de conferencias para congresos o reuniones!\n        "
+                          "\n            Sala de conferencias para congresos o reuniones!\n          "
                         )
                       ])
                     ]
@@ -38383,9 +38393,47 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "b-modal",
-        { attrs: { id: "modal-confirmar", size: "lg", title: "Large Modal" } },
-        [_vm._v("VAMOS A CONFIRMAR DATOS!")]
+        "div",
+        [
+          _c(
+            "b-modal",
+            {
+              ref: "modal-confirmar",
+              attrs: {
+                size: "xl",
+                "hide-footer": "",
+                title: "¿Confirmar datos?"
+              }
+            },
+            [
+              _c("div", { staticClass: "d-block text-center" }, [
+                _c("h3", [_vm._v("Confirme o decline")])
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  staticClass: "mt-3",
+                  attrs: { variant: "success", block: "" },
+                  on: { click: _vm.confirmReserva }
+                },
+                [_vm._v("Confimar")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  staticClass: "mt-2",
+                  attrs: { variant: "danger", block: "" },
+                  on: { click: _vm.hideModal }
+                },
+                [_vm._v("No confirmar")]
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1
@@ -55409,13 +55457,13 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     status: '',
-    datosReserva: '',
     precioReserva: 0,
     precioReservaPension: 0,
     temporada: {
-      fecha_incio: "",
+      fecha_inicio: "",
       fecha_fin: "",
-      precioTemporada: 0
+      precioTemporada: 0,
+      temporadaId: 0
     }
   },
   mutations: {
@@ -55428,8 +55476,11 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
     incrementarPrecioTemporada: function incrementarPrecioTemporada(state, valor) {
       state.temporada.precioTemporada = valor;
     },
+    ponerIdTemporada: function ponerIdTemporada(state, id) {
+      state.temporada.temporadaId = id;
+    },
     ponerFechas: function ponerFechas(state, fechas) {
-      state.temporada.fecha_incio = fechas.f_incio;
+      state.temporada.fecha_inicio = fechas.f_incio;
       state.temporada.fecha_fin = fechas.f_fin;
     }
   },
@@ -55473,6 +55524,7 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
               if (fechaInicio >= temporada.f_inicio && fechaInicio <= temporada.f_fin) {
                 context.commit('ponerFechas', temporada);
                 context.commit('incrementarPrecioTemporada', response.data[i].precio_unitario);
+                context.commit('ponerIdTemporada', response.data[i].id);
                 resolve(response.data);
                 break;
               }
@@ -55484,13 +55536,27 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
         });
       });
     },
-    realizarReserva: function realizarReserva(context, datosReserva) {
-      console.log(datosReserva);
-      return new Promise(function (resolver, reject) {
+    realizarReserva: function realizarReserva(_ref, datosReserva) {
+      var state = _ref.state,
+          context = _ref.context;
+      console.log(datosReserva.f_inicio);
+      console.log(state.temporada.temporadaId);
+      console.log(state.temporada.precioReserva + state.temporada.precioReservaPension + state.tem);
+      return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
-          method: 'post',
-          url: API_URL + "temporadas",
-          data: {}
+          method: 'POST',
+          url: API_URL + "reservas",
+          data: {
+            estancia_id: datosReserva.tipoEstancia,
+            cliente_id: 1,
+            tipo_id: datosReserva.tipoEstancia,
+            temporada_id: state.temporada.temporadaId,
+            f_entrada: datosReserva.f_inicio,
+            f_salida: datosReserva.f_fin,
+            precio_total: state.precioReserva + state.precioReservaPension + state.temporada.precioTemporada
+          }
+        }).then(function (resp) {
+          console.log(resp);
         });
       });
     }

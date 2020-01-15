@@ -5,10 +5,9 @@ const API_URL= "http://localhost/ProyectoGrupal-IW/public/api/";
 export default {
     state: {
         status : '',
-        datosReserva: '',
         precioReserva: 0,
         precioReservaPension: 0,
-        temporada : {fecha_incio: "" , fecha_fin : "" , precioTemporada: 0}
+        temporada : {fecha_inicio: "" , fecha_fin : "" , precioTemporada: 0 , temporadaId: 0}
     },
     mutations:
     {
@@ -21,8 +20,11 @@ export default {
         incrementarPrecioTemporada(state,valor){
             state.temporada.precioTemporada = valor;
         },
+        ponerIdTemporada(state,id){
+            state.temporada.temporadaId = id;
+        },
         ponerFechas(state,fechas){
-            state.temporada.fecha_incio = fechas.f_incio;
+            state.temporada.fecha_inicio = fechas.f_incio;
             state.temporada.fecha_fin = fechas.f_fin;
         }
     },
@@ -68,6 +70,7 @@ export default {
                                 if(fechaInicio >= temporada.f_inicio && fechaInicio <= temporada.f_fin){
                                     context.commit('ponerFechas', temporada)
                                     context.commit('incrementarPrecioTemporada',response.data[i].precio_unitario)
+                                    context.commit('ponerIdTemporada', response.data[i].id)
                                     resolve(response.data)
                                     break;
                                 }
@@ -80,20 +83,27 @@ export default {
                 })
             })
         },
-        realizarReserva(context,datosReserva){
-            console.log(datosReserva);
-            return new Promise((resolver,reject)=>{
+        realizarReserva({state,context},datosReserva){
+            console.log(datosReserva.f_inicio);
+            console.log(state.temporada.temporadaId)
+            console.log(state.temporada.precioReserva + state.temporada.precioReservaPension + state.tem)
+            return new Promise((resolve,reject)=>{
                 axios({
-                    method: 'post',
-                    url: API_URL + "temporadas",
+                    method: 'POST',
+                    url: API_URL + "reservas",
                     data : {
-
+                        estancia_id: datosReserva.tipoEstancia,
+                        cliente_id : 1,
+                        tipo_id : datosReserva.tipoEstancia,
+                        temporada_id: state.temporada.temporadaId,
+                        f_entrada: datosReserva.f_inicio,
+                        f_salida: datosReserva.f_fin,
+                        precio_total: state.precioReserva + state.precioReservaPension + state.temporada.precioTemporada 
                     }
                 })
-                
-
-
-
+                .then(resp =>{
+                    console.log(resp)
+                })
             })
         }
     }

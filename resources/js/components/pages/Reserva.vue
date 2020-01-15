@@ -21,96 +21,103 @@
     </b-card-group>
     -->
     <b-container fluid style="text-align: left">
-    <b-row> 
-      <b-col>
-        <b-form-group id="tipo-estancia" label="Tipo estancia" label-for="tipo-estancia" >
-          <b-form-select
-            id="tipo-estancia"
-            v-model="form.tipoEstancia"
-            v-b-toggle.collapse-foto
-            :options="tipoEstancias"
-            @change="calcularTotal('tipo-estancia')"
-            required
-          ></b-form-select>
-            <!-- v-b-toggle.collapse-foto -->
-          <b-alert v-model="alertaEstanciaVisible" variant="danger" dismissible>
-            ¡Seleccione una opción correcta!
-          </b-alert>
-        </b-form-group>
-      <!-- <b-button v-b-toggle.collapse-1 variant="primary">Toggle Collapse</b-button> -->
-      <!-- CARD CON FOTOS AL SELECCIONAR -->
-        <b-form-group id="tipo-reserva" label="Tipo de pensión" label-for="tipo-reserva">
-          <b-form-select
-            id="tipo-reserva"
-            v-model="form.tipoReserva"
-            :options="tipoReservas"
-            @change="calcularTotal('tipo-reserva')"
-            required
-          ></b-form-select>
-          <!--  v-bind="calcularTotal('tipo-reserva')" -->
-          <b-alert v-model="alertaReservaVisible" variant="danger" dismissible>
-            ¡Seleccione una opción correcta!
-          </b-alert>
-        </b-form-group>
-        <b-form-group id="f-inicio" label="Fecha inicio:" label-for="f-inicio">
-          <b-form-input
-            id="f-inicio"
-            v-model="form.f_inicio"
-            required
-            type = date
-            @change="calcularTemporada()"
-            placeholder="Seleccione fecha inicio"
-          ></b-form-input>
-        </b-form-group>
-        <b-form-group id="f-final" label="Fecha final:" label-for="f-final">
-          <b-form-input
-            id="f-final"
-            v-model="form.f_fin"
-            required
-            type = date
-            placeholder="Seleccione fecha fin"
-          ></b-form-input>
-        </b-form-group>
-        <h4 :value="precio" @input="calcularTotal">Valor total reserva {{ precio }}</h4>
-        <b-button ref="btnSubmit" @click="onSubmit" type="submit" variant="outline-primary">Confirmar reserva</b-button> 
-          <b-alert v-model="alertaSubtmitVisible" variant="danger" dismissible>
-              ¡Debe seleccionar todos los campos!
-          </b-alert>
+      <b-row> 
+        <b-col>
+          <b-form-group id="tipo-estancia" label="Tipo estancia" label-for="tipo-estancia" >
+            <b-form-select
+              id="tipo-estancia"
+              v-model="form.tipoEstancia"
+              v-b-toggle.collapse-foto
+              :options="tipoEstancias"
+              @change="calcularTotal('tipo-estancia')"
+              required
+            ></b-form-select>
+              <!-- v-b-toggle.collapse-foto -->
+            <b-alert v-model="alertaEstanciaVisible" variant="danger" dismissible>
+              ¡Seleccione una opción correcta!
+            </b-alert>
+          </b-form-group>
+        <!-- <b-button v-b-toggle.collapse-1 variant="primary">Toggle Collapse</b-button> -->
+        <!-- CARD CON FOTOS AL SELECCIONAR -->
+          <b-form-group id="tipo-reserva" label="Tipo de pensión" label-for="tipo-reserva">
+            <b-form-select
+              id="tipo-reserva"
+              v-model="form.tipoReserva"
+              :options="tipoReservas"
+              @change="calcularTotal('tipo-reserva')"
+              required
+            ></b-form-select>
+            <!--  v-bind="calcularTotal('tipo-reserva')" -->
+            <b-alert v-model="alertaReservaVisible" variant="danger" dismissible>
+              ¡Seleccione una opción correcta!
+            </b-alert>
+          </b-form-group>
+          <b-form-group id="f-inicio" label="Fecha inicio:" label-for="f-inicio">
+            <b-form-input
+              id="f-inicio"
+              v-model="form.f_inicio"
+              required
+              type = date
+              @change="calcularTemporada()"
+              placeholder="Seleccione fecha inicio"
+            ></b-form-input>
+          </b-form-group>
+          <b-form-group id="f-final" label="Fecha final:" label-for="f-final">
+            <b-form-input
+              id="f-final"
+              v-model="form.f_fin"
+              required
+              type = date
+              placeholder="Seleccione fecha fin"
+            ></b-form-input>
+          </b-form-group>
+          <h4 :value="precio" @input="calcularTotal">Valor total reserva {{ precio }}</h4>
+          <b-button ref="btnSubmit" @click="onSubmit" type="submit" variant="outline-primary">Confirmar reserva</b-button> 
+            <b-alert v-model="alertaSubtmitVisible" variant="danger" dismissible>
+                ¡Debe seleccionar todos los campos!
+            </b-alert>
+        </b-col> 
+        <b-col>
+        <b-collapse id="collapse-foto-suite" class="mt-2" v-model="visibleSuite">
+          <b-card img-src="https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$" img-alt="Card image" img-top>
+            <p class="card-text">
+              Suite!
+            </p>
+          </b-card>
+        </b-collapse>
+        <b-collapse id="collapse-foto-doble" class="mt-2" v-model="visibleDoble">
+          <b-card img-src="https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg" img-alt="Card image" img-top>
+            <p class="card-text">
+              Habitación para dos personas
+            </p>
+          </b-card>
+        </b-collapse>
+        <b-collapse id="collapse-foto-individual" class="mt-2" v-model="visibleIndividual">
+          <b-card img-src="https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg" img-alt="Card image" img-top>
+            <p class="card-text">
+              Habitación individual
+            </p>
+          </b-card>
+        </b-collapse>
+        <b-collapse id="collapse-foto-sala-conferencias" class="mt-2" v-model="visibleConferencia">
+          <b-card img-src="https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg" img-alt="Card image" img-top>
+            <p class="card-text">
+              Sala de conferencias para congresos o reuniones!
+            </p>
+          </b-card>
+        </b-collapse>
       </b-col> 
-      <b-col>
-      <b-collapse id="collapse-foto-suite" class="mt-2" v-model="visibleSuite">
-        <b-card img-src="https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$" img-alt="Card image" img-top>
-          <p class="card-text">
-            Suite!
-          </p>
-        </b-card>
-      </b-collapse>
-      <b-collapse id="collapse-foto-doble" class="mt-2" v-model="visibleDoble">
-        <b-card img-src="https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg" img-alt="Card image" img-top>
-          <p class="card-text">
-            Habitación para dos personas
-          </p>
-        </b-card>
-      </b-collapse>
-      <b-collapse id="collapse-foto-individual" class="mt-2" v-model="visibleIndividual">
-        <b-card img-src="https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg" img-alt="Card image" img-top>
-          <p class="card-text">
-             Habitación individual
-          </p>
-        </b-card>
-      </b-collapse>
-      <b-collapse id="collapse-foto-sala-conferencias" class="mt-2" v-model="visibleConferencia">
-        <b-card img-src="https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg" img-alt="Card image" img-top>
-          <p class="card-text">
-            Sala de conferencias para congresos o reuniones!
-          </p>
-        </b-card>
-      </b-collapse>
-    </b-col> 
-    </b-row>  
-        <!-- <b-form-input v-model="form.precio" type="number" debounce="500" >
-        </b-form-input> -->
-        <b-modal id="modal-confirmar" size="lg" title="Large Modal">VAMOS A CONFIRMAR DATOS!</b-modal>
+      </b-row> 
+      <div>
+        <b-modal size="xl" ref="modal-confirmar" hide-footer title="¿Confirmar datos?">
+          <div class="d-block text-center">
+            <h3>Confirme o decline</h3>
+          </div>
+          <b-button class="mt-3" variant="success" block @click="confirmReserva">Confimar</b-button>
+          <b-button class="mt-2" variant="danger" block @click="hideModal">No confirmar</b-button>
+        </b-modal>
+  
+      </div>
     </b-container>
 
 
@@ -128,7 +135,7 @@ export default {
                 tipoReserva : null,
             },
                 tipoEstancias:[{text: 'Selecciona tipo de estancia', value: null}, { text : 'Habitación simple' , value : 1}
-                 , {text : 'Habitación doble', value :  2 },{text: 'Suite', value: 3},
+                 ,{text : 'Habitación doble', value :  2 },{text: 'Suite', value: 3},
                  {text : 'Sala reuniones' , value: 4}],
                 tipoReservas:[{text: 'Selecciona tipo de pensión', value: null},{text : 'Solo estancia', value: 1} , {text:'Desayuno incluido', value:2}, 
                 {text:'Media pensión', value: 3}, {text:'Pensión completa', value: 4}],
@@ -222,17 +229,20 @@ export default {
                     })
         },
         onSubmit(evt){
-          if(this.form.f_inicio=='' || this.form.f_fin =='' || this.form.tipoEstancia == null || this.form.tipoReserva == null){
+         if(this.form.f_inicio=='' || this.form.f_fin =='' || this.form.tipoEstancia == null || this.form.tipoReserva == null){
               this.alertaSubtmitVisible = true
           }else{
               this.alertaSubtmitVisible = false
-              this.$root.$emit('bv::show::modal', 'modal-confirmar', '#btnSubmit')
-              this.$store.dispatch("realizarReserva",this.form)
+              this.$refs['modal-confirmar'].show()
+        }
+      },
+      confirmReserva(){
+        this.$store.dispatch("realizarReserva",this.form)
                       .then(resp =>{
-                      })
-              /*evt.preventDefault()
-              alert(JSON.stringify(this.form))*/
-          }
+                      })    
+      },
+      hideModal(){
+
       },
       visibleCollapseDesdeRouter(){
         switch(this.form.tipoEstancia){
