@@ -40,7 +40,7 @@ class EstanciasSeeder extends Seeder
                 'camas' => 1,
                 'nombre' => 'Habitación 101',
                 'descripcion' => '',
-                'precio_base' => 0,
+                'precio_base' => 20,
                 'capacidad' => 0
             ],
             [
@@ -52,7 +52,7 @@ class EstanciasSeeder extends Seeder
                 'camas' => 1,
                 'nombre' => 'Habitación 201',
                 'descripcion' => '',
-                'precio_base' => 0,
+                'precio_base' => 20,
                 'capacidad' => 0
             ],
             [
@@ -64,7 +64,7 @@ class EstanciasSeeder extends Seeder
                 'camas' => 1,
                 'nombre' => 'Habitación 202',
                 'descripcion' => '',
-                'precio_base' => 0,
+                'precio_base' => 20,
                 'capacidad' => 0
             ],
             [
@@ -76,7 +76,7 @@ class EstanciasSeeder extends Seeder
                 'camas' => 1,
                 'nombre' => 'Habitación 202',
                 'descripcion' => 'Esta habitación tiene vistas al mar.',
-                'precio_base' => 0,
+                'precio_base' => 20,
                 'capacidad' => 0
             ],
             [
@@ -88,7 +88,7 @@ class EstanciasSeeder extends Seeder
                 'camas' => 2,
                 'nombre' => 'Suite Jordi Ferrer',
                 'descripcion' => 'Esta sala está especialmente equipada para el amor.',
-                'precio_base' => 0,
+                'precio_base' => 20,
                 'capacidad' => 0
             ],
             [
@@ -100,7 +100,7 @@ class EstanciasSeeder extends Seeder
                 'camas' => 0,
                 'nombre' => 'Sala Vanesa Lara',
                 'descripcion' => 'Gran sala de reuniones con butacas y proyector.',
-                'precio_base' => 0,
+                'precio_base' => 50,
                 'capacidad' => 100 
             ],
             [
@@ -112,7 +112,7 @@ class EstanciasSeeder extends Seeder
                 'camas' => 0,
                 'nombre' => 'Sala Fran Piñero',
                 'descripcion' => 'Sala para pequeñas reuniones informales con mesa, sillones y ordenador.',
-                'precio_base' => 0,
+                'precio_base' => 50,
                 'capacidad' => 20 
             ]
         ]);
