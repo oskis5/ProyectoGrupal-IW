@@ -169,9 +169,9 @@ export default {
                 this.switchNombreCollapse();
                 this.$root.$emit('bv::toggle::collapse', this.nombreCollapse)
                 this.alertaEstanciaVisible = false
-                  this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
-                    .then(resp =>{
-                    })
+                this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
+                  .then(resp =>{
+                  })
               }
             }else if(event == "tipo-reserva"){
               if(this.form.tipoReserva == null){
