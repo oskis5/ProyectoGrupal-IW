@@ -5,24 +5,11 @@
         
         <img alt="Vue logo" :src="'images/logo-h.png'" class="img-fluid" style="height: 170px">
         
-        <b-form-group label="Nombre de usuario:" description="No puede superar los 15 caracteres" class="mt-3">
-          <b-form-input name="username" v-model="username" type="text"></b-form-input>
+        <b-form-group label="Nombre:" description="">
+          <b-form-input name="name" v-model="name" type="text"></b-form-input>  
         </b-form-group>
 
-        <div class="row">
-          <div class="col">
-            <b-form-group label="Nombre:" description="">
-              <b-form-input name="name" v-model="name" type="text"></b-form-input>  
-            </b-form-group>
-          </div>
-          <div class="col">
-            <b-form-group label="Apellidos:" description="">
-              <b-form-input name="surname" v-model="surname" type="text"></b-form-input>
-            </b-form-group>
-          </div>
-        </div>
-
-        <b-form-group label="Correo electrónico:" description="" class="mt-3">
+        <b-form-group label="Correo electrónico:" description="" class="mt-4">
           <b-form-input name="email" v-model="email" type="email" placeholder="email@example.com"></b-form-input>
         </b-form-group>
 
@@ -43,8 +30,6 @@ export default {
   data(){
     return {
       name: "",
-      surname: "",
-      username: "",
       email: "",
       password: "",
     }
@@ -53,13 +38,12 @@ export default {
     register: function () {
       let data = {
         name: this.name,
-        surname: this.surname,
-        username: this.username,
         email: this.email,
-        password: this.password
+        password: this.password,
+        roles: "Cliente"
       }
       this.$store.dispatch('register', data)
-      .then(() => this.$router.push('/login'))
+      .then(() => this.$router.push('/ProyectoGrupal-IW/public/login'))
       .catch(err => console.log(err))
     }
   }
