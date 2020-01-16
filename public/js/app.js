@@ -2080,12 +2080,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
@@ -37561,28 +37555,6 @@ var staticRenderFns = [
         [
           _c("div", { staticClass: "carousel-inner" }, [
             _c("div", { staticClass: "carousel-item active" }, [
-              _c("img", {
-                staticClass: "d-block w-100",
-                attrs: {
-                  src:
-                    "https://r-cf.bstatic.com/images/hotel/max1024x768/107/107157832.jpg",
-                  alt: "Cereales"
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "carousel-item" }, [
-              _c("img", {
-                staticClass: "d-block w-100",
-                attrs: {
-                  src:
-                    "https://r-cf.bstatic.com/images/hotel/max1024x768/102/102096979.jpg",
-                  alt: "Cocina"
-                }
-              })
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "carousel-item" }, [
               _c("img", {
                 staticClass: "d-block w-100",
                 attrs: {

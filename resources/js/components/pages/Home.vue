@@ -46,12 +46,6 @@
           <div class="carousel slide col-12 px-0" data-ride="carousel">
             <div class="carousel-inner">
               <div class="carousel-item active">
-                <img class="d-block w-100" src="https://r-cf.bstatic.com/images/hotel/max1024x768/107/107157832.jpg" alt="Cereales">
-              </div>
-              <div class="carousel-item">
-                <img class="d-block w-100" src="https://r-cf.bstatic.com/images/hotel/max1024x768/102/102096979.jpg" alt="Cocina">
-              </div>
-              <div class="carousel-item">
                 <img class="d-block w-100" src="https://q-cf.bstatic.com/images/hotel/max1024x768/107/107158101.jpg" alt="Vistas">
               </div>
             </div>
