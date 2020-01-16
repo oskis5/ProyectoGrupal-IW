@@ -28,7 +28,7 @@
             </tr>
         </template>-->
         <template v-slot:cell(opciones)="row">
-            <b-button v-b-modal.modal-editar size="sm" variant="warning" v-on:click="editItem(row.item)" class="mr-1">
+            <b-button  size="sm" variant="warning" v-on:click="editItem(row.item)" class="mr-1">
             Editar
             </b-button>
             <b-button size="sm" variant="danger" v-on:click="destroy(row.item.id)" class="mr-1">
@@ -59,7 +59,7 @@
             </b-form>
         </b-modal>
 
-        <b-modal id="modal-editar" title="Nuevo cliente" hide-footer>
+        <b-modal ref="modal-editar" id="modal-editar" title="Nuevo cliente" hide-footer>
             <b-form >
                 <b-card >
                     <b-form-group label="Nombre:" description="" class="mt-3">
@@ -152,7 +152,8 @@
                     });
             },
             editItem(item){
-                console.log(item.password)
+                this.$refs['modal-editar'].show();
+                console.log(item.pas)
                 console.log(this.clientes.password)
                 this.editedItem.id = item.id
                 this.editedItem.name = item.name

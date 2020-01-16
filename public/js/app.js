@@ -2152,7 +2152,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     editItem: function editItem(item) {
-      console.log(item.password);
+      this.$refs['modal-editar'].show();
+      console.log(item.pas);
       console.log(this.clientes.password);
       this.editedItem.id = item.id;
       this.editedItem.name = item.name;
@@ -36246,13 +36247,6 @@ var render = function() {
                 _c(
                   "b-button",
                   {
-                    directives: [
-                      {
-                        name: "b-modal",
-                        rawName: "v-b-modal.modal-editar",
-                        modifiers: { "modal-editar": true }
-                      }
-                    ],
                     staticClass: "mr-1",
                     attrs: { size: "sm", variant: "warning" },
                     on: {
@@ -36418,6 +36412,7 @@ var render = function() {
       _c(
         "b-modal",
         {
+          ref: "modal-editar",
           attrs: {
             id: "modal-editar",
             title: "Nuevo cliente",
