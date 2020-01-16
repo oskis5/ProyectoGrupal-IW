@@ -1,38 +1,44 @@
 <template>
     <div class="container pw-3 home-container justify-content-center">
 
-      <div class="carousel-content container justify-content-center align-items-center">
+      <div class="carousel-content container-fluid justify-content-center align-items-center">
         <div class="container mx-0 p-0">
           <div class="col-12">
             <h1 class="text-center">Bienvenido al</br>Hotel Politécnico</h1>
             <h2 class="text-center">Encuentra tu habitación ahora</h2>
           </div>
           
-          <div class="col-12">
-            <form>
-              <div class="row justify-content-center align-items-center">
-                <div class="form-group text-left col-12 col-sm-4">
-                  <label for="date-picker">Fecha de entrada</label>
-                  <input v-model="fecha" class="date-picker form-control mb-3" id="date-picker" type="date" name="bday">
-                </div>
-                <div class="form-group text-left col-12 col-sm-4">
-                  <label for="date-picker">Fecha de salida</label>
-                  <input v-model="fecha" class="date-picker form-control mb-3" id="date-picker" type="date" name="bday">
-                </div>
+          <form class="col-12 justify-content-center">
+            <div class="row justify-content-center align-items-center">
+              <div class="form-group text-left col-12 col-sm-4">
+                <label for="date-picker">Fecha de entrada</label>
+                <input v-model="fechaInicio" class="date-picker form-control mb-2" id="date-picker" type="date" name="bday">
               </div>
-              
-              <div class="form-group text-left col-12 col-sm-6 justify-content-center align-items-center">
-                <label for="type-sel">Tipo de estancia</label>
-                  <select v-model="tipoEstancia" class="form-control" id="type-sel">
-                    <option value="0">Todas</option>
-                    <option value="1">Sencilla</option>
-                    <option value="2">Doble</option>
-                    <option value="3">Suite</option>
-                    <option value="4">Sala de reuniones</option>
-                  </select>
+              <div class="form-group text-left col-12 col-sm-4">
+                <label for="date-picker">Fecha de salida</label>
+                <input v-model="fechaSalida" class="date-picker form-control mb-2" id="date-picker" type="date" name="bday">
               </div>
-            </form>
-          </div>
+            </div>
+            
+            <div class="row text-left justify-content-center align-items-center">
+              <div class="form-group col-12 col-sm-4">
+                <select v-model="tipoInput" class="form-control" id="type-sel">
+                  <option value="0">Todas</option>
+                  <option value="1">Sencilla</option>
+                  <option value="2">Doble</option>
+                  <option value="3">Suite</option>
+                  <option value="4">Sala de reuniones</option>
+                </select>
+              </div>
+              <div class="form-group col-12 col-sm-4">
+                <button type="button" class="hab-boton-reserva btn btn-secondary col-12">
+                  <router-link :to="{ name: 'ListHabitaciones', params: {tipoEstancia: tipoInput, fechaInicio: fechaInicio, fechaSalida:fechaSalida}}">
+                      Buscar
+                  </router-link>
+                </button>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
       <!-- Slider imagenes -->
@@ -61,8 +67,13 @@
               <div class="col-12 p-1 tipo-titulo justify-content-center align-items-center p-3">
                 <p class="mb-0"><b>{{t.nombre}}</b></p>
               </div>
-              <p class="p-2">{{t.descripcion}}</p>
-              <a href="#" class="btn btn-secondary align-self-end">Desde {{t.precio_tipo}}€/noche</a>
+              <div class="description-container">
+                <p class="p-2">{{t.descripcion}}</p>
+              </div>
+              <router-link :to="{ name: 'ListHabitaciones', params: {tipoEstancia: t.id}}">
+                  <a href="#" class="btn btn-secondary align-self-end">Desde <b>{{t.precio_tipo}}€/noche</b></a>
+              </router-link>
+              
             </div>
           </div>
         </div>
@@ -82,7 +93,10 @@ export default {
   name: 'Home',
   data(){
     return {
-      tipoEstancias: []
+      tipoEstancias: [],
+      fechaInicio: null,
+      fechaSalida: null,
+      tipoInput: 2
     }
   },
   created: async function(){
@@ -116,7 +130,7 @@ export default {
   }
 
   .tipo-card img{
-    max-height: 150px; 
+    height: 150px; 
   }
 
   .cards-container{
@@ -137,6 +151,8 @@ export default {
     display:flex;
     position:absolute;
     z-index:1;
+    padding: 0;
+    left: 0;
     margin: auto 0 auto 0;
     height: 400px;
   }
@@ -152,14 +168,46 @@ export default {
     font-size: 1rem;
   }
 
+  .description-container{
+    min-height: 200px;
+  }
+
   label{
     color: white;
     margin: 0;
   }
 
-  @media only screen and (max-width: 690px) {
+  a{
+      color:white !important;
+  }
+  
+  @media only screen and (max-width: 570px) {
+    .description-container{
+      min-height: auto;
+    }
     .carousel-content{
-      height: 200px;
+      align-items: start !important;
+      height: 400px;
     } 
+
+    .carousel-content h1{
+       display: none;
+    }
+
+    .carousel-content h2{
+       font-size: 1rem;
+       margin-top: 1rem;
+       margin-bottom: 0.8rem;
+    }
+
+    label{
+      display: none;
+    }
+
+    input, select, .carousel-content button{
+      font-size: 0.75rem;
+      height: 70%;
+      width: 100%;
+    }
   }
 </style>

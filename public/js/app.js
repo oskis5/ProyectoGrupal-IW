@@ -2075,11 +2075,25 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
     return {
-      tipoEstancias: []
+      tipoEstancias: [],
+      fechaInicio: null,
+      fechaSalida: null,
+      tipoInput: 2
     };
   },
   created: function created() {
@@ -2210,9 +2224,10 @@ __webpack_require__.r(__webpack_exports__);
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            console.log(this.$route);
             this.getHabitaciones();
 
-          case 1:
+          case 2:
           case "end":
             return _context.stop();
         }
@@ -2227,7 +2242,7 @@ __webpack_require__.r(__webpack_exports__);
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost:8000/api/estancias'));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias'));
 
             case 2:
               res = _context2.sent;
@@ -2237,7 +2252,7 @@ __webpack_require__.r(__webpack_exports__);
             case 5:
               estancias = _context2.sent;
               _context2.next = 8;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost:8000/api/estancias'));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias'));
 
             case 8:
               tipo_res = _context2.sent;
@@ -2309,7 +2324,7 @@ __webpack_require__.r(__webpack_exports__);
               excluidas = [];
               console.log('Buscando reservas...');
               _context3.next = 14;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost:8000/api/estancias'));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias'));
 
             case 14:
               res = _context3.sent;
@@ -31641,7 +31656,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.carousel[data-v-a9aac016]{\n  background:#222;\n}\n.carousel img[data-v-a9aac016]{\n  opacity: 0.7;\n}\n.carousel-inner[data-v-a9aac016]{\n  overflow:hidden;\n  max-height: 400px;\n}\n.tipo-card[data-v-a9aac016]{\n  margin:0 1rem 0 1rem;\n  box-shadow: gray 2px 2px 4px;\n}\n.tipo-card img[data-v-a9aac016]{\n  max-height: 150px;\n}\n.cards-container[data-v-a9aac016]{\n  margin-top: 1.5rem;\n  background: #bbb;\n}\n.tipo-titulo[data-v-a9aac016]{\n  background: #ccc;\n}\n.map-container img[data-v-a9aac016]:hover{\n  width: 100%;\n  -webkit-transition: all ease 0.4ms;\n  transition: all ease 0.4ms;\n}\n.carousel-content[data-v-a9aac016]{\n  display:-webkit-box;\n  display:flex;\n  position:absolute;\n  z-index:1;\n  margin: auto 0 auto 0;\n  height: 400px;\n}\n.carousel-content h1[data-v-a9aac016], h2[data-v-a9aac016]{\n  font-size: 1.8rem;\n  color:#eee;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n.carousel-content h2[data-v-a9aac016]{\n  font-size: 1rem;\n}\nlabel[data-v-a9aac016]{\n  color: white;\n  margin: 0;\n}\n@media only screen and (max-width: 690px) {\n.carousel-content[data-v-a9aac016]{\n    height: 200px;\n}\n}\n", ""]);
+exports.push([module.i, "\n.carousel[data-v-a9aac016]{\n  background:#222;\n}\n.carousel img[data-v-a9aac016]{\n  opacity: 0.7;\n}\n.carousel-inner[data-v-a9aac016]{\n  overflow:hidden;\n  max-height: 400px;\n}\n.tipo-card[data-v-a9aac016]{\n  margin:0 1rem 0 1rem;\n  box-shadow: gray 2px 2px 4px;\n}\n.tipo-card img[data-v-a9aac016]{\n  height: 150px;\n}\n.cards-container[data-v-a9aac016]{\n  margin-top: 1.5rem;\n  background: #bbb;\n}\n.tipo-titulo[data-v-a9aac016]{\n  background: #ccc;\n}\n.map-container img[data-v-a9aac016]:hover{\n  width: 100%;\n  -webkit-transition: all ease 0.4ms;\n  transition: all ease 0.4ms;\n}\n.carousel-content[data-v-a9aac016]{\n  display:-webkit-box;\n  display:flex;\n  position:absolute;\n  z-index:1;\n  padding: 0;\n  left: 0;\n  margin: auto 0 auto 0;\n  height: 400px;\n}\n.carousel-content h1[data-v-a9aac016], h2[data-v-a9aac016]{\n  font-size: 1.8rem;\n  color:#eee;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n.carousel-content h2[data-v-a9aac016]{\n  font-size: 1rem;\n}\n.description-container[data-v-a9aac016]{\n  min-height: 200px;\n}\nlabel[data-v-a9aac016]{\n  color: white;\n  margin: 0;\n}\na[data-v-a9aac016]{\n    color:white !important;\n}\n@media only screen and (max-width: 570px) {\n.description-container[data-v-a9aac016]{\n    min-height: auto;\n}\n.carousel-content[data-v-a9aac016]{\n    -webkit-box-align: start !important;\n            align-items: start !important;\n    height: 400px;\n}\n.carousel-content h1[data-v-a9aac016]{\n     display: none;\n}\n.carousel-content h2[data-v-a9aac016]{\n     font-size: 1rem;\n     margin-top: 1rem;\n     margin-bottom: 0.8rem;\n}\nlabel[data-v-a9aac016]{\n    display: none;\n}\ninput[data-v-a9aac016], select[data-v-a9aac016], .carousel-content button[data-v-a9aac016]{\n    font-size: 0.75rem;\n    height: 70%;\n    width: 100%;\n}\n}\n", ""]);
 
 // exports
 
@@ -37207,105 +37222,101 @@ var render = function() {
         "div",
         {
           staticClass:
-            "carousel-content container justify-content-center align-items-center"
+            "carousel-content container-fluid justify-content-center align-items-center"
         },
         [
           _c("div", { staticClass: "container mx-0 p-0" }, [
             _vm._m(0),
             _vm._v(" "),
-            _c("div", { staticClass: "col-12" }, [
-              _c("form", [
-                _c(
-                  "div",
-                  {
-                    staticClass: "row justify-content-center align-items-center"
-                  },
-                  [
-                    _c(
-                      "div",
-                      { staticClass: "form-group text-left col-12 col-sm-4" },
-                      [
-                        _c("label", { attrs: { for: "date-picker" } }, [
-                          _vm._v("Fecha de entrada")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.fecha,
-                              expression: "fecha"
-                            }
-                          ],
-                          staticClass: "date-picker form-control mb-3",
-                          attrs: {
-                            id: "date-picker",
-                            type: "date",
-                            name: "bday"
-                          },
-                          domProps: { value: _vm.fecha },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.fecha = $event.target.value
-                            }
+            _c("form", { staticClass: "col-12 justify-content-center" }, [
+              _c(
+                "div",
+                {
+                  staticClass: "row justify-content-center align-items-center"
+                },
+                [
+                  _c(
+                    "div",
+                    { staticClass: "form-group text-left col-12 col-sm-4" },
+                    [
+                      _c("label", { attrs: { for: "date-picker" } }, [
+                        _vm._v("Fecha de entrada")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fechaInicio,
+                            expression: "fechaInicio"
                           }
-                        })
-                      ]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      { staticClass: "form-group text-left col-12 col-sm-4" },
-                      [
-                        _c("label", { attrs: { for: "date-picker" } }, [
-                          _vm._v("Fecha de salida")
-                        ]),
-                        _vm._v(" "),
-                        _c("input", {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.fecha,
-                              expression: "fecha"
+                        ],
+                        staticClass: "date-picker form-control mb-2",
+                        attrs: {
+                          id: "date-picker",
+                          type: "date",
+                          name: "bday"
+                        },
+                        domProps: { value: _vm.fechaInicio },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
                             }
-                          ],
-                          staticClass: "date-picker form-control mb-3",
-                          attrs: {
-                            id: "date-picker",
-                            type: "date",
-                            name: "bday"
-                          },
-                          domProps: { value: _vm.fecha },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.fecha = $event.target.value
-                            }
+                            _vm.fechaInicio = $event.target.value
                           }
-                        })
-                      ]
-                    )
-                  ]
-                ),
-                _vm._v(" "),
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "form-group text-left col-12 col-sm-6 justify-content-center align-items-center"
-                  },
-                  [
-                    _c("label", { attrs: { for: "type-sel" } }, [
-                      _vm._v("Tipo de estancia")
-                    ]),
-                    _vm._v(" "),
+                        }
+                      })
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "form-group text-left col-12 col-sm-4" },
+                    [
+                      _c("label", { attrs: { for: "date-picker" } }, [
+                        _vm._v("Fecha de salida")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.fechaSalida,
+                            expression: "fechaSalida"
+                          }
+                        ],
+                        staticClass: "date-picker form-control mb-2",
+                        attrs: {
+                          id: "date-picker",
+                          type: "date",
+                          name: "bday"
+                        },
+                        domProps: { value: _vm.fechaSalida },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.fechaSalida = $event.target.value
+                          }
+                        }
+                      })
+                    ]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "row text-left justify-content-center align-items-center"
+                },
+                [
+                  _c("div", { staticClass: "form-group col-12 col-sm-4" }, [
                     _c(
                       "select",
                       {
@@ -37313,8 +37324,8 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.tipoEstancia,
-                            expression: "tipoEstancia"
+                            value: _vm.tipoInput,
+                            expression: "tipoInput"
                           }
                         ],
                         staticClass: "form-control",
@@ -37329,7 +37340,7 @@ var render = function() {
                                 var val = "_value" in o ? o._value : o.value
                                 return val
                               })
-                            _vm.tipoEstancia = $event.target.multiple
+                            _vm.tipoInput = $event.target.multiple
                               ? $$selectedVal
                               : $$selectedVal[0]
                           }
@@ -37357,9 +37368,39 @@ var render = function() {
                         ])
                       ]
                     )
-                  ]
-                )
-              ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group col-12 col-sm-4" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass:
+                          "hab-boton-reserva btn btn-secondary col-12",
+                        attrs: { type: "button" }
+                      },
+                      [
+                        _c(
+                          "router-link",
+                          {
+                            attrs: {
+                              to: {
+                                name: "ListHabitaciones",
+                                params: {
+                                  tipoEstancia: _vm.tipoInput,
+                                  fechaInicio: _vm.fechaInicio,
+                                  fechaSalida: _vm.fechaSalida
+                                }
+                              }
+                            }
+                          },
+                          [_vm._v("\n                  Buscar\n              ")]
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ]
+              )
             ])
           ])
         ]
@@ -37384,33 +37425,56 @@ var render = function() {
                 attrs: { src: t.img, alt: "Card image cap" }
               }),
               _vm._v(" "),
-              _c("div", { staticClass: "px-0 pt-0 card-body" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "col-12 p-1 tipo-titulo justify-content-center align-items-center p-3"
-                  },
-                  [
-                    _c("p", { staticClass: "mb-0" }, [
-                      _c("b", [_vm._v(_vm._s(t.nombre))])
+              _c(
+                "div",
+                { staticClass: "px-0 pt-0 card-body" },
+                [
+                  _c(
+                    "div",
+                    {
+                      staticClass:
+                        "col-12 p-1 tipo-titulo justify-content-center align-items-center p-3"
+                    },
+                    [
+                      _c("p", { staticClass: "mb-0" }, [
+                        _c("b", [_vm._v(_vm._s(t.nombre))])
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "description-container" }, [
+                    _c("p", { staticClass: "p-2" }, [
+                      _vm._v(_vm._s(t.descripcion))
                     ])
-                  ]
-                ),
-                _vm._v(" "),
-                _c("p", { staticClass: "p-2" }, [
-                  _vm._v(_vm._s(t.descripcion))
-                ]),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  {
-                    staticClass: "btn btn-secondary align-self-end",
-                    attrs: { href: "#" }
-                  },
-                  [_vm._v("Desde " + _vm._s(t.precio_tipo) + "€/noche")]
-                )
-              ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "router-link",
+                    {
+                      attrs: {
+                        to: {
+                          name: "ListHabitaciones",
+                          params: { tipoEstancia: t.id }
+                        }
+                      }
+                    },
+                    [
+                      _c(
+                        "a",
+                        {
+                          staticClass: "btn btn-secondary align-self-end",
+                          attrs: { href: "#" }
+                        },
+                        [
+                          _vm._v("Desde "),
+                          _c("b", [_vm._v(_vm._s(t.precio_tipo) + "€/noche")])
+                        ]
+                      )
+                    ]
+                  )
+                ],
+                1
+              )
             ]
           )
         }),

@@ -79,14 +79,15 @@ export default {
     Habitacion
   },
   created: async function(){
+    console.log(this.$route);
     this.getHabitaciones();
   },
   methods:{
     getHabitaciones: async function(){
-      var res = await fetch('http://localhost:8000/api/estancias');
+      var res = await fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias');
       var estancias = await res.json();
 
-      var tipo_res = await fetch('http://localhost:8000/api/estancias');
+      var tipo_res = await fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias');
       var tipos = await tipo_res.json();
 
       //Obtén el tipo de cada estancia
@@ -134,7 +135,7 @@ export default {
         var excluidas = [];
 
         console.log('Buscando reservas...');
-        var res = await fetch('http://localhost:8000/api/estancias');
+        var res = await fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias');
         var reservas = await res.json();
         
         //Comprobar disponibilidad
