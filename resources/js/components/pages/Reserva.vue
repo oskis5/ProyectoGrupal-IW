@@ -1,25 +1,4 @@
 <template>
-    <!--
-    <h4>Tipos de habitación</h4>
-  <b-card-group deck>
-      <b-card img-src="https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg" img-alt="Card image" img-top>
-        <b-card-text>
-          Individual
-        </b-card-text>
-      </b-card>
-
-      <b-card img-src="https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg" img-alt="Card image" img-top>
-        <b-card-text>
-          Doble
-        </b-card-text>
-      </b-card>
-      <b-card img-src="https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$" img-alt="Card image" img-top>
-        <b-card-text>
-          Suite
-        </b-card-text>
-      </b-card>
-    </b-card-group>
-    -->
     <b-container fluid style="text-align: left">
       <b-row> 
         <b-col>
@@ -32,13 +11,10 @@
               @change="calcularTotal('tipo-estancia')"
               required
             ></b-form-select>
-              <!-- v-b-toggle.collapse-foto -->
             <b-alert v-model="alertaEstanciaVisible" variant="danger" dismissible>
               ¡Seleccione una opción correcta!
             </b-alert>
           </b-form-group>
-        <!-- <b-button v-b-toggle.collapse-1 variant="primary">Toggle Collapse</b-button> -->
-        <!-- CARD CON FOTOS AL SELECCIONAR -->
           <b-form-group id="tipo-reserva" label="Tipo de pensión" label-for="tipo-reserva">
             <b-form-select
               id="tipo-reserva"
@@ -147,7 +123,6 @@ export default {
                 visibleDoble : false,
                 visibleIndividual : false,
                 visibleConferencia : false
-                // 'Catering'],
         }
     },
     created : function(){
