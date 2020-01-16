@@ -2031,6 +2031,50 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
@@ -2045,7 +2089,7 @@ __webpack_require__.r(__webpack_exports__);
         switch (_context.prev = _context.next) {
           case 0:
             _context.next = 2;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost:8000/api/tipoestancias'));
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/tipoestancias'));
 
           case 2:
             res = _context.sent;
@@ -2055,8 +2099,11 @@ __webpack_require__.r(__webpack_exports__);
           case 5:
             tipos = _context.sent;
             this.tipoEstancias = tipos.slice(0, 3);
+            this.tipoEstancias[0].img = "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$";
+            this.tipoEstancias[1].img = "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg";
+            this.tipoEstancias[2].img = "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg";
 
-          case 7:
+          case 10:
           case "end":
             return _context.stop();
         }
@@ -2618,6 +2665,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2673,16 +2727,14 @@ __webpack_require__.r(__webpack_exports__);
   },
   created: function created() {
     if (this.$route.params) {
-      //Fecha inicio
-      this.form.f_inicio = this.$route.params.fecha; //Tipo de estancia
-
-      this.form.tipoEstancia = parseInt(this.$route.params.tipoHab); //Tipo reserva
-
-      this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
-      this.visibleCollapseDesdeRouter(); //Mostrar la imagen - no funciona
-
-      /*this.switchNombreCollapse();
-      this.$root.$emit('bv::toggle::collapse', 'collapse-foto-individual');*/
+      if (this.$route.params.fecha != null) {
+        this.form.f_inicio = this.$route.params.fecha;
+      } else if (this.$route.params.tipoHab != null) {
+        this.form.tipoEstancia = parseInt(this.$route.params.tipoHab);
+        this.visibleCollapseDesdeRouter();
+      } else if (this.$route.params.tipoPension != null) {
+        this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
+      }
     }
   },
   computed: {
@@ -2744,8 +2796,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     calcularTemporada: function calcularTemporada() {
       //Solo vamos a fijarnos en la fecha de inicio para la temporada
-      var fechaForm = new Date(this.form.f_inicio); //var fecha = {mes : fechaForm.getMonth() ,dia :  fechaForm.getDay()}
-
+      var fechaForm = new Date(this.form.f_inicio);
       this.$store.dispatch("buscarTemporadas", fechaForm).then(function (resp) {});
     },
     onSubmit: function onSubmit(evt) {
@@ -2753,10 +2804,14 @@ __webpack_require__.r(__webpack_exports__);
         this.alertaSubtmitVisible = true;
       } else {
         this.alertaSubtmitVisible = false;
-        this.$root.$emit('bv::show::modal', 'modal-confirmar', '#btnSubmit');
-        /*evt.preventDefault()
-        alert(JSON.stringify(this.form))*/
+        this.$refs['modal-confirmar'].show();
       }
+    },
+    confirmReserva: function confirmReserva() {
+      this.$store.dispatch("realizarReserva", this.form).then(function (resp) {});
+    },
+    hideModal: function hideModal() {
+      this.$refs['modal-confirmar'].hide();
     },
     visibleCollapseDesdeRouter: function visibleCollapseDesdeRouter() {
       switch (this.form.tipoEstancia) {
@@ -31586,7 +31641,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.carousel-inner[data-v-a9aac016]{\n  overflow:hidden;\n  max-height: 400px;\n}\n.tipo-card[data-v-a9aac016]{\n  margin:0 1rem 0 1rem;\n}\n.tipo-card img[data-v-a9aac016]{\n  max-height: 150px;\n}\n.cards-container[data-v-a9aac016]{\n  margin-top: 1.5rem;\n  background: #eee;\n}\n.tipo-titulo[data-v-a9aac016]{\n  background: #bbb;\n}\n", ""]);
+exports.push([module.i, "\n.carousel[data-v-a9aac016]{\n  background:#222;\n}\n.carousel img[data-v-a9aac016]{\n  opacity: 0.7;\n}\n.carousel-inner[data-v-a9aac016]{\n  overflow:hidden;\n  max-height: 400px;\n}\n.tipo-card[data-v-a9aac016]{\n  margin:0 1rem 0 1rem;\n  box-shadow: gray 2px 2px 4px;\n}\n.tipo-card img[data-v-a9aac016]{\n  max-height: 150px;\n}\n.cards-container[data-v-a9aac016]{\n  margin-top: 1.5rem;\n  background: #bbb;\n}\n.tipo-titulo[data-v-a9aac016]{\n  background: #ccc;\n}\n.map-container img[data-v-a9aac016]:hover{\n  width: 100%;\n  -webkit-transition: all ease 0.4ms;\n  transition: all ease 0.4ms;\n}\n.carousel-content[data-v-a9aac016]{\n  display:-webkit-box;\n  display:flex;\n  position:absolute;\n  z-index:1;\n  margin: auto 0 auto 0;\n  height: 400px;\n}\n.carousel-content h1[data-v-a9aac016], h2[data-v-a9aac016]{\n  font-size: 1.8rem;\n  color:#eee;\n  font-weight: 600;\n  text-transform: uppercase;\n}\n.carousel-content h2[data-v-a9aac016]{\n  font-size: 1rem;\n}\nlabel[data-v-a9aac016]{\n  color: white;\n  margin: 0;\n}\n@media only screen and (max-width: 690px) {\n.carousel-content[data-v-a9aac016]{\n    height: 200px;\n}\n}\n", ""]);
 
 // exports
 
@@ -37148,50 +37203,241 @@ var render = function() {
     "div",
     { staticClass: "container pw-3 home-container justify-content-center" },
     [
-      _vm._m(0),
+      _c(
+        "div",
+        {
+          staticClass:
+            "carousel-content container justify-content-center align-items-center"
+        },
+        [
+          _c("div", { staticClass: "container mx-0 p-0" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-12" }, [
+              _c("form", [
+                _c(
+                  "div",
+                  {
+                    staticClass: "row justify-content-center align-items-center"
+                  },
+                  [
+                    _c(
+                      "div",
+                      { staticClass: "form-group text-left col-12 col-sm-4" },
+                      [
+                        _c("label", { attrs: { for: "date-picker" } }, [
+                          _vm._v("Fecha de entrada")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fecha,
+                              expression: "fecha"
+                            }
+                          ],
+                          staticClass: "date-picker form-control mb-3",
+                          attrs: {
+                            id: "date-picker",
+                            type: "date",
+                            name: "bday"
+                          },
+                          domProps: { value: _vm.fecha },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.fecha = $event.target.value
+                            }
+                          }
+                        })
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group text-left col-12 col-sm-4" },
+                      [
+                        _c("label", { attrs: { for: "date-picker" } }, [
+                          _vm._v("Fecha de salida")
+                        ]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.fecha,
+                              expression: "fecha"
+                            }
+                          ],
+                          staticClass: "date-picker form-control mb-3",
+                          attrs: {
+                            id: "date-picker",
+                            type: "date",
+                            name: "bday"
+                          },
+                          domProps: { value: _vm.fecha },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.fecha = $event.target.value
+                            }
+                          }
+                        })
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "form-group text-left col-12 col-sm-6 justify-content-center align-items-center"
+                  },
+                  [
+                    _c("label", { attrs: { for: "type-sel" } }, [
+                      _vm._v("Tipo de estancia")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.tipoEstancia,
+                            expression: "tipoEstancia"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { id: "type-sel" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.tipoEstancia = $event.target.multiple
+                              ? $$selectedVal
+                              : $$selectedVal[0]
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "0" } }, [
+                          _vm._v("Todas")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [
+                          _vm._v("Sencilla")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "2" } }, [
+                          _vm._v("Doble")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "3" } }, [
+                          _vm._v("Suite")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "4" } }, [
+                          _vm._v("Sala de reuniones")
+                        ])
+                      ]
+                    )
+                  ]
+                )
+              ])
+            ])
+          ])
+        ]
+      ),
+      _vm._v(" "),
+      _vm._m(1),
+      _vm._v(" "),
+      _c("h3", { staticClass: "text-left text-uppercase col-12 mb-0 mt-3" }, [
+        _vm._v("Nuestras habitaciones")
+      ]),
       _vm._v(" "),
       _c(
         "div",
         { staticClass: "row justify-content-center cards-container p-4" },
         _vm._l(_vm.tipoEstancias, function(t) {
-          return _c("div", { staticClass: "card px-0 tipo-card col-3" }, [
-            _c("img", {
-              staticClass: "card-img-top",
-              attrs: {
-                src:
-                  "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
-                alt: "Card image cap"
-              }
-            }),
-            _vm._v(" "),
-            _c("div", { staticClass: "px-0 pt-0 card-body" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "col-12 p-1 tipo-titulo justify-content-center align-items-center p-3"
-                },
-                [
-                  _c("p", { staticClass: "mb-0" }, [
-                    _c("b", [_vm._v(_vm._s(t.nombre))])
-                  ])
-                ]
-              ),
+          return _c(
+            "div",
+            { staticClass: "card px-0 tipo-card col-12 col-sm-3 mb-3" },
+            [
+              _c("img", {
+                staticClass: "card-img-top",
+                attrs: { src: t.img, alt: "Card image cap" }
+              }),
               _vm._v(" "),
-              _c("p", { staticClass: "p-2" }, [_vm._v(_vm._s(t.descripcion))]),
-              _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-secondary align-self-end",
-                  attrs: { href: "#" }
-                },
-                [_vm._v("Desde " + _vm._s(t.precio_tipo) + "€/noche")]
-              )
-            ])
-          ])
+              _c("div", { staticClass: "px-0 pt-0 card-body" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-12 p-1 tipo-titulo justify-content-center align-items-center p-3"
+                  },
+                  [
+                    _c("p", { staticClass: "mb-0" }, [
+                      _c("b", [_vm._v(_vm._s(t.nombre))])
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("p", { staticClass: "p-2" }, [
+                  _vm._v(_vm._s(t.descripcion))
+                ]),
+                _vm._v(" "),
+                _c(
+                  "a",
+                  {
+                    staticClass: "btn btn-secondary align-self-end",
+                    attrs: { href: "#" }
+                  },
+                  [_vm._v("Desde " + _vm._s(t.precio_tipo) + "€/noche")]
+                )
+              ])
+            ]
+          )
         }),
         0
+      ),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "map-container container mt-4", attrs: { id: "Home" } },
+        [
+          _c(
+            "h3",
+            { staticClass: "text-left text-uppercase col-12 mb-0 mt-3 p-0" },
+            [_vm._v("Dónde encontrarnos")]
+          ),
+          _vm._v(" "),
+          _c("p", { staticClass: "text-left" }, [
+            _vm._v(
+              "Ubicación privilegiada en el centro de Alicante a 5 minutos de la playa y\n        buena conexión con transporte público.\n      "
+            )
+          ]),
+          _vm._v(" "),
+          _c("img", {
+            staticClass: "img-fluid",
+            attrs: { alt: "Localización", src: "images/mapa.PNG" }
+          })
+        ]
       )
     ]
   )
@@ -37201,7 +37447,23 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "row justify-content-center" }, [
+    return _c("div", { staticClass: "col-12" }, [
+      _c("h1", { staticClass: "text-center" }, [
+        _vm._v("Bienvenido al"),
+        _c("br"),
+        _vm._v("Hotel Politécnico")
+      ]),
+      _vm._v(" "),
+      _c("h2", { staticClass: "text-center" }, [
+        _vm._v("Encuentra tu habitación ahora")
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "row justify-content-center mb-4" }, [
       _c(
         "div",
         {
@@ -37868,7 +38130,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          ¡Seleccione una opción correcta!\n        "
+                        "\n            ¡Seleccione una opción correcta!\n          "
                       )
                     ]
                   )
@@ -37920,7 +38182,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          ¡Seleccione una opción correcta!\n        "
+                        "\n            ¡Seleccione una opción correcta!\n          "
                       )
                     ]
                   )
@@ -38024,7 +38286,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n            ¡Debe seleccionar todos los campos!\n        "
+                    "\n              ¡Debe seleccionar todos los campos!\n          "
                   )
                 ]
               )
@@ -38061,7 +38323,7 @@ var render = function() {
                     },
                     [
                       _c("p", { staticClass: "card-text" }, [
-                        _vm._v("\n          Suite!\n        ")
+                        _vm._v("\n            Suite!\n          ")
                       ])
                     ]
                   )
@@ -38096,7 +38358,7 @@ var render = function() {
                     [
                       _c("p", { staticClass: "card-text" }, [
                         _vm._v(
-                          "\n          Habitación para dos personas\n        "
+                          "\n            Habitación para dos personas\n          "
                         )
                       ])
                     ]
@@ -38131,7 +38393,9 @@ var render = function() {
                     },
                     [
                       _c("p", { staticClass: "card-text" }, [
-                        _vm._v("\n           Habitación individual\n        ")
+                        _vm._v(
+                          "\n            Habitación individual\n          "
+                        )
                       ])
                     ]
                   )
@@ -38166,7 +38430,7 @@ var render = function() {
                     [
                       _c("p", { staticClass: "card-text" }, [
                         _vm._v(
-                          "\n          Sala de conferencias para congresos o reuniones!\n        "
+                          "\n            Sala de conferencias para congresos o reuniones!\n          "
                         )
                       ])
                     ]
@@ -38182,9 +38446,47 @@ var render = function() {
       ),
       _vm._v(" "),
       _c(
-        "b-modal",
-        { attrs: { id: "modal-confirmar", size: "lg", title: "Large Modal" } },
-        [_vm._v("VAMOS A CONFIRMAR DATOS!")]
+        "div",
+        [
+          _c(
+            "b-modal",
+            {
+              ref: "modal-confirmar",
+              attrs: {
+                size: "xl",
+                "hide-footer": "",
+                title: "¿Confirmar datos?"
+              }
+            },
+            [
+              _c("div", { staticClass: "d-block text-center" }, [
+                _c("h3", [_vm._v("Confirme o decline")])
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  staticClass: "mt-3",
+                  attrs: { variant: "success", block: "" },
+                  on: { click: _vm.confirmReserva }
+                },
+                [_vm._v("Confimar")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  staticClass: "mt-2",
+                  attrs: { variant: "danger", block: "" },
+                  on: { click: _vm.hideModal }
+                },
+                [_vm._v("No confirmar")]
+              )
+            ],
+            1
+          )
+        ],
+        1
       )
     ],
     1
@@ -55119,13 +55421,13 @@ var API_URL = "http://localhost:8000/api/estancias";
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     status: '',
-    datosReserva: '',
     precioReserva: 0,
     precioReservaPension: 0,
     temporada: {
-      fecha_incio: "",
+      fecha_inicio: "",
       fecha_fin: "",
-      precioTemporada: 0
+      precioTemporada: 0,
+      temporadaId: 0
     }
   },
   mutations: {
@@ -55138,8 +55440,11 @@ var API_URL = "http://localhost:8000/api/estancias";
     incrementarPrecioTemporada: function incrementarPrecioTemporada(state, valor) {
       state.temporada.precioTemporada = valor;
     },
+    ponerIdTemporada: function ponerIdTemporada(state, id) {
+      state.temporada.temporadaId = id;
+    },
     ponerFechas: function ponerFechas(state, fechas) {
-      state.temporada.fecha_incio = fechas.f_incio;
+      state.temporada.fecha_inicio = fechas.f_incio;
       state.temporada.fecha_fin = fechas.f_fin;
     }
   },
@@ -55183,6 +55488,7 @@ var API_URL = "http://localhost:8000/api/estancias";
               if (fechaInicio >= temporada.f_inicio && fechaInicio <= temporada.f_fin) {
                 context.commit('ponerFechas', temporada);
                 context.commit('incrementarPrecioTemporada', response.data[i].precio_unitario);
+                context.commit('ponerIdTemporada', response.data[i].id);
                 resolve(response.data);
                 break;
               }
@@ -55194,13 +55500,27 @@ var API_URL = "http://localhost:8000/api/estancias";
         });
       });
     },
-    realizarReserva: function realizarReserva(context, datosReserva) {
-      console.log(datosReserva);
-      return new Promise(function (resolver, reject) {
+    realizarReserva: function realizarReserva(_ref, datosReserva) {
+      var state = _ref.state,
+          context = _ref.context;
+      console.log(datosReserva.f_inicio);
+      console.log(state.temporada.temporadaId);
+      console.log(state.temporada.precioReserva + state.temporada.precioReservaPension + state.tem);
+      return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
-          method: 'post',
-          url: API_URL + "temporadas",
-          data: {}
+          method: 'POST',
+          url: API_URL + "reservas",
+          data: {
+            estancia_id: datosReserva.tipoEstancia,
+            cliente_id: 1,
+            tipo_id: datosReserva.tipoEstancia,
+            temporada_id: state.temporada.temporadaId,
+            f_entrada: datosReserva.f_inicio,
+            f_salida: datosReserva.f_fin,
+            precio_total: state.precioReserva + state.precioReservaPension + state.temporada.precioTemporada
+          }
+        }).then(function (resp) {
+          console.log(resp);
         });
       });
     }
