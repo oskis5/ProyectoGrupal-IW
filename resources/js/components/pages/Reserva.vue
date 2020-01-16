@@ -122,7 +122,8 @@ export default {
                 visibleSuite : false,
                 visibleDoble : false,
                 visibleIndividual : false,
-                visibleConferencia : false
+                visibleConferencia : false,
+                rolUser : ''
         }
     },
     created : function(){
