@@ -1,7 +1,7 @@
 <template> 
     <b-container style= "margin-top: 5%">
         <div align="right">
-            <b-button v-b-modal.modal-crear variant="success" class="mb-2">Nuevo</b-button>
+            <b-button v-b-modal.modal-crear variant="success" class="mb-2">Nueva</b-button>
         </div>
         <b-table 
         :striped="striped"
@@ -9,7 +9,7 @@
         :hover="hover"
         :borderless="borderless"
         :fields="headers"
-        :items="clientes"
+        :items="habitaciones"
         :sort-by.sync="sortBy"
         :sort-desc.sync="sortDesc"
         sort-icon-left
@@ -18,12 +18,12 @@
         :current-page="currentPage"
         >
         <!--<template >
-            <tr v-for="cliente of clientes">
-                <td class="text-xs-center">{{ cliente.name }}</td>
-                <td class="text-xs-center">{{ cliente.email }}</td>
+            <tr v-for="habitacion of habitaciones">
+                <td class="text-xs-center">{{ habitacion.name }}</td>
+                <td class="text-xs-center">{{ habitacion.email }}</td>
                 <td>
                
-                <b-button v-b-modal.modal-crear variant="success" class="mb-2">Nuevo cliente</b-button>
+                <b-button v-b-modal.modal-crear variant="success" class="mb-2">Nuevo habitacion</b-button>
                 </td>                       
             </tr>
         </template>-->
@@ -42,7 +42,7 @@
             :total-rows="rows"
             :per-page="perPage"
         ></b-pagination>
-        <b-modal id="modal-crear" title="Nuevo Recepcionista" hide-footer>
+        <b-modal id="modal-crear" title="Nueva Habitación" hide-footer>
             <b-form >
                 <b-card >
                     <b-form-group label="Nombre:" description="" class="mt-3">
@@ -59,7 +59,7 @@
             </b-form>
         </b-modal>
 
-        <b-modal ref="modal-editar" id="modal-editar" title="Editar Recepcionista" hide-footer>
+        <b-modal ref="modal-editar" id="modal-editar" title="Editar Habitación" hide-footer>
             <b-form >
                 <b-card >
                     <b-form-group label="Nombre:" description="" class="mt-3">
@@ -98,19 +98,19 @@
                 {label: 'Email', key: 'email', sortable: true},
                 {label: 'Opciones', key: 'opciones'},
                 ],
-                clientes: [],
+                habitaciones: [],
                 editedItem: {
                     id: null,
                     name: "",
                     email: "",
                     password: "",
-                    roles: 'Recepcion'
+                    roles: 'habitacion'
                 },
             }
         },
         computed: {
             rows() {
-                return this.clientes.length
+                return this.habitaciones.length
             },
         },
         methods: {
@@ -119,9 +119,9 @@
                     name: this.name,
                     email: this.email,
                     password: this.password,
-                    roles: 'Recepcion',
+                    roles: 'habitacion',
                 }).then(response=> {
-                        //this.$router.push({ name: 'listaClientes' })
+                        //this.$router.push({ name: 'listahabitaciones' })
                         this.$root.$emit('bv::hide::modal', 'modal-crear', '#btnguardar');
                         //this.$forceUpdate(); 
                         location.reload();
@@ -134,7 +134,7 @@
                     name: this.editedItem.name,
                     email: this.editedItem.email,
                     password: this.editedItem.password,
-                    roles: 'Recepcion',
+                    roles: 'habitacion',
                 })
                 .then(response=> {
                         this.$root.$emit('bv::hide::modal', 'modal-crear', '#btnguardar'); 
@@ -162,7 +162,7 @@
         mounted() {
             axios.get('api/users')
             .then(response => {
-                    this.clientes = response.data;
+                    this.habitaciones = response.data;
                 }).catch(error => {
                     console.log(error);
                 });    
