@@ -5,8 +5,10 @@
           <div class="container my-3">
             <div class="row align-content-between">
                 <div class="form-group text-left col-12 col-sm-6">
-                  <label for="date-picker">Fecha</label>
+                  <label for="date-picker">Fecha de entrada</label>
                   <input v-model="fecha" class="date-picker form-control mb-3" id="date-picker" type="date" name="bday">
+                  <label for="date-picker">Fecha de salida</label>
+                  <input v-model="fechaSalida" class="date-picker form-control mb-3" id="date-picker" type="date" name="bday">
                   <label for="type-sel">Tipo de estancia</label>
                   <select v-model="tipoEstancia" class="form-control" id="type-sel">
                     <option value="0">Todas</option>
@@ -70,6 +72,7 @@ export default {
       precioMin: 0,
       precioMax: 600,
       fecha: null,
+      fechaSalida: null,
       errors: [],
       habitaciones: [],
       etiquetas:[]
@@ -79,15 +82,18 @@ export default {
     Habitacion
   },
   created: async function(){
-    console.log(this.$route);
-    this.getHabitaciones();
+    if(this.$route.params.tipoEstancia){this.tipoEstancia = this.$route.params.tipoEstancia;}
+    if(this.$route.params.fechaInicio){this.fecha = this.$route.params.fechaInicio;}
+    if(this.$route.params.fechaSalida){this.fechaSalida = this.$route.params.fechaSalida;}
+
+    this.filtraEstancias();
   },
   methods:{
     getHabitaciones: async function(){
       var res = await fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias');
       var estancias = await res.json();
 
-      var tipo_res = await fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias');
+      var tipo_res = await fetch('http://localhost/ProyectoGrupal-IW/public/api/tipoestancias');
       var tipos = await tipo_res.json();
 
       //Obtén el tipo de cada estancia
@@ -109,7 +115,9 @@ export default {
       document.getElementById(textTarget).value = event.target.value;
     },
     filtraEstancias: async function(e){
-      e.preventDefault();
+      if(e){e.preventDefault();}
+      
+      this.getHabitaciones();
       this.actualizaEtiquetas();
       this.errors = [];
 
@@ -131,18 +139,20 @@ export default {
       if(this.errors.length == 0){
         await this.getHabitaciones();
         var d = new Date(this.fecha);
+        var dSalida = new Date(this.fechaSalida);
         var habs = this.habitaciones;
         var excluidas = [];
 
         console.log('Buscando reservas...');
-        var res = await fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias');
+        var res = await fetch('http://localhost/ProyectoGrupal-IW/public/api/reservas');
         var reservas = await res.json();
         
         //Comprobar disponibilidad
         reservas.forEach(function(reserva){
           var f_entrada = new Date(reserva.f_entrada);
           var f_salida = new Date(reserva.f_salida);
-          if(f_entrada.getTime() <= d.getTime() && f_salida.getTime() >= d.getTime()){
+          if((f_entrada.getTime() <= d.getTime() && f_salida.getTime() >= d.getTime())
+              || (f_entrada.getTime() <= dSalida.getTime() && f_salida.getTime() >= dSalida.getTime())){
             var ocupadas = habs.filter(function(item){
                 return item.id == reserva.estancia_id;
               });
@@ -160,6 +170,7 @@ export default {
               excluidas.push(hab);
             }
 
+            console.log(hab);
             var precio = hab.precio_base + hab.tipo.precio_tipo;
             if( precio < pmin || precio > pmax){
               excluidas.push(hab);
@@ -172,6 +183,7 @@ export default {
     actualizaEtiquetas: function(){
       this.etiquetas = [];
       if(this.fecha) {this.etiquetas.push(this.fecha);}
+      if(this.fechaSalida){this.etiquetas.push(this.fechaSalida);}
       if(this.tipoEstancia) {this.etiquetas.push(this.getNombreTipo(parseInt(this.tipoEstancia)));}
       
       this.etiquetas.push(this.precioMin);

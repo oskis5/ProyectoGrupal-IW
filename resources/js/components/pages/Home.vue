@@ -83,7 +83,7 @@
           <p class="text-left">Ubicación privilegiada en el centro de Alicante a 5 minutos de la playa y
             buena conexión con transporte público.
           </p>
-          <img alt="Localización" v-bind:src="'images/mapa.PNG'" class="img-fluid">
+          <img alt="Localización" :src="'images/mapa.PNG'" class="img-fluid">
         </div>
       </div>
 </template>

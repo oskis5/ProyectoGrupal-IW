@@ -2202,6 +2202,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ListHabitaciones',
@@ -2211,6 +2213,7 @@ __webpack_require__.r(__webpack_exports__);
       precioMin: 0,
       precioMax: 600,
       fecha: null,
+      fechaSalida: null,
       errors: [],
       habitaciones: [],
       etiquetas: []
@@ -2224,10 +2227,21 @@ __webpack_require__.r(__webpack_exports__);
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            console.log(this.$route);
-            this.getHabitaciones();
+            if (this.$route.params.tipoEstancia) {
+              this.tipoEstancia = this.$route.params.tipoEstancia;
+            }
 
-          case 2:
+            if (this.$route.params.fechaInicio) {
+              this.fecha = this.$route.params.fechaInicio;
+            }
+
+            if (this.$route.params.fechaSalida) {
+              this.fechaSalida = this.$route.params.fechaSalida;
+            }
+
+            this.filtraEstancias();
+
+          case 4:
           case "end":
             return _context.stop();
         }
@@ -2252,7 +2266,7 @@ __webpack_require__.r(__webpack_exports__);
             case 5:
               estancias = _context2.sent;
               _context2.next = 8;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias'));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/tipoestancias'));
 
             case 8:
               tipo_res = _context2.sent;
@@ -2287,12 +2301,16 @@ __webpack_require__.r(__webpack_exports__);
       document.getElementById(textTarget).value = event.target.value;
     },
     filtraEstancias: function filtraEstancias(e) {
-      var hoy, d, habs, excluidas, res, reservas, tipo, pmin, pmax;
+      var hoy, d, dSalida, habs, excluidas, res, reservas, tipo, pmin, pmax;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function filtraEstancias$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              e.preventDefault();
+              if (e) {
+                e.preventDefault();
+              }
+
+              this.getHabitaciones();
               this.actualizaEtiquetas();
               this.errors = []; //Verifica precios
 
@@ -2311,34 +2329,35 @@ __webpack_require__.r(__webpack_exports__);
               }
 
               if (!(this.errors.length == 0)) {
-                _context3.next = 24;
+                _context3.next = 26;
                 break;
               }
 
-              _context3.next = 8;
+              _context3.next = 9;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.getHabitaciones());
 
-            case 8:
+            case 9:
               d = new Date(this.fecha);
+              dSalida = new Date(this.fechaSalida);
               habs = this.habitaciones;
               excluidas = [];
               console.log('Buscando reservas...');
-              _context3.next = 14;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias'));
+              _context3.next = 16;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/reservas'));
 
-            case 14:
+            case 16:
               res = _context3.sent;
-              _context3.next = 17;
+              _context3.next = 19;
               return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(res.json());
 
-            case 17:
+            case 19:
               reservas = _context3.sent;
               //Comprobar disponibilidad
               reservas.forEach(function (reserva) {
                 var f_entrada = new Date(reserva.f_entrada);
                 var f_salida = new Date(reserva.f_salida);
 
-                if (f_entrada.getTime() <= d.getTime() && f_salida.getTime() >= d.getTime()) {
+                if (f_entrada.getTime() <= d.getTime() && f_salida.getTime() >= d.getTime() || f_entrada.getTime() <= dSalida.getTime() && f_salida.getTime() >= dSalida.getTime()) {
                   var ocupadas = habs.filter(function (item) {
                     return item.id == reserva.estancia_id;
                   });
@@ -2354,6 +2373,7 @@ __webpack_require__.r(__webpack_exports__);
                     excluidas.push(hab);
                   }
 
+                  console.log(hab);
                   var precio = hab.precio_base + hab.tipo.precio_tipo;
 
                   if (precio < pmin || precio > pmax) {
@@ -2365,7 +2385,7 @@ __webpack_require__.r(__webpack_exports__);
                 return excluidas.indexOf(i) === -1;
               });
 
-            case 24:
+            case 26:
             case "end":
               return _context3.stop();
           }
@@ -2377,6 +2397,10 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.fecha) {
         this.etiquetas.push(this.fecha);
+      }
+
+      if (this.fechaSalida) {
+        this.etiquetas.push(this.fechaSalida);
       }
 
       if (this.tipoEstancia) {
@@ -37600,7 +37624,9 @@ var render = function() {
       _c("div", { staticClass: "container my-3" }, [
         _c("div", { staticClass: "row align-content-between" }, [
           _c("div", { staticClass: "form-group text-left col-12 col-sm-6" }, [
-            _c("label", { attrs: { for: "date-picker" } }, [_vm._v("Fecha")]),
+            _c("label", { attrs: { for: "date-picker" } }, [
+              _vm._v("Fecha de entrada")
+            ]),
             _vm._v(" "),
             _c("input", {
               directives: [
@@ -37620,6 +37646,32 @@ var render = function() {
                     return
                   }
                   _vm.fecha = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "date-picker" } }, [
+              _vm._v("Fecha de salida")
+            ]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.fechaSalida,
+                  expression: "fechaSalida"
+                }
+              ],
+              staticClass: "date-picker form-control mb-3",
+              attrs: { id: "date-picker", type: "date", name: "bday" },
+              domProps: { value: _vm.fechaSalida },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.fechaSalida = $event.target.value
                 }
               }
             }),
