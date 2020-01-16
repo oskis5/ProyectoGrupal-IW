@@ -9,6 +9,7 @@ import Reserva from './components/pages/Reserva';
 
 Vue.use(Router);
 
+/*
 const ifNotAuthenticated = (to, from, next) => {
     if (!store.getters.isLoggedIn) {
       next()
@@ -24,7 +25,7 @@ const ifAuthenticated = (to, from, next) => {
     }
     next('/ProyectoGrupal-IW/public/login')
 }
-
+*/
   
 const router = new Router({
     mode: 'history',
@@ -33,7 +34,9 @@ const router = new Router({
             path: '/ProyectoGrupal-IW/public/reservas',
             name: 'reservas',
             component: Reserva,
-            beforeEnter: ifNotAuthenticated
+            meta: { 
+                requiresAuth: true
+            }
         },
         {
             path: '/ProyectoGrupal-IW/public/',
@@ -50,16 +53,6 @@ const router = new Router({
             name: 'register',
             component: Register,
         }
-        /*,
-        {
-            path: '/secure',
-            name: 'secure',
-            component: Secure,
-            meta: { 
-              requiresAuth: true
-            }
-        },
-        */
     ]
 })
 

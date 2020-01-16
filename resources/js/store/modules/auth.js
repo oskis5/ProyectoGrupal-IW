@@ -5,20 +5,23 @@ const API_URL = "http://localhost/ProyectoGrupal-IW/public/api/auth/"
 export default {
     state: {
         status: '',
-        user: JSON.parse(localStorage.getItem('loggedUser')) || ''
+        user: JSON.parse(localStorage.getItem('loggedUser')) || '',
+        role: JSON.parse(localStorage.getItem('userRole')) || ''
     },
     getters: {
         isLoggedIn: state => !!state.user,
         authStatus: state => state.status,
-        loggedUser: state => state.user
+        loggedUser: state => state.user,
+        userRole: state => state.role
     },
     mutations: {
         auth_request(state){
             state.status = 'loading'
         },
-        auth_success(state, user ){
+        auth_success(state, {user, role}){
             state.status = 'success'
             state.user = user
+            state.role = role
         },
         auth_error(state){
             state.status = 'error'
@@ -26,9 +29,7 @@ export default {
         logout(state){
             state.status = ''
             state.user = ''
-        },
-        set_user(state, user){
-            state.user = user
+            state.role = ''
         }
     },
     actions: {
@@ -38,9 +39,11 @@ export default {
                 axios({url: API_URL + 'login', data: user, method: 'POST' })
                 .then(resp => {
                     let user = resp.data.user
+                    let role = resp.data.role
                     localStorage.setItem('loggedUser', JSON.stringify(user))
+                    localStorage.setItem('userRole', JSON.stringify(role))
                     axios.defaults.headers.common['Authorization'] = "Bearer " + user.api_token
-                    commit('auth_success', user )
+                    commit('auth_success', {user, role})
                     resolve(resp)
                 })
                 .catch(err => {
