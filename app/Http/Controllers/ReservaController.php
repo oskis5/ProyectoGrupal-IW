@@ -8,6 +8,12 @@ use App\Reserva;
 class ReservaController extends Controller
 {
     //
+
+    public function index(){
+        $reservas = Reserva::all();
+        return response()->json($reservas, 200);
+    }
+    
     public function show($id){
         $reserva = Reserva::find($id);
         if($reserva == null){

@@ -6,6 +6,7 @@ import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import Reserva from './components/pages/Reserva';
+import ListHabitaciones from './components/pages/ListHabitaciones';
 
 Vue.use(Router);
 
@@ -52,6 +53,11 @@ const router = new Router({
             path: '/ProyectoGrupal-IW/public/register',
             name: 'register',
             component: Register,
+        },
+        {
+            path: '/ProyectoGrupal-IW/public/habitaciones',
+            name: 'ListHabitaciones',
+            component: ListHabitaciones,
         }
     ]
 })

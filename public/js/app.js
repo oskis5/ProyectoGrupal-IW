@@ -86,6 +86,18 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@babel/runtime/regenerator/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
+
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -1901,6 +1913,77 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Habitacion.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Habitacion.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'Habitacion',
+  props: ['item', 'img', 'fecha'],
+  data: function data() {
+    return {
+      tipoPension: 2
+    };
+  },
+  methods: {
+    datosState: function datosState() {
+      this.$store.dispatch("buscarHabitacion", this.item.tipo.id);
+      this.$store.dispatch("buscarTipoPension", this.tipoPension);
+
+      if (this.fecha != null) {
+        var fechaForm = new Date(this.fecha);
+        this.$store.dispatch("buscarTemporadas", fechaForm);
+      }
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Home.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Home.vue?vue&type=script&lang=js& ***!
@@ -1916,6 +1999,286 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home'
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListHabitaciones.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/ListHabitaciones.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Habitacion_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Habitacion.vue */ "./resources/js/components/Habitacion.vue");
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'ListHabitaciones',
+  data: function data() {
+    return {
+      tipoEstancia: 0,
+      precioMin: 0,
+      precioMax: 600,
+      fecha: null,
+      errors: [],
+      habitaciones: [],
+      etiquetas: []
+    };
+  },
+  components: {
+    Habitacion: _Habitacion_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  created: function created() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function created$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            this.getHabitaciones();
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, null, this);
+  },
+  methods: {
+    getHabitaciones: function getHabitaciones() {
+      var res, estancias, tipo_res, tipos;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function getHabitaciones$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias'));
+
+            case 2:
+              res = _context2.sent;
+              _context2.next = 5;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(res.json());
+
+            case 5:
+              estancias = _context2.sent;
+              _context2.next = 8;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/tipoestancias'));
+
+            case 8:
+              tipo_res = _context2.sent;
+              _context2.next = 11;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(tipo_res.json());
+
+            case 11:
+              tipos = _context2.sent;
+              //Obtén el tipo de cada estancia
+              estancias.forEach(function (hab) {
+                hab.tipo = tipos[hab.tipo_id - 1];
+              });
+              this.habitaciones = estancias;
+
+            case 14:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, null, this);
+    },
+    rangeUpdate: function rangeUpdate(event) {
+      //Cambia el valor del campo de text de los filtros de precio
+      var textTarget;
+
+      if (event.target.id == "sl-min") {
+        textTarget = "min-textInput";
+      } else {
+        textTarget = "max-textInput";
+      }
+
+      document.getElementById(textTarget).value = event.target.value;
+    },
+    filtraEstancias: function filtraEstancias(e) {
+      var hoy, d, habs, excluidas, res, reservas, tipo, pmin, pmax;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function filtraEstancias$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              e.preventDefault();
+              this.actualizaEtiquetas();
+              this.errors = []; //Verifica precios
+
+              if (this.precioMin > this.precioMax) {
+                this.errors.push("El precio mínimo debe ser mayor que el máximo.");
+              } //Verifica fecha
+
+
+              if (this.fecha) {
+                hoy = new Date();
+                d = new Date(this.fecha);
+
+                if (hoy.getTime() > d.getTime()) {
+                  this.errors.push("Seleccione una fecha válida.");
+                }
+              }
+
+              if (!(this.errors.length == 0)) {
+                _context3.next = 24;
+                break;
+              }
+
+              _context3.next = 8;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(this.getHabitaciones());
+
+            case 8:
+              d = new Date(this.fecha);
+              habs = this.habitaciones;
+              excluidas = [];
+              console.log('Buscando reservas...');
+              _context3.next = 14;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/reservas'));
+
+            case 14:
+              res = _context3.sent;
+              _context3.next = 17;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(res.json());
+
+            case 17:
+              reservas = _context3.sent;
+              //Comprobar disponibilidad
+              reservas.forEach(function (reserva) {
+                var f_entrada = new Date(reserva.f_entrada);
+                var f_salida = new Date(reserva.f_salida);
+
+                if (f_entrada.getTime() <= d.getTime() && f_salida.getTime() >= d.getTime()) {
+                  var ocupadas = habs.filter(function (item) {
+                    return item.id == reserva.estancia_id;
+                  });
+                  excluidas.push(ocupadas[0]);
+                }
+              });
+              tipo = parseInt(this.tipoEstancia);
+              pmin = this.precioMin;
+              pmax = this.precioMax;
+              habs.forEach(function (hab) {
+                if (tipo) {
+                  if (tipo != hab.tipo_id) {
+                    excluidas.push(hab);
+                  }
+
+                  var precio = hab.precio_base + hab.tipo.precio_tipo;
+
+                  if (precio < pmin || precio > pmax) {
+                    excluidas.push(hab);
+                  }
+                }
+              });
+              this.habitaciones = this.habitaciones.filter(function (i) {
+                return excluidas.indexOf(i) === -1;
+              });
+
+            case 24:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, null, this);
+    },
+    actualizaEtiquetas: function actualizaEtiquetas() {
+      this.etiquetas = [];
+
+      if (this.fecha) {
+        this.etiquetas.push(this.fecha);
+      }
+
+      if (this.tipoEstancia) {
+        this.etiquetas.push(this.getNombreTipo(parseInt(this.tipoEstancia)));
+      }
+
+      this.etiquetas.push(this.precioMin);
+      this.etiquetas.push(this.precioMax);
+    },
+    getNombreTipo: function getNombreTipo(tipoId) {
+      switch (tipoId) {
+        case 1:
+          return "Sencilla";
+
+        case 2:
+          return "Doble";
+
+        case 3:
+          return "Suite";
+
+        case 4:
+          return "Sala de reuniones";
+
+        default:
+          return "Todas";
+      }
+    }
+  }
 });
 
 /***/ }),
@@ -2180,6 +2543,24 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2224,9 +2605,26 @@ __webpack_require__.r(__webpack_exports__);
       }],
       alertaEstanciaVisible: false,
       alertaReservaVisible: false,
-      nombreCollapse: '' // 'Catering'],
+      nombreCollapse: '',
+      alertaSubtmitVisible: false,
+      visibleSuite: false,
+      visibleDoble: false,
+      visibleIndividual: false,
+      visibleConferencia: false // 'Catering'],
 
     };
+  },
+  created: function created() {
+    if (this.$route.params) {
+      if (this.$route.params.fecha != null) {
+        this.form.f_inicio = this.$route.params.fecha;
+      } else if (this.$route.params.tipoHab != null) {
+        this.form.tipoEstancia = parseInt(this.$route.params.tipoHab);
+        this.visibleCollapseDesdeRouter();
+      } else if (this.$route.params.tipoPension != null) {
+        this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
+      }
+    }
   },
   computed: {
     precio: function precio() {
@@ -2235,32 +2633,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     calcularTotal: function calcularTotal(event) {
-      console.log(this.nombreCollapse);
-
       if (event == "tipo-estancia") {
-        this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
-
         if (this.form.tipoEstancia == null) {
           this.alertaEstanciaVisible = true;
         } else {
-          switch (this.form.tipoEstancia) {
-            case 1:
-              this.nombreCollapse = 'collapse-foto-individual';
-              break;
-
-            case 2:
-              this.nombreCollapse = 'collapse-foto-doble';
-              break;
-
-            case 3:
-              this.nombreCollapse = 'collapse-foto-suite';
-              break;
-
-            case 4:
-              this.nombreCollapse = 'collapse-foto-sala-conferencias';
-              break;
-          }
-
+          this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
+          this.switchNombreCollapse();
           this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
           this.alertaEstanciaVisible = false;
           this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {});
@@ -2274,14 +2652,74 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     },
+    switchNombreCollapse: function switchNombreCollapse() {
+      switch (this.form.tipoEstancia) {
+        case 1:
+          this.nombreCollapse = 'collapse-foto-individual';
+          this.visibleDoble = false;
+          this.visibleSuite = false;
+          this.visibleConferencia = false;
+          break;
+
+        case 2:
+          this.nombreCollapse = 'collapse-foto-doble';
+          this.visibleSuite = false;
+          this.visibleConferencia = false;
+          this.visibleIndividual = false;
+          break;
+
+        case 3:
+          this.nombreCollapse = 'collapse-foto-suite';
+          this.visibleConferencia = false;
+          this.visibleConferencia = false;
+          this.visibleIndividual = false;
+          break;
+
+        case 4:
+          this.nombreCollapse = 'collapse-foto-sala-conferencias';
+          this.visibleSuite = false;
+          this.visibleDoble = false;
+          this.visibleIndividual = false;
+          break;
+      }
+    },
     calcularTemporada: function calcularTemporada() {
       //Solo vamos a fijarnos en la fecha de inicio para la temporada
       var fechaForm = new Date(this.form.f_inicio);
-      var fecha = {
-        mes: fechaForm.getMonth(),
-        dia: fechaForm.getDay()
-      };
-      this.$store.dispatch("buscarTemporadas", fecha).then(function (resp) {});
+      this.$store.dispatch("buscarTemporadas", fechaForm).then(function (resp) {});
+    },
+    onSubmit: function onSubmit(evt) {
+      if (this.form.f_inicio == '' || this.form.f_fin == '' || this.form.tipoEstancia == null || this.form.tipoReserva == null) {
+        this.alertaSubtmitVisible = true;
+      } else {
+        this.alertaSubtmitVisible = false;
+        this.$refs['modal-confirmar'].show();
+      }
+    },
+    confirmReserva: function confirmReserva() {
+      this.$store.dispatch("realizarReserva", this.form).then(function (resp) {});
+    },
+    hideModal: function hideModal() {
+      this.$refs['modal-confirmar'].hide();
+    },
+    visibleCollapseDesdeRouter: function visibleCollapseDesdeRouter() {
+      switch (this.form.tipoEstancia) {
+        case 1:
+          this.visibleIndividual = true;
+          break;
+
+        case 2:
+          this.visibleDoble = true;
+          break;
+
+        case 3:
+          this.visibleSuite = true;
+          break;
+
+        case 4:
+          this.visibleConferencia = true;
+          break;
+      }
     }
   }
 });
@@ -31061,6 +31499,44 @@ exports.push([module.i, "\n#app {\r\n  font-family: 'Avenir', Helvetica, Arial, 
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Habitacion.vue?vue&type=style&index=0&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Habitacion.vue?vue&type=style&index=0&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.habitacion{\r\n  padding: 0rem 1rem 0 1rem !important;\r\n  background: #ddd;\r\n  margin-bottom: 1.75rem;\n}\n.habitacion:hover{\r\n  background: #eee;\r\n  -webkit-transform: scale(1.01);\r\n          transform: scale(1.01);\r\n  -webkit-transition: all ease 0.3ms;\r\n  transition: all ease 0.3ms;\n}\n.habitacion select{\r\n    padding: 0.75rem;\r\n    font-family: inherit;\r\n    font-weight: inherit;\n}\n.price-row{\r\n    background:#bbb;\r\n    padding: 1rem;\n}\n.price-row select, .price-row button{\r\n    font-size: 0.8rem;\r\n    font-weight: 400;\r\n    padding: 0.65rem 0.25rem;\n}\n.price-row button a{\r\n    color: white !important;\n}\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListHabitaciones.vue?vue&type=style&index=0&id=2adc3e34&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/ListHabitaciones.vue?vue&type=style&index=0&id=2adc3e34&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.hab-counter[data-v-2adc3e34]{\r\n  font-size: 0.75rem;\r\n  margin-left: 20px;\n}\n.range-picker[data-v-2adc3e34]{\r\n  -webkit-box-pack: justify;\r\n          justify-content: space-between;\n}\n#min-textInput[data-v-2adc3e34], #max-textInput[data-v-2adc3e34]{\r\n  font-size:0.75rem;\r\n  border:none;\r\n  height: 75%;\r\n  text-align: center;\n}\nform[data-v-2adc3e34]{\r\n  background: #ddd;\r\n  padding: 1rem 1rem 0 1rem;\r\n  margin: 1rem;\n}\nform label[data-v-2adc3e34]{\r\n  font-size: 0.8rem;\r\n  margin-bottom: 0;\r\n  font-weight: 600;\n}\r\n\r\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/lib/css-base.js":
 /*!*************************************************!*\
   !*** ./node_modules/css-loader/lib/css-base.js ***!
@@ -34623,6 +35099,743 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/regenerator-runtime/runtime.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var runtime = (function (exports) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  exports.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunctionPrototype[toStringTagSymbol] =
+    GeneratorFunction.displayName = "GeneratorFunction";
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      prototype[method] = function(arg) {
+        return this._invoke(method, arg);
+      };
+    });
+  }
+
+  exports.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  exports.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      if (!(toStringTagSymbol in genFun)) {
+        genFun[toStringTagSymbol] = "GeneratorFunction";
+      }
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  exports.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return Promise.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return Promise.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new Promise(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  exports.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  exports.async = function(innerFn, outerFn, self, tryLocsList) {
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList)
+    );
+
+    return exports.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        // Note: ["return"] must be used for ES3 parsing compatibility.
+        if (delegate.iterator["return"]) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  Gp[toStringTagSymbol] = "Generator";
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  exports.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  exports.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+
+  // Regardless of whether this script is executing as a CommonJS module
+  // or not, return the runtime object so that we can declare the variable
+  // regeneratorRuntime in the outer scope, which allows this module to be
+  // injected easily by `bin/regenerator --include-runtime script.js`.
+  return exports;
+
+}(
+  // If this script is executing as a CommonJS module, use module.exports
+  // as the regeneratorRuntime namespace. Otherwise create a new empty
+  // object. Either way, the resulting object will be used to initialize
+  // the regeneratorRuntime variable at the top of this file.
+   true ? module.exports : undefined
+));
+
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  // This module should not be running in strict mode, so the above
+  // assignment should always work unless something is misconfigured. Just
+  // in case runtime.js accidentally runs in strict mode, we can escape
+  // strict mode using a global Function call. This could conceivably fail
+  // if a Content Security Policy forbids using Function, but in that case
+  // the proper solution is to fix the accidental strict mode problem. If
+  // you've misconfigured your bundler to force strict mode and applied a
+  // CSP to forbid Function, and you're not willing to fix either of those
+  // problems, please detail your unique predicament in a GitHub issue.
+  Function("r", "regeneratorRuntime = r")(runtime);
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/setimmediate/setImmediate.js":
 /*!***************************************************!*\
   !*** ./node_modules/setimmediate/setImmediate.js ***!
@@ -34844,6 +36057,66 @@ options.transform = transform
 options.insertInto = undefined;
 
 var update = __webpack_require__(/*! ../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Habitacion.vue?vue&type=style&index=0&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Habitacion.vue?vue&type=style&index=0&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Habitacion.vue?vue&type=style&index=0&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Habitacion.vue?vue&type=style&index=0&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListHabitaciones.vue?vue&type=style&index=0&id=2adc3e34&scoped=true&lang=css&":
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/ListHabitaciones.vue?vue&type=style&index=0&id=2adc3e34&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListHabitaciones.vue?vue&type=style&index=0&id=2adc3e34&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListHabitaciones.vue?vue&type=style&index=0&id=2adc3e34&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
 
 if(content.locals) module.exports = content.locals;
 
@@ -35579,6 +36852,178 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Habitacion.vue?vue&type=template&id=3287ab5d&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Habitacion.vue?vue&type=template&id=3287ab5d& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "habitacion container" }, [
+    _c("div", { staticClass: "row align-items-center py-0 py-m-2" }, [
+      _c("img", {
+        staticClass: "col-12 col-md-4 p-2",
+        attrs: { src: _vm.img }
+      }),
+      _vm._v(" "),
+      _c("div", { staticClass: "col-12 col-md-6 info-habitacion text-left" }, [
+        _c("p", { staticClass: "hab-nombre text-uppercase py-2" }, [
+          _c("strong", [_vm._v(_vm._s(_vm.item.nombre))])
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "hab-desc" }, [
+          _vm._v(_vm._s(_vm.item.descripcion))
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "tipo-desc" }, [
+          _vm._v(_vm._s(_vm.item.tipo.descripcion))
+        ]),
+        _vm._v(" "),
+        _vm.item.tipo_id != 4
+          ? _c("p", { staticClass: "hab-detalles" }, [
+              _c("b", [_vm._v("Camas:")]),
+              _vm._v(" " + _vm._s(_vm.item.camas))
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.item.tipo_id != 4
+          ? _c("p", { staticClass: "hab-detalles" }, [
+              _c("b", [_vm._v("Tamaño:")]),
+              _vm._v(
+                " " + _vm._s(_vm.item.metros_cuadrados) + " metros cuadrados"
+              )
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.item.tipo_id != 4
+          ? _c("p", { staticClass: "hab-detalles" }, [
+              _c("b", [_vm._v("Tipo:")]),
+              _vm._v(" " + _vm._s(_vm.item.tipo.nombre))
+            ])
+          : _vm._e(),
+        _vm._v(" "),
+        _vm.item.tipo_id == 4
+          ? _c("p", { staticClass: "hab-detalles" }, [
+              _c("b", [_vm._v("Capacidad:")]),
+              _vm._v(" " + _vm._s(_vm.item.capacidad) + " personas")
+            ])
+          : _vm._e()
+      ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      {
+        staticClass:
+          "row price-row justify-content-start justify-content-sm-center align-items-center"
+      },
+      [
+        _c(
+          "select",
+          {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.tipoPension,
+                expression: "tipoPension"
+              }
+            ],
+            staticClass: "selectpicker tipo-reserva-select col-6 col-sm-4",
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.tipoPension = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
+          },
+          [
+            _c("option", { attrs: { value: "1" } }, [
+              _vm._v("Solo alojamiento")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "2" } }, [
+              _vm._v("Desayuno incluido")
+            ]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "3" } }, [_vm._v("Media pensión")]),
+            _vm._v(" "),
+            _c("option", { attrs: { value: "4" } }, [
+              _vm._v("Pensión completa")
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "p",
+          {
+            staticClass: "hab-precio col-2 offset-2 offset-sm-0 col-sm-6 my-0"
+          },
+          [
+            _c("strong", [
+              _vm._v(
+                _vm._s(_vm.item.precio_base + _vm.item.tipo.precio_tipo) + "€"
+              )
+            ])
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "button",
+          {
+            staticClass:
+              "hab-boton-reserva btn btn-secondary col-12 mt-3 mt-sm-0 col-sm-2",
+            attrs: { type: "button" },
+            on: { click: _vm.datosState }
+          },
+          [
+            _c(
+              "router-link",
+              {
+                attrs: {
+                  to: {
+                    name: "reservas",
+                    params: {
+                      tipoPension: this.tipoPension,
+                      fecha: this.fecha,
+                      tipoHab: this.item.tipo.id
+                    }
+                  }
+                }
+              },
+              [_vm._v("\n                Reservar\n            ")]
+            )
+          ],
+          1
+        )
+      ]
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Home.vue?vue&type=template&id=a9aac016&":
 /*!*************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Home.vue?vue&type=template&id=a9aac016& ***!
@@ -35595,6 +37040,276 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("h1", [_vm._v("Página principal")])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListHabitaciones.vue?vue&type=template&id=2adc3e34&scoped=true&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/ListHabitaciones.vue?vue&type=template&id=2adc3e34&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("form", { on: { submit: _vm.filtraEstancias } }, [
+      _c("div", { staticClass: "container my-3" }, [
+        _c("div", { staticClass: "row align-content-between" }, [
+          _c("div", { staticClass: "form-group text-left col-12 col-sm-6" }, [
+            _c("label", { attrs: { for: "date-picker" } }, [_vm._v("Fecha")]),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.fecha,
+                  expression: "fecha"
+                }
+              ],
+              staticClass: "date-picker form-control mb-3",
+              attrs: { id: "date-picker", type: "date", name: "bday" },
+              domProps: { value: _vm.fecha },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.fecha = $event.target.value
+                }
+              }
+            }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "type-sel" } }, [
+              _vm._v("Tipo de estancia")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.tipoEstancia,
+                    expression: "tipoEstancia"
+                  }
+                ],
+                staticClass: "form-control",
+                attrs: { id: "type-sel" },
+                on: {
+                  change: function($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function(o) {
+                        return o.selected
+                      })
+                      .map(function(o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.tipoEstancia = $event.target.multiple
+                      ? $$selectedVal
+                      : $$selectedVal[0]
+                  }
+                }
+              },
+              [
+                _c("option", { attrs: { value: "0" } }, [_vm._v("Todas")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "1" } }, [_vm._v("Sencilla")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "2" } }, [_vm._v("Doble")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "3" } }, [_vm._v("Suite")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "4" } }, [
+                  _vm._v("Sala de reuniones")
+                ])
+              ]
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            {
+              staticClass:
+                "form-group filter-container col-12 offset-sm-2 col-sm-4 px-4 px-xs-0 text-left"
+            },
+            [
+              _c("label", { attrs: { for: "sl-min" } }, [
+                _vm._v("Precio min.")
+              ]),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row range-picker align-content-between" },
+                [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: _vm.precioMin,
+                        expression: "precioMin"
+                      }
+                    ],
+                    staticClass: "form-control col-8 p-0",
+                    attrs: {
+                      id: "sl-min",
+                      type: "range",
+                      name: "points",
+                      min: "0",
+                      max: "600",
+                      step: "5"
+                    },
+                    domProps: { value: _vm.precioMin },
+                    on: {
+                      input: _vm.rangeUpdate,
+                      __r: function($event) {
+                        _vm.precioMin = $event.target.value
+                      }
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c("input", {
+                    staticClass: "col-2 p-1",
+                    attrs: {
+                      classtype: "text",
+                      id: "min-textInput",
+                      value: "0"
+                    }
+                  })
+                ]
+              ),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "sl-max" } }, [
+                _vm._v("Precio max.")
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row range-picker text-left" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.precioMax,
+                      expression: "precioMax"
+                    }
+                  ],
+                  staticClass: "form-control col-8 p-0",
+                  attrs: {
+                    id: "sl-max",
+                    type: "range",
+                    name: "points",
+                    min: "50",
+                    max: "600",
+                    step: "5"
+                  },
+                  domProps: { value: _vm.precioMax },
+                  on: {
+                    input: _vm.rangeUpdate,
+                    __r: function($event) {
+                      _vm.precioMax = $event.target.value
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  staticClass: "col-2 p-1",
+                  attrs: { type: "text", id: "max-textInput", value: "600" }
+                })
+              ])
+            ]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "container row align-items-center" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary col-12 col-sm-6 my-2",
+              attrs: { type: "submit", value: "submit" }
+            },
+            [_vm._v("Buscar")]
+          ),
+          _vm._v(" "),
+          _c(
+            "p",
+            {
+              staticClass:
+                "hab-counter font-weight-light text-left col-12 col-sm-4 mb-2 mb-sm-0 px-0"
+            },
+            [
+              _c("i", [
+                _vm._v(
+                  _vm._s(_vm.habitaciones.length) + " estancias encontradas."
+                )
+              ])
+            ]
+          )
+        ])
+      ])
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "nube-etiquetas container" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "hab-list list-unstyled list-inline text-left",
+          attrs: { id: "ListHabitaciones" }
+        },
+        _vm._l(_vm.etiquetas, function(etiqueta) {
+          return _c("li", { staticClass: "list-inline-item" }, [
+            _c(
+              "span",
+              { staticClass: "badge badge-pill badge-secondary px-4" },
+              [_vm._v(_vm._s(etiqueta))]
+            )
+          ])
+        }),
+        0
+      )
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "hab-list-cont container" }, [
+      _c(
+        "ul",
+        {
+          staticClass: "hab-list list-unstyled",
+          attrs: { id: "ListHabitaciones" }
+        },
+        _vm._l(_vm.habitaciones, function(item) {
+          return _c(
+            "li",
+            [
+              _c("Habitacion", {
+                attrs: {
+                  item: item,
+                  img:
+                    "https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg",
+                  fecha: _vm.fecha
+                }
+              })
+            ],
+            1
+          )
+        }),
+        0
+      )
+    ])
+  ])
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -35891,260 +37606,369 @@ var render = function() {
     { staticStyle: { "text-align": "left" }, attrs: { fluid: "" } },
     [
       _c(
-        "b-form-group",
-        {
-          attrs: {
-            id: "tipo-estancia",
-            label: "Tipo estancia",
-            "label-for": "tipo-estancia"
-          }
-        },
-        [
-          _c("b-form-select", {
-            directives: [
-              {
-                name: "b-toggle",
-                rawName: "v-b-toggle.collapse-foto",
-                modifiers: { "collapse-foto": true }
-              }
-            ],
-            attrs: {
-              id: "tipo-estancia",
-              options: _vm.tipoEstancias,
-              required: ""
-            },
-            on: {
-              change: function($event) {
-                return _vm.calcularTotal("tipo-estancia")
-              }
-            },
-            model: {
-              value: _vm.form.tipoEstancia,
-              callback: function($$v) {
-                _vm.$set(_vm.form, "tipoEstancia", $$v)
-              },
-              expression: "form.tipoEstancia"
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "b-alert",
-            {
-              attrs: { variant: "danger", dismissible: "" },
-              model: {
-                value: _vm.alertaEstanciaVisible,
-                callback: function($$v) {
-                  _vm.alertaEstanciaVisible = $$v
-                },
-                expression: "alertaEstanciaVisible"
-              }
-            },
-            [_vm._v("\n        ¡Seleccione una opción correcta!\n      ")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-form-group",
-        {
-          attrs: {
-            id: "tipo-reserva",
-            label: "Tipo de pensión",
-            "label-for": "tipo-reserva"
-          }
-        },
-        [
-          _c("b-form-select", {
-            attrs: {
-              id: "tipo-reserva",
-              options: _vm.tipoReservas,
-              required: ""
-            },
-            on: {
-              change: function($event) {
-                return _vm.calcularTotal("tipo-reserva")
-              }
-            },
-            model: {
-              value: _vm.form.tipoReserva,
-              callback: function($$v) {
-                _vm.$set(_vm.form, "tipoReserva", $$v)
-              },
-              expression: "form.tipoReserva"
-            }
-          }),
-          _vm._v(" "),
-          _c(
-            "b-alert",
-            {
-              attrs: { variant: "danger", dismissible: "" },
-              model: {
-                value: _vm.alertaReservaVisible,
-                callback: function($$v) {
-                  _vm.alertaReservaVisible = $$v
-                },
-                expression: "alertaReservaVisible"
-              }
-            },
-            [_vm._v("\n        ¡Seleccione una opción correcta!\n      ")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-form-group",
-        {
-          attrs: {
-            id: "f-inicio",
-            label: "Fecha inicio:",
-            "label-for": "f-inicio"
-          }
-        },
-        [
-          _c("b-form-input", {
-            attrs: {
-              id: "f-inicio",
-              required: "",
-              type: "date",
-              placeholder: "Seleccione fecha inicio"
-            },
-            on: {
-              change: function($event) {
-                return _vm.calcularTemporada()
-              }
-            },
-            model: {
-              value: _vm.form.f_inicio,
-              callback: function($$v) {
-                _vm.$set(_vm.form, "f_inicio", $$v)
-              },
-              expression: "form.f_inicio"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "b-form-group",
-        {
-          attrs: {
-            id: "f-final",
-            label: "Fecha final:",
-            "label-for": "f-final"
-          }
-        },
-        [
-          _c("b-form-input", {
-            attrs: {
-              id: "f-final",
-              required: "",
-              type: "date",
-              placeholder: "Seleccione fecha fin"
-            },
-            model: {
-              value: _vm.form.f_fin,
-              callback: function($$v) {
-                _vm.$set(_vm.form, "f_fin", $$v)
-              },
-              expression: "form.f_fin"
-            }
-          })
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "H5",
-        { attrs: { value: _vm.precio }, on: { input: _vm.calcularTotal } },
-        [_vm._v("Valor total reserva ")]
-      ),
-      _vm._v(" "),
-      _c("h2", [_vm._v(_vm._s(_vm.precio))]),
-      _vm._v(" "),
-      _c(
-        "row",
+        "b-row",
         [
           _c(
-            "b-collapse",
-            { staticClass: "mt-2", attrs: { id: "collapse-foto-suite" } },
+            "b-col",
             [
               _c(
-                "b-card",
+                "b-form-group",
                 {
                   attrs: {
-                    "img-src":
-                      "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$",
-                    "img-alt": "Card image",
-                    "img-top": ""
+                    id: "tipo-estancia",
+                    label: "Tipo estancia",
+                    "label-for": "tipo-estancia"
                   }
                 },
-                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+                [
+                  _c("b-form-select", {
+                    directives: [
+                      {
+                        name: "b-toggle",
+                        rawName: "v-b-toggle.collapse-foto",
+                        modifiers: { "collapse-foto": true }
+                      }
+                    ],
+                    attrs: {
+                      id: "tipo-estancia",
+                      options: _vm.tipoEstancias,
+                      required: ""
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.calcularTotal("tipo-estancia")
+                      }
+                    },
+                    model: {
+                      value: _vm.form.tipoEstancia,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "tipoEstancia", $$v)
+                      },
+                      expression: "form.tipoEstancia"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "b-alert",
+                    {
+                      attrs: { variant: "danger", dismissible: "" },
+                      model: {
+                        value: _vm.alertaEstanciaVisible,
+                        callback: function($$v) {
+                          _vm.alertaEstanciaVisible = $$v
+                        },
+                        expression: "alertaEstanciaVisible"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n            ¡Seleccione una opción correcta!\n          "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "tipo-reserva",
+                    label: "Tipo de pensión",
+                    "label-for": "tipo-reserva"
+                  }
+                },
+                [
+                  _c("b-form-select", {
+                    attrs: {
+                      id: "tipo-reserva",
+                      options: _vm.tipoReservas,
+                      required: ""
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.calcularTotal("tipo-reserva")
+                      }
+                    },
+                    model: {
+                      value: _vm.form.tipoReserva,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "tipoReserva", $$v)
+                      },
+                      expression: "form.tipoReserva"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _c(
+                    "b-alert",
+                    {
+                      attrs: { variant: "danger", dismissible: "" },
+                      model: {
+                        value: _vm.alertaReservaVisible,
+                        callback: function($$v) {
+                          _vm.alertaReservaVisible = $$v
+                        },
+                        expression: "alertaReservaVisible"
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n            ¡Seleccione una opción correcta!\n          "
+                      )
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "f-inicio",
+                    label: "Fecha inicio:",
+                    "label-for": "f-inicio"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "f-inicio",
+                      required: "",
+                      type: "date",
+                      placeholder: "Seleccione fecha inicio"
+                    },
+                    on: {
+                      change: function($event) {
+                        return _vm.calcularTemporada()
+                      }
+                    },
+                    model: {
+                      value: _vm.form.f_inicio,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "f_inicio", $$v)
+                      },
+                      expression: "form.f_inicio"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-form-group",
+                {
+                  attrs: {
+                    id: "f-final",
+                    label: "Fecha final:",
+                    "label-for": "f-final"
+                  }
+                },
+                [
+                  _c("b-form-input", {
+                    attrs: {
+                      id: "f-final",
+                      required: "",
+                      type: "date",
+                      placeholder: "Seleccione fecha fin"
+                    },
+                    model: {
+                      value: _vm.form.f_fin,
+                      callback: function($$v) {
+                        _vm.$set(_vm.form, "f_fin", $$v)
+                      },
+                      expression: "form.f_fin"
+                    }
+                  })
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "h4",
+                {
+                  attrs: { value: _vm.precio },
+                  on: { input: _vm.calcularTotal }
+                },
+                [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  ref: "btnSubmit",
+                  attrs: { type: "submit", variant: "outline-primary" },
+                  on: { click: _vm.onSubmit }
+                },
+                [_vm._v("Confirmar reserva")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-alert",
+                {
+                  attrs: { variant: "danger", dismissible: "" },
+                  model: {
+                    value: _vm.alertaSubtmitVisible,
+                    callback: function($$v) {
+                      _vm.alertaSubtmitVisible = $$v
+                    },
+                    expression: "alertaSubtmitVisible"
+                  }
+                },
+                [
+                  _vm._v(
+                    "\n              ¡Debe seleccionar todos los campos!\n          "
+                  )
+                ]
               )
             ],
             1
           ),
           _vm._v(" "),
           _c(
-            "b-collapse",
-            { staticClass: "mt-2", attrs: { id: "collapse-foto-doble" } },
+            "b-col",
             [
               _c(
-                "b-card",
+                "b-collapse",
                 {
-                  attrs: {
-                    "img-src":
-                      "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
-                    "img-alt": "Card image",
-                    "img-top": ""
+                  staticClass: "mt-2",
+                  attrs: { id: "collapse-foto-suite" },
+                  model: {
+                    value: _vm.visibleSuite,
+                    callback: function($$v) {
+                      _vm.visibleSuite = $$v
+                    },
+                    expression: "visibleSuite"
                   }
                 },
-                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-collapse",
-            { staticClass: "mt-2", attrs: { id: "collapse-foto-individual" } },
-            [
+                [
+                  _c(
+                    "b-card",
+                    {
+                      attrs: {
+                        "img-src":
+                          "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$",
+                        "img-alt": "Card image",
+                        "img-top": ""
+                      }
+                    },
+                    [
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v("\n            Suite!\n          ")
+                      ])
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c(
-                "b-card",
+                "b-collapse",
                 {
-                  attrs: {
-                    "img-src":
-                      "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
-                    "img-alt": "Card image",
-                    "img-top": ""
+                  staticClass: "mt-2",
+                  attrs: { id: "collapse-foto-doble" },
+                  model: {
+                    value: _vm.visibleDoble,
+                    callback: function($$v) {
+                      _vm.visibleDoble = $$v
+                    },
+                    expression: "visibleDoble"
                   }
                 },
-                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
-            "b-collapse",
-            {
-              staticClass: "mt-2",
-              attrs: { id: "collapse-foto-sala-conferencias" }
-            },
-            [
+                [
+                  _c(
+                    "b-card",
+                    {
+                      attrs: {
+                        "img-src":
+                          "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
+                        "img-alt": "Card image",
+                        "img-top": ""
+                      }
+                    },
+                    [
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(
+                          "\n            Habitación para dos personas\n          "
+                        )
+                      ])
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
               _c(
-                "b-card",
+                "b-collapse",
                 {
-                  attrs: {
-                    "img-src":
-                      "https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg",
-                    "img-alt": "Card image",
-                    "img-top": ""
+                  staticClass: "mt-2",
+                  attrs: { id: "collapse-foto-individual" },
+                  model: {
+                    value: _vm.visibleIndividual,
+                    callback: function($$v) {
+                      _vm.visibleIndividual = $$v
+                    },
+                    expression: "visibleIndividual"
                   }
                 },
-                [_c("p", { staticClass: "card-text" }, [_vm._v("Foto")])]
+                [
+                  _c(
+                    "b-card",
+                    {
+                      attrs: {
+                        "img-src":
+                          "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
+                        "img-alt": "Card image",
+                        "img-top": ""
+                      }
+                    },
+                    [
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(
+                          "\n            Habitación individual\n          "
+                        )
+                      ])
+                    ]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "b-collapse",
+                {
+                  staticClass: "mt-2",
+                  attrs: { id: "collapse-foto-sala-conferencias" },
+                  model: {
+                    value: _vm.visibleConferencia,
+                    callback: function($$v) {
+                      _vm.visibleConferencia = $$v
+                    },
+                    expression: "visibleConferencia"
+                  }
+                },
+                [
+                  _c(
+                    "b-card",
+                    {
+                      attrs: {
+                        "img-src":
+                          "https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg",
+                        "img-alt": "Card image",
+                        "img-top": ""
+                      }
+                    },
+                    [
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(
+                          "\n            Sala de conferencias para congresos o reuniones!\n          "
+                        )
+                      ])
+                    ]
+                  )
+                ],
+                1
               )
             ],
             1
@@ -36153,9 +37977,49 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("b-button", { attrs: { variant: "outline-primary" } }, [
-        _vm._v("Confirmar reserva")
-      ])
+      _c(
+        "div",
+        [
+          _c(
+            "b-modal",
+            {
+              ref: "modal-confirmar",
+              attrs: {
+                size: "xl",
+                "hide-footer": "",
+                title: "¿Confirmar datos?"
+              }
+            },
+            [
+              _c("div", { staticClass: "d-block text-center" }, [
+                _c("h3", [_vm._v("Confirme o decline")])
+              ]),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  staticClass: "mt-3",
+                  attrs: { variant: "success", block: "" },
+                  on: { click: _vm.confirmReserva }
+                },
+                [_vm._v("Confimar")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-button",
+                {
+                  staticClass: "mt-2",
+                  attrs: { variant: "danger", block: "" },
+                  on: { click: _vm.hideModal }
+                },
+                [_vm._v("No confirmar")]
+              )
+            ],
+            1
+          )
+        ],
+        1
+      )
     ],
     1
   )
@@ -52370,6 +54234,93 @@ new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
 
 /***/ }),
 
+/***/ "./resources/js/components/Habitacion.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/Habitacion.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Habitacion_vue_vue_type_template_id_3287ab5d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Habitacion.vue?vue&type=template&id=3287ab5d& */ "./resources/js/components/Habitacion.vue?vue&type=template&id=3287ab5d&");
+/* harmony import */ var _Habitacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Habitacion.vue?vue&type=script&lang=js& */ "./resources/js/components/Habitacion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Habitacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Habitacion.vue?vue&type=style&index=0&lang=css& */ "./resources/js/components/Habitacion.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Habitacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Habitacion_vue_vue_type_template_id_3287ab5d___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Habitacion_vue_vue_type_template_id_3287ab5d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Habitacion.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Habitacion.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/Habitacion.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Habitacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Habitacion.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Habitacion.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Habitacion_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Habitacion.vue?vue&type=style&index=0&lang=css&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/Habitacion.vue?vue&type=style&index=0&lang=css& ***!
+  \*********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Habitacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader??ref--6-1!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--6-2!../../../node_modules/vue-loader/lib??vue-loader-options!./Habitacion.vue?vue&type=style&index=0&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Habitacion.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Habitacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Habitacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Habitacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Habitacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Habitacion_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Habitacion.vue?vue&type=template&id=3287ab5d&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/Habitacion.vue?vue&type=template&id=3287ab5d& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Habitacion_vue_vue_type_template_id_3287ab5d___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Habitacion.vue?vue&type=template&id=3287ab5d& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Habitacion.vue?vue&type=template&id=3287ab5d&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Habitacion_vue_vue_type_template_id_3287ab5d___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Habitacion_vue_vue_type_template_id_3287ab5d___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/pages/Home.vue":
 /*!************************************************!*\
   !*** ./resources/js/components/pages/Home.vue ***!
@@ -52434,6 +54385,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Home_vue_vue_type_template_id_a9aac016___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Home_vue_vue_type_template_id_a9aac016___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/ListHabitaciones.vue":
+/*!************************************************************!*\
+  !*** ./resources/js/components/pages/ListHabitaciones.vue ***!
+  \************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ListHabitaciones_vue_vue_type_template_id_2adc3e34_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListHabitaciones.vue?vue&type=template&id=2adc3e34&scoped=true& */ "./resources/js/components/pages/ListHabitaciones.vue?vue&type=template&id=2adc3e34&scoped=true&");
+/* harmony import */ var _ListHabitaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListHabitaciones.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/ListHabitaciones.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ListHabitaciones_vue_vue_type_style_index_0_id_2adc3e34_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ListHabitaciones.vue?vue&type=style&index=0&id=2adc3e34&scoped=true&lang=css& */ "./resources/js/components/pages/ListHabitaciones.vue?vue&type=style&index=0&id=2adc3e34&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ListHabitaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ListHabitaciones_vue_vue_type_template_id_2adc3e34_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ListHabitaciones_vue_vue_type_template_id_2adc3e34_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "2adc3e34",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/pages/ListHabitaciones.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/ListHabitaciones.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************!*\
+  !*** ./resources/js/components/pages/ListHabitaciones.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListHabitaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListHabitaciones.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListHabitaciones.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListHabitaciones_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/ListHabitaciones.vue?vue&type=style&index=0&id=2adc3e34&scoped=true&lang=css&":
+/*!*********************************************************************************************************************!*\
+  !*** ./resources/js/components/pages/ListHabitaciones.vue?vue&type=style&index=0&id=2adc3e34&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListHabitaciones_vue_vue_type_style_index_0_id_2adc3e34_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListHabitaciones.vue?vue&type=style&index=0&id=2adc3e34&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListHabitaciones.vue?vue&type=style&index=0&id=2adc3e34&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListHabitaciones_vue_vue_type_style_index_0_id_2adc3e34_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListHabitaciones_vue_vue_type_style_index_0_id_2adc3e34_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListHabitaciones_vue_vue_type_style_index_0_id_2adc3e34_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListHabitaciones_vue_vue_type_style_index_0_id_2adc3e34_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListHabitaciones_vue_vue_type_style_index_0_id_2adc3e34_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/ListHabitaciones.vue?vue&type=template&id=2adc3e34&scoped=true&":
+/*!*******************************************************************************************************!*\
+  !*** ./resources/js/components/pages/ListHabitaciones.vue?vue&type=template&id=2adc3e34&scoped=true& ***!
+  \*******************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListHabitaciones_vue_vue_type_template_id_2adc3e34_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListHabitaciones.vue?vue&type=template&id=2adc3e34&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListHabitaciones.vue?vue&type=template&id=2adc3e34&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListHabitaciones_vue_vue_type_template_id_2adc3e34_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListHabitaciones_vue_vue_type_template_id_2adc3e34_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -52663,6 +54701,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_Login__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/pages/Login */ "./resources/js/components/pages/Login.vue");
 /* harmony import */ var _components_pages_Register__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/Register */ "./resources/js/components/pages/Register.vue");
 /* harmony import */ var _components_pages_Reserva__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/Reserva */ "./resources/js/components/pages/Reserva.vue");
+/* harmony import */ var _components_pages_ListHabitaciones__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/ListHabitaciones */ "./resources/js/components/pages/ListHabitaciones.vue");
+
 
 
 
@@ -52710,6 +54750,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/ProyectoGrupal-IW/public/register',
     name: 'register',
     component: _components_pages_Register__WEBPACK_IMPORTED_MODULE_5__["default"]
+  }, {
+    path: '/ProyectoGrupal-IW/public/habitaciones',
+    name: 'ListHabitaciones',
+    component: _components_pages_ListHabitaciones__WEBPACK_IMPORTED_MODULE_7__["default"]
   }]
 });
 router.beforeEach(function (to, from, next) {
@@ -52891,13 +54935,13 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     status: '',
-    datosReserva: [],
     precioReserva: 0,
     precioReservaPension: 0,
     temporada: {
-      fecha_incio: "",
+      fecha_inicio: "",
       fecha_fin: "",
-      precioTemporada: 0
+      precioTemporada: 0,
+      temporadaId: 0
     }
   },
   mutations: {
@@ -52908,12 +54952,13 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
       state.precioReservaPension = valor;
     },
     incrementarPrecioTemporada: function incrementarPrecioTemporada(state, valor) {
-      console.log("pone valor");
       state.temporada.precioTemporada = valor;
     },
+    ponerIdTemporada: function ponerIdTemporada(state, id) {
+      state.temporada.temporadaId = id;
+    },
     ponerFechas: function ponerFechas(state, fechas) {
-      console.log("pone fechas");
-      state.temporada.fecha_incio = fechas.f_incio;
+      state.temporada.fecha_inicio = fechas.f_incio;
       state.temporada.fecha_fin = fechas.f_fin;
     }
   },
@@ -52954,9 +54999,10 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
                 f_fin: new Date(response.data[i].fecha_fin)
               };
 
-              if (fechaInicio.mes >= temporada.f_inicio.getMonth() && fechaInicio.mes <= temporada.f_fin.getMonth()) {
+              if (fechaInicio >= temporada.f_inicio && fechaInicio <= temporada.f_fin) {
                 context.commit('ponerFechas', temporada);
                 context.commit('incrementarPrecioTemporada', response.data[i].precio_unitario);
+                context.commit('ponerIdTemporada', response.data[i].id);
                 resolve(response.data);
                 break;
               }
@@ -52965,6 +55011,30 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
         })["catch"](function (exception) {
           console.log("error " + exception);
           reject(exception);
+        });
+      });
+    },
+    realizarReserva: function realizarReserva(_ref, datosReserva) {
+      var state = _ref.state,
+          context = _ref.context;
+      console.log(datosReserva.f_inicio);
+      console.log(state.temporada.temporadaId);
+      console.log(state.temporada.precioReserva + state.temporada.precioReservaPension + state.tem);
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default()({
+          method: 'POST',
+          url: API_URL + "reservas",
+          data: {
+            estancia_id: datosReserva.tipoEstancia,
+            cliente_id: 1,
+            tipo_id: datosReserva.tipoEstancia,
+            temporada_id: state.temporada.temporadaId,
+            f_entrada: datosReserva.f_inicio,
+            f_salida: datosReserva.f_fin,
+            precio_total: state.precioReserva + state.precioReservaPension + state.temporada.precioTemporada
+          }
+        }).then(function (resp) {
+          console.log(resp);
         });
       });
     }
