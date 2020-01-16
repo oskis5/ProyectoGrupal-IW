@@ -1,5 +1,5 @@
 <template>
-    <b-card bg-variant="light" :header="estancia.nombre" border-variant="dark" header-bg-variant="dark" header-text-variant="white">
+    <b-card bg-variant="light" :header="estancia.nombre" header-bg-variant="secondary" header-text-variant="white">
         Fechas: {{reserva.f_entrada}} - {{reserva.f_salida}} <br>
         Tipo de estancia: {{tipo.nombre}} <br>
         Temporada: {{temporada.nombre}} <br>
@@ -20,6 +20,8 @@ export default {
     },
     created: async function(){
         this.getDatos()
+        var f_entrada = this.estancia.f_entrada
+        console.log(f_entrada)
     },
     methods: {
         getDatos: async function(){
