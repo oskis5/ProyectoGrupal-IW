@@ -10,6 +10,7 @@ import ListHabitaciones from './components/pages/ListHabitaciones';
 
 Vue.use(Router);
 
+/*
 const ifNotAuthenticated = (to, from, next) => {
     if (!store.getters.isLoggedIn) {
       next()
@@ -25,7 +26,7 @@ const ifAuthenticated = (to, from, next) => {
     }
     next('/ProyectoGrupal-IW/public/login')
 }
-
+*/
   
 const router = new Router({
     mode: 'history',
@@ -34,6 +35,9 @@ const router = new Router({
             path: '/ProyectoGrupal-IW/public/reservas',
             name: 'reservas',
             component: Reserva,
+            meta: { 
+                requiresAuth: true
+            }
         },
         {
             path: '/ProyectoGrupal-IW/public/',
@@ -55,16 +59,6 @@ const router = new Router({
             name: 'ListHabitaciones',
             component: ListHabitaciones,
         }
-        /*,
-        {
-            path: '/secure',
-            name: 'secure',
-            component: Secure,
-            meta: { 
-              requiresAuth: true
-            }
-        },
-        */
     ]
 })
 

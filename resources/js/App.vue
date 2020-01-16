@@ -28,12 +28,8 @@
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
 export default {
   name: 'app',
-  components: {
-    HelloWorld,
-  },
   computed : {
     isLoggedIn : function(){ return this.$store.getters.isLoggedIn },
     loggedUser : function(){ return this.$store.getters.loggedUser }
