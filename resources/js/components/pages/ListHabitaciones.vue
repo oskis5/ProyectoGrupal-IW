@@ -53,7 +53,7 @@
         <div class="hab-list-cont container">
           <ul id="ListHabitaciones" class="hab-list list-unstyled">
             <li v-for="item in habitaciones">
-                <Habitacion :item="item" img="https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg" :fecha="fecha"/>
+                <Habitacion :item="item" img="https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg" :fecha="fecha" :fechaSalida="fechaSalida"/>
             </li>
           </ul>
         </div>

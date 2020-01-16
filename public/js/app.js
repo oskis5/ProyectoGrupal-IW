@@ -37855,7 +37855,8 @@ var render = function() {
                   item: item,
                   img:
                     "https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg",
-                  fecha: _vm.fecha
+                  fecha: _vm.fecha,
+                  fechaSalida: _vm.fechaSalida
                 }
               })
             ],
