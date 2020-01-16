@@ -7,6 +7,7 @@ import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import Reserva from './components/pages/Reserva';
 import ListHabitaciones from './components/pages/ListHabitaciones';
+import Perfil from './components/pages/Perfil';
 
 Vue.use(Router);
 
@@ -35,6 +36,14 @@ const router = new Router({
             path: '/ProyectoGrupal-IW/public/reservas',
             name: 'reservas',
             component: Reserva,
+            meta: { 
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/ProyectoGrupal-IW/public/perfil',
+            name: 'perfil',
+            component: Perfil,
             meta: { 
                 requiresAuth: true
             }

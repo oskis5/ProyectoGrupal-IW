@@ -12,7 +12,7 @@
           <template v-slot:button-content>
             <span style="padding-right: 10px; font-size: 20px">{{loggedUser.name}}</span>
           </template>
-          <b-dropdown-item href="#">Mi perfil</b-dropdown-item>
+          <b-dropdown-item :to="{name: 'perfil'}">Mi perfil</b-dropdown-item>
           <b-dropdown-item v-on:click="logout()">Cerrar sesión</b-dropdown-item>
         </b-nav-item-dropdown>
 
