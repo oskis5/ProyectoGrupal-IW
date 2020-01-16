@@ -2066,9 +2066,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2076,6 +2073,7 @@ __webpack_require__.r(__webpack_exports__);
       name: "",
       email: "",
       password: "",
+      roles: "",
       striped: true,
       bordered: true,
       borderless: true,
@@ -2096,36 +2094,75 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Opciones',
         key: 'opciones'
       }],
-      clientes: []
+      clientes: [],
+      editedItem: {
+        id: null,
+        name: "",
+        email: "",
+        password: "",
+        roles: 'Cliente'
+      }
     };
   },
   computed: {
     rows: function rows() {
       return this.clientes.length;
     }
-    /* hideModal() {
-         this.$root.$emit('bv::hide::modal', 'modal-1', '#btnguardar')
-     },*/
-
   },
   methods: {
     create: function create() {
-      /*axios.post('api/users', {
-          name: this.name,
-          email: this.email,
-          password: this.password
-      }).then(response=> {
-              this.$router.push('listaClientes');
-          }).catch(error => {
-              console.log(error);
-          });*/
+      var _this = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/users', {
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        roles: 'Cliente'
+      }).then(function (response) {
+        //this.$router.push({ name: 'listaClientes' })
+        _this.$root.$emit('bv::hide::modal', 'modal-crear', '#btnguardar'); //this.$forceUpdate(); 
+
+
+        location.reload();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    update: function update() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('api/users/' + this.editedItem.id, {
+        name: this.editedItem.name,
+        email: this.editedItem.email,
+        password: this.editedItem.password,
+        roles: 'Cliente'
+      }).then(function (response) {
+        _this2.$root.$emit('bv::hide::modal', 'modal-crear', '#btnguardar');
+
+        location.reload();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    destroy: function destroy(id) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('api/users/' + id).then(function (response) {
+        location.reload();
+      })["catch"](function (error) {
+        console.log(error);
+      });
+    },
+    editItem: function editItem(item) {
+      this.editedItem.id = item.id;
+      this.editedItem.name = item.name;
+      this.editedItem.email = item.email;
+      this.editedItem.password = item.password;
     }
   },
   mounted: function mounted() {
-    var _this = this;
+    var _this3 = this;
 
     axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('api/users').then(function (response) {
-      _this.clientes = response.data;
+      _this3.clientes = response.data;
     })["catch"](function (error) {
       console.log(error);
     });
@@ -36157,8 +36194,8 @@ var render = function() {
               directives: [
                 {
                   name: "b-modal",
-                  rawName: "v-b-modal.modal-1",
-                  modifiers: { "modal-1": true }
+                  rawName: "v-b-modal.modal-crear",
+                  modifiers: { "modal-crear": true }
                 }
               ],
               staticClass: "mb-2",
@@ -36207,8 +36244,20 @@ var render = function() {
                 _c(
                   "b-button",
                   {
+                    directives: [
+                      {
+                        name: "b-modal",
+                        rawName: "v-b-modal.modal-editar",
+                        modifiers: { "modal-editar": true }
+                      }
+                    ],
                     staticClass: "mr-1",
-                    attrs: { size: "sm", variant: "warning" }
+                    attrs: { size: "sm", variant: "warning" },
+                    on: {
+                      click: function($event) {
+                        return _vm.editItem(row.item)
+                      }
+                    }
                   },
                   [_vm._v("\n        Editar\n        ")]
                 ),
@@ -36217,7 +36266,12 @@ var render = function() {
                   "b-button",
                   {
                     staticClass: "mr-1",
-                    attrs: { size: "sm", variant: "danger" }
+                    attrs: { size: "sm", variant: "danger" },
+                    on: {
+                      click: function($event) {
+                        return _vm.destroy(row.item.id)
+                      }
+                    }
                   },
                   [_vm._v("\n        Eliminar\n        ")]
                 )
@@ -36241,7 +36295,13 @@ var render = function() {
       _vm._v(" "),
       _c(
         "b-modal",
-        { attrs: { id: "modal-1", title: "Nuevo cliente", "hide-footer": "" } },
+        {
+          attrs: {
+            id: "modal-crear",
+            title: "Nuevo cliente",
+            "hide-footer": ""
+          }
+        },
         [
           _c(
             "b-form",
@@ -36348,20 +36408,97 @@ var render = function() {
               )
             ],
             1
-          ),
-          _vm._v(" "),
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "b-modal",
+        {
+          attrs: {
+            id: "modal-editar",
+            title: "Nuevo cliente",
+            "hide-footer": ""
+          }
+        },
+        [
           _c(
-            "b-button",
-            {
-              staticClass: "mt-3",
-              attrs: { block: "" },
-              on: {
-                click: function($event) {
-                  return _vm.$bvModal.hide("modal-1")
-                }
-              }
-            },
-            [_vm._v("Close Me")]
+            "b-form",
+            [
+              _c(
+                "b-card",
+                [
+                  _c(
+                    "b-form-group",
+                    {
+                      staticClass: "mt-3",
+                      attrs: { label: "Nombre:", description: "" }
+                    },
+                    [
+                      _c("b-form-input", {
+                        attrs: { name: "name", type: "text" },
+                        model: {
+                          value: _vm.editedItem.name,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editedItem, "name", $$v)
+                          },
+                          expression: "editedItem.name"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    {
+                      staticClass: "mt-3",
+                      attrs: { label: "Correo electrónico:", description: "" }
+                    },
+                    [
+                      _c("b-form-input", {
+                        attrs: {
+                          name: "email",
+                          type: "email",
+                          placeholder: "email@example.com"
+                        },
+                        model: {
+                          value: _vm.editedItem.email,
+                          callback: function($$v) {
+                            _vm.$set(_vm.editedItem, "email", $$v)
+                          },
+                          expression: "editedItem.email"
+                        }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      ref: "btnguardar",
+                      staticClass: "mt-5",
+                      attrs: {
+                        size: "lg",
+                        block: "",
+                        pill: "",
+                        variant: "success"
+                      },
+                      on: {
+                        click: function($event) {
+                          return _vm.update()
+                        }
+                      }
+                    },
+                    [_vm._v("Guardar")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
           )
         ],
         1
@@ -53601,6 +53738,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+var originalPush = vue_router__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.push;
+
+vue_router__WEBPACK_IMPORTED_MODULE_1__["default"].prototype.push = function push(location) {
+  return originalPush.call(this, location)["catch"](function (err) {
+    return err;
+  });
+};
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 

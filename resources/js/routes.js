@@ -8,6 +8,11 @@ import Register from './components/pages/Register';
 import ListaClientes from './components/pages/ListaClientes'
 import Reserva from './components/pages/Reserva';
 
+const originalPush = Router.prototype.push;
+Router.prototype.push = function push(location) {
+  return originalPush.call(this, location).catch(err => err)
+};
+
 Vue.use(Router);
 
 const ifNotAuthenticated = (to, from, next) => {

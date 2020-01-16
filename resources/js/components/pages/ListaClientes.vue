@@ -1,7 +1,7 @@
 <template> 
     <b-container style= "margin-top: 5%">
         <div align="right">
-            <b-button v-b-modal.modal-1 variant="success" class="mb-2">Nuevo cliente</b-button>
+            <b-button v-b-modal.modal-crear variant="success" class="mb-2">Nuevo cliente</b-button>
         </div>
         <b-table 
         :striped="striped"
@@ -23,15 +23,15 @@
                 <td class="text-xs-center">{{ cliente.email }}</td>
                 <td>
                
-                <b-button v-b-modal.modal-1 variant="success" class="mb-2">Nuevo cliente</b-button>
+                <b-button v-b-modal.modal-crear variant="success" class="mb-2">Nuevo cliente</b-button>
                 </td>                       
             </tr>
         </template>-->
         <template v-slot:cell(opciones)="row">
-            <b-button size="sm" variant="warning" class="mr-1">
+            <b-button v-b-modal.modal-editar size="sm" variant="warning" v-on:click="editItem(row.item)" class="mr-1">
             Editar
             </b-button>
-            <b-button size="sm" variant="danger" class="mr-1">
+            <b-button size="sm" variant="danger" v-on:click="destroy(row.item.id)" class="mr-1">
             Eliminar
             </b-button>
         </template>
@@ -42,27 +42,12 @@
             :total-rows="rows"
             :per-page="perPage"
         ></b-pagination>
-        <b-modal id="modal-1" title="Nuevo cliente" hide-footer>
-    
+        <b-modal id="modal-crear" title="Nuevo cliente" hide-footer>
             <b-form >
                 <b-card >
-                    <!--<div class="row">
-                        <div class="col">
-                            <b-form-group label="Nombre:" description="">
-                                <b-form-input name="name" v-model="name" type="text"></b-form-input>  
-                            </b-form-group>
-                        </div>
-                        <div class="col">
-                            <b-form-group label="Apellidos:" description="">
-                                <b-form-input name="surname" v-model="surname" type="text"></b-form-input>
-                            </b-form-group>
-                        </div>
-                    </div>-->
-                       
                     <b-form-group label="Nombre:" description="" class="mt-3">
                         <b-form-input name="name" v-model="name" type="text"></b-form-input>
                     </b-form-group>
-                
                     <b-form-group label="Correo electrónico:" description="" class="mt-3">
                         <b-form-input name="email" v-model="email" type="email" placeholder="email@example.com"></b-form-input>
                     </b-form-group>
@@ -72,9 +57,21 @@
                     <b-button ref="btnguardar" size="lg" block pill variant="success" v-on:click="create()" class="mt-5">Guardar</b-button>
                 </b-card>
             </b-form>
-            <b-button class="mt-3" block @click="$bvModal.hide('modal-1')">Close Me</b-button>
         </b-modal>
-      
+
+        <b-modal id="modal-editar" title="Nuevo cliente" hide-footer>
+            <b-form >
+                <b-card >
+                    <b-form-group label="Nombre:" description="" class="mt-3">
+                        <b-form-input name="name" v-model="editedItem.name" type="text"></b-form-input>
+                    </b-form-group>
+                    <b-form-group label="Correo electrónico:" description="" class="mt-3">
+                        <b-form-input name="email" v-model="editedItem.email" type="email" placeholder="email@example.com"></b-form-input>
+                    </b-form-group>
+                    <b-button ref="btnguardar" size="lg" block pill variant="success" v-on:click="update()" class="mt-5">Guardar</b-button>
+                </b-card>
+            </b-form>
+        </b-modal>
     </b-container>
 </template>
 
@@ -83,9 +80,11 @@
     export default {
         data() {
             return {
+                
                 name: "",
                 email: "",
                 password: "",
+                roles: "",
                 striped: true,
                 bordered: true,
                 borderless: true,
@@ -99,28 +98,64 @@
                 {label: 'Email', key: 'email', sortable: true},
                 {label: 'Opciones', key: 'opciones'},
                 ],
-                clientes: []
+                clientes: [],
+                editedItem: {
+                    id: null,
+                    name: "",
+                    email: "",
+                    password: "",
+                    roles: 'Cliente'
+                },
             }
         },
         computed: {
             rows() {
                 return this.clientes.length
             },
-           /* hideModal() {
-                this.$root.$emit('bv::hide::modal', 'modal-1', '#btnguardar')
-            },*/
         },
         methods: {
             create(){
-                /*axios.post('api/users', {
+                axios.post('api/users', {
                     name: this.name,
                     email: this.email,
-                    password: this.password
+                    password: this.password,
+                    roles: 'Cliente',
                 }).then(response=> {
-                        this.$router.push('listaClientes');
+                        //this.$router.push({ name: 'listaClientes' })
+                        this.$root.$emit('bv::hide::modal', 'modal-crear', '#btnguardar');
+                        //this.$forceUpdate(); 
+                        location.reload();
                     }).catch(error => {
                         console.log(error);
-                    });*/
+                    });
+            },
+            update(){
+                axios.put('api/users/'+ this.editedItem.id,{
+                    name: this.editedItem.name,
+                    email: this.editedItem.email,
+                    password: this.editedItem.password,
+                    roles: 'Cliente',
+                })
+                .then(response=> {
+                        this.$root.$emit('bv::hide::modal', 'modal-crear', '#btnguardar'); 
+                        location.reload();
+                    }).catch(error => {
+                        console.log(error);
+                    });
+            },
+            destroy(id){
+                axios.delete('api/users/'+ id)
+                .then(response=> {
+                        location.reload();
+                    }).catch(error => {
+                        console.log(error);
+                    });
+            },
+            editItem(item){
+                this.editedItem.id = item.id
+                this.editedItem.name = item.name
+                this.editedItem.email = item.email
+                this.editedItem.password = item.password
             }
         },
         mounted() {
