@@ -6,6 +6,7 @@ export default {
     state: {
         status : '',
         precioReserva: 0,
+        diasReserva: 1,
         precioReservaPension: 0,
         temporada : {fecha_inicio: "" , fecha_fin : "" , precioTemporada: 0 , temporadaId: 0}
     },
@@ -26,6 +27,9 @@ export default {
         ponerFechas(state,fechas){
             state.temporada.fecha_inicio = fechas.f_incio;
             state.temporada.fecha_fin = fechas.f_fin;
+        },
+        ponerDias(state,dias){
+            state.diasReserva = dias;
         }
     },
     actions:
@@ -105,6 +109,9 @@ export default {
                     console.log(resp)
                 })
             })
+        },
+        anyadirDiasPrecio(context,dias){
+            context.commit('ponerDias', dias)
         }
     }
 }

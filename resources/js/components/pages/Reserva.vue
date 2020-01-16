@@ -44,6 +44,7 @@
               v-model="form.f_fin"
               required
               type = date
+              @change="calcularDiasReservas()"
               placeholder="Seleccione fecha fin"
             ></b-form-input>
           </b-form-group>
@@ -148,10 +149,10 @@ export default {
   },
   computed : {
     precio : function() {
-      return 
-        this.$store.state.reserva.precioReserva 
+      return (this.$store.state.reserva.precioReserva 
         + this.$store.state.reserva.precioReservaPension
-        + this.$store.state.reserva.temporada.precioTemporada
+        + this.$store.state.reserva.temporada.precioTemporada)
+        * this.$store.state.reserva.diasReserva
     }
   },
   methods:{
@@ -243,6 +244,19 @@ export default {
             this.visibleConferencia = true
             break;
         }
+    },
+    calcularDiasReservas(){
+      if(this.form.f_inicio != '' && this.form.f_fin != ''){
+        var oneDay = 24 * 60 * 60 * 1000;
+        var fechaInicioForm =  new Date(this.form.f_inicio)
+        var fechaFinForm = new Date(this.form.f_fin)
+        console.log(Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay)))
+        //anyadirDiasPrecio dispatch
+        var totalDias = Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay));
+         this.$store.dispatch("anyadirDiasPrecio",totalDias)
+                    .then(resp =>{
+                    })   
+      }
     }
   }
 }
