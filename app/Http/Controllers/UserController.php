@@ -20,19 +20,11 @@ class UserController extends Controller
     }
 
     public function showClientes(){
-        /*$user = DB::table('users')
-        ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
-        //->join('model_has_roles', 'model_has_roles.role_id', '=', '2')
-        ->get();*/
         $users = DB::select('select u.* from users u, model_has_roles m where u.id = m.model_id and m.role_id = 3');
         return response()->json($users, 200);
     }
 
     public function showRecepcionistas(){
-        /*$user = DB::table('users')
-        ->join('model_has_roles', 'users.id', '=', 'model_has_roles.model_id')
-        //->join('model_has_roles', 'model_has_roles.role_id', '=', '2')
-        ->get();*/
         $users = DB::select('select u.* from users u, model_has_roles m where u.id = m.model_id and m.role_id = 2');
         return response()->json($users, 200);
     }
