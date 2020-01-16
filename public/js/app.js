@@ -2065,29 +2065,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Home',
   data: function data() {
@@ -2111,15 +2088,14 @@ __webpack_require__.r(__webpack_exports__);
 
           case 5:
             tipos = _context.sent;
-            tipos.slice(0, 3);
-            console.log(tipos);
+            this.tipoEstancias = tipos.slice(0, 3);
 
-          case 8:
+          case 7:
           case "end":
             return _context.stop();
         }
       }
-    });
+    }, null, this);
   }
 });
 
@@ -2238,7 +2214,7 @@ __webpack_require__.r(__webpack_exports__);
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias'));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost:8000/api/estancias'));
 
             case 2:
               res = _context2.sent;
@@ -2248,7 +2224,7 @@ __webpack_require__.r(__webpack_exports__);
             case 5:
               estancias = _context2.sent;
               _context2.next = 8;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/tipoestancias'));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost:8000/api/estancias'));
 
             case 8:
               tipo_res = _context2.sent;
@@ -2320,7 +2296,7 @@ __webpack_require__.r(__webpack_exports__);
               excluidas = [];
               console.log('Buscando reservas...');
               _context3.next = 14;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/reservas'));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost:8000/api/estancias'));
 
             case 14:
               res = _context3.sent;
@@ -31674,7 +31650,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.carousel-inner[data-v-a9aac016]{\n  overflow:hidden;\n  max-height: 400px;\n}\n.tipo-card[data-v-a9aac016]{\n  margin:0 1rem 0\n}\n.tipo-card img[data-v-a9aac016]{\n  max-height: 150px;\n}\n.cards-container[data-v-a9aac016]{\n  margin-top: 1.5rem;\n  background: #eee;\n}\n", ""]);
+exports.push([module.i, "\n.carousel-inner[data-v-a9aac016]{\n  overflow:hidden;\n  max-height: 400px;\n}\n.tipo-card[data-v-a9aac016]{\n  margin:0 1rem 0 1rem;\n}\n.tipo-card img[data-v-a9aac016]{\n  max-height: 150px;\n}\n.cards-container[data-v-a9aac016]{\n  margin-top: 1.5rem;\n  background: #eee;\n}\n.tipo-titulo[data-v-a9aac016]{\n  background: #bbb;\n}\n", ""]);
 
 // exports
 
@@ -37526,154 +37502,108 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    { staticClass: "container pw-3 home-container justify-content-center" },
+    [
+      _vm._m(0),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "row justify-content-center cards-container p-4" },
+        _vm._l(_vm.tipoEstancias, function(t) {
+          return _c("div", { staticClass: "card px-0 tipo-card col-3" }, [
+            _c("img", {
+              staticClass: "card-img-top",
+              attrs: {
+                src:
+                  "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
+                alt: "Card image cap"
+              }
+            }),
+            _vm._v(" "),
+            _c("div", { staticClass: "px-0 pt-0 card-body" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "col-12 p-1 tipo-titulo justify-content-center align-items-center p-3"
+                },
+                [
+                  _c("p", { staticClass: "mb-0" }, [
+                    _c("b", [_vm._v(_vm._s(t.nombre))])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c("p", { staticClass: "p-2" }, [_vm._v(_vm._s(t.descripcion))]),
+              _vm._v(" "),
+              _c(
+                "a",
+                {
+                  staticClass: "btn btn-secondary align-self-end",
+                  attrs: { href: "#" }
+                },
+                [_vm._v("Desde " + _vm._s(t.precio_tipo) + "€/noche")]
+              )
+            ])
+          ])
+        }),
+        0
+      )
+    ]
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c(
-      "div",
-      { staticClass: "container pw-3 home-container justify-content-center" },
-      [
-        _c("div", { staticClass: "row justify-content-center" }, [
-          _c(
-            "div",
-            {
-              staticClass: "carousel slide col-12 px-0",
-              attrs: { "data-ride": "carousel" }
-            },
-            [
-              _c("div", { staticClass: "carousel-inner" }, [
-                _c("div", { staticClass: "carousel-item active" }, [
-                  _c("img", {
-                    staticClass: "d-block w-100",
-                    attrs: {
-                      src:
-                        "https://r-cf.bstatic.com/images/hotel/max1024x768/107/107157832.jpg",
-                      alt: "Cereales"
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "carousel-item" }, [
-                  _c("img", {
-                    staticClass: "d-block w-100",
-                    attrs: {
-                      src:
-                        "https://r-cf.bstatic.com/images/hotel/max1024x768/102/102096979.jpg",
-                      alt: "Cocina"
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "carousel-item" }, [
-                  _c("img", {
-                    staticClass: "d-block w-100",
-                    attrs: {
-                      src:
-                        "https://q-cf.bstatic.com/images/hotel/max1024x768/107/107158101.jpg",
-                      alt: "Vistas"
-                    }
-                  })
-                ])
-              ])
-            ]
-          )
-        ]),
-        _vm._v(" "),
-        _c(
-          "div",
-          { staticClass: "row justify-content-center cards-container p-4" },
-          [
-            _c("div", { staticClass: "card px-0 tipo-card col-3" }, [
+    return _c("div", { staticClass: "row justify-content-center" }, [
+      _c(
+        "div",
+        {
+          staticClass: "carousel slide col-12 px-0",
+          attrs: { "data-ride": "carousel" }
+        },
+        [
+          _c("div", { staticClass: "carousel-inner" }, [
+            _c("div", { staticClass: "carousel-item active" }, [
               _c("img", {
-                staticClass: "card-img-top",
+                staticClass: "d-block w-100",
                 attrs: {
                   src:
-                    "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
-                  alt: "Card image cap"
+                    "https://r-cf.bstatic.com/images/hotel/max1024x768/107/107157832.jpg",
+                  alt: "Cereales"
                 }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "pt-0 card-body" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "row justify-content-center align-items-center p-3"
-                  },
-                  [_c("p", [_c("b", [_vm._v("Sencilla")])])]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "btn btn-secondary", attrs: { href: "#" } },
-                  [_vm._v("Go somewhere")]
-                )
-              ])
+              })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card px-0 tipo-card col-3" }, [
+            _c("div", { staticClass: "carousel-item" }, [
               _c("img", {
-                staticClass: "card-img-top",
+                staticClass: "d-block w-100",
                 attrs: {
                   src:
-                    "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
-                  alt: "Card image cap"
+                    "https://r-cf.bstatic.com/images/hotel/max1024x768/102/102096979.jpg",
+                  alt: "Cocina"
                 }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "pt-0 card-body" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "row justify-content-center align-items-center p-3"
-                  },
-                  [_c("p", [_c("b", [_vm._v("Doble")])])]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "btn btn-secondary", attrs: { href: "#" } },
-                  [_vm._v("Go somewhere")]
-                )
-              ])
+              })
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "card px-0 tipo-card col-3" }, [
+            _c("div", { staticClass: "carousel-item" }, [
               _c("img", {
-                staticClass: "card-img-top",
+                staticClass: "d-block w-100",
                 attrs: {
                   src:
-                    "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$",
-                  alt: "Card image cap"
+                    "https://q-cf.bstatic.com/images/hotel/max1024x768/107/107158101.jpg",
+                  alt: "Vistas"
                 }
-              }),
-              _vm._v(" "),
-              _c("div", { staticClass: "pt-0 card-body" }, [
-                _c(
-                  "div",
-                  {
-                    staticClass:
-                      "row justify-content-center align-items-center p-3"
-                  },
-                  [_c("p", [_c("b", [_vm._v("Suite")])])]
-                ),
-                _vm._v(" "),
-                _c(
-                  "a",
-                  { staticClass: "btn btn-secondary", attrs: { href: "#" } },
-                  [_vm._v("Go somewhere")]
-                )
-              ])
+              })
             ])
-          ]
-        )
-      ]
-    )
+          ])
+        ]
+      )
+    ])
   }
 ]
 render._withStripped = true
@@ -55708,7 +55638,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
-var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
+var API_URL = "http://localhost:8000/api/estancias";
 /* harmony default export */ __webpack_exports__["default"] = ({
   state: {
     status: '',
