@@ -2546,7 +2546,9 @@ __webpack_require__.r(__webpack_exports__);
         f_inicio: '',
         f_fin: '',
         tipoEstancia: null,
-        tipoReserva: null
+        tipoReserva: null,
+        idEstancia: null,
+        userId: null
       },
       tipoEstancias: [{
         text: 'Selecciona tipo de estancia',
@@ -2595,12 +2597,22 @@ __webpack_require__.r(__webpack_exports__);
     if (this.$route.params) {
       if (this.$route.params.fecha != null) {
         this.form.f_inicio = this.$route.params.fecha;
-      } else if (this.$route.params.tipoHab != null) {
+      }
+
+      if (this.$route.params.tipoHab != null) {
         this.form.tipoEstancia = parseInt(this.$route.params.tipoHab);
         this.visibleCollapseDesdeRouter();
-      } else if (this.$route.params.tipoPension != null) {
+      }
+
+      if (this.$route.params.tipoPension != null) {
         this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
       }
+
+      if (this.$route.params.habId != null) {
+        this.form.idEstancia = this.$route.params.habId;
+        console.log("Id habitacion " + this.$route.params.habId);
+      } //console.log("Id habitacion " + this.$route.params.habId)
+
     }
   },
   computed: {
@@ -2619,6 +2631,7 @@ __webpack_require__.r(__webpack_exports__);
           this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
           this.alertaEstanciaVisible = false;
           this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {});
+          this.$store.dispatch("devolverHabitacionDisponible", this.form.tipoEstancia).then();
         }
       } else if (event == "tipo-reserva") {
         if (this.form.tipoReserva == null) {
@@ -2674,7 +2687,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     confirmReserva: function confirmReserva() {
+      if (this.$store.getters.userRole == 'Cliente') {
+        this.form.userId = this.$store.getters.loggedUser.id;
+      }
+
       this.$store.dispatch("realizarReserva", this.form).then(function (resp) {});
+      this.hideModal();
     },
     hideModal: function hideModal() {
       this.$refs['modal-confirmar'].hide();
@@ -2706,7 +2724,10 @@ __webpack_require__.r(__webpack_exports__);
         console.log(Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay))); //anyadirDiasPrecio dispatch
 
         var totalDias = Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay));
-        this.$store.dispatch("anyadirDiasPrecio", totalDias).then(function (resp) {});
+
+        if (totalDias != 0) {
+          this.$store.dispatch("anyadirDiasPrecio", totalDias).then(function (resp) {});
+        }
       }
     }
   }
@@ -37282,7 +37303,7 @@ var render = function() {
         _vm._l(_vm.habitaciones, function(item) {
           return _c(
             "li",
-            { key: item },
+            { key: item.id },
             [
               _c("Habitacion", {
                 attrs: {
@@ -54935,7 +54956,8 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
       fecha_fin: "",
       precioTemporada: 0,
       temporadaId: 0
-    }
+    },
+    habitacionReserva: null
   },
   mutations: {
     incrementarPrecio: function incrementarPrecio(state, valor) {
@@ -54956,6 +54978,9 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
     },
     ponerDias: function ponerDias(state, dias) {
       state.diasReserva = dias;
+    },
+    establecerHabitacion: function establecerHabitacion(state, idHabitacion) {
+      state.habitacionReserva = idHabitacion;
     }
   },
   actions: {
@@ -55016,18 +55041,19 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
       console.log(datosReserva.f_inicio);
       console.log(state.temporada.temporadaId);
       console.log(state.temporada.precioReserva + state.temporada.precioReservaPension + state.tem);
+      var cond = state.habitacionReserva;
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
           method: 'POST',
           url: API_URL + "reservas",
           data: {
-            estancia_id: datosReserva.tipoEstancia,
-            cliente_id: 1,
+            estancia_id: state.habitacionReserva != null ? state.habitacionReserva : datosReserva.idEstancia,
+            cliente_id: datosReserva.userId,
             tipo_id: datosReserva.tipoEstancia,
             temporada_id: state.temporada.temporadaId,
             f_entrada: datosReserva.f_inicio,
             f_salida: datosReserva.f_fin,
-            precio_total: state.precioReserva + state.precioReservaPension + state.temporada.precioTemporada
+            precio_total: (state.precioReserva + state.precioReservaPension + state.temporada.precioTemporada) * state.diasReserva
           }
         }).then(function (resp) {
           console.log(resp);
@@ -55036,6 +55062,17 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
     },
     anyadirDiasPrecio: function anyadirDiasPrecio(context, dias) {
       context.commit('ponerDias', dias);
+    },
+    devolverHabitacionDisponible: function devolverHabitacionDisponible(context, tipoEstancia) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "estancias").then(function (response) {
+        for (var i = 0; i < response.data.length; i++) {
+          if (tipoEstancia == response.data[i].tipo_id) {
+            console.log("id habitacion dentro " + response.data[i].tipo_id);
+            context.commit('establecerHabitacion', response.data[i].tipo_id);
+            break;
+          }
+        }
+      });
     }
   }
 });

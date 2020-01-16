@@ -50,7 +50,7 @@
         <!--Lista de habitaciones -->
         <div class="hab-list-cont container">
           <ul id="ListHabitaciones" class="hab-list list-unstyled">
-            <li v-for="item in habitaciones" :key="item">
+            <li v-for="item in habitaciones" :key="item.id">
                 <Habitacion :item="item" img="https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg" :fecha="fecha"/>
             </li>
           </ul>

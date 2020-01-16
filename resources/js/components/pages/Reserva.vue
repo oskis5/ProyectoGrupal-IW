@@ -109,6 +109,8 @@ export default {
         f_fin: '',
         tipoEstancia: null,
         tipoReserva : null,
+        idEstancia : null,
+        userId: null
       },
       tipoEstancias: [
         { text: 'Selecciona tipo de estancia', value: null }, 
@@ -132,19 +134,27 @@ export default {
       visibleDoble : false,
       visibleIndividual : false,
       visibleConferencia : false,
-      rolUser : ''
+      rolUser : '',
     }
   },
   created : function(){
     if(this.$route.params){
       if(this.$route.params.fecha != null){
         this.form.f_inicio = this.$route.params.fecha;
-      }else if(this.$route.params.tipoHab != null){
+      }
+      if(this.$route.params.tipoHab != null){
         this.form.tipoEstancia = parseInt(this.$route.params.tipoHab);
         this.visibleCollapseDesdeRouter();
-      }else if(this.$route.params.tipoPension != null){
+      }
+      if(this.$route.params.tipoPension != null){
         this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
       }
+      if(this.$route.params.habId != null){
+         this.form.idEstancia = this.$route.params.habId
+         console.log("Id habitacion " + this.$route.params.habId)
+      }
+       //console.log("Id habitacion " + this.$route.params.habId)
+
     }
   },
   computed : {
@@ -168,6 +178,9 @@ export default {
           
           this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
           .then(resp =>{})
+          this.$store.dispatch("devolverHabitacionDisponible",this.form.tipoEstancia)
+          .then()
+    
         }
       } else if (event == "tipo-reserva") {
         if(this.form.tipoReserva == null){
@@ -222,9 +235,13 @@ export default {
     }
   },
     confirmReserva(){
+      if(this.$store.getters.userRole == 'Cliente'){
+        this.form.userId = this.$store.getters.loggedUser.id
+      }
       this.$store.dispatch("realizarReserva",this.form)
                     .then(resp =>{
-                    })    
+                    })
+      this.hideModal()
     },
     hideModal(){
       this.$refs['modal-confirmar'].hide()
@@ -253,9 +270,10 @@ export default {
         console.log(Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay)))
         //anyadirDiasPrecio dispatch
         var totalDias = Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay));
-         this.$store.dispatch("anyadirDiasPrecio",totalDias)
-                    .then(resp =>{
-                    })   
+        if(totalDias != 0){
+            this.$store.dispatch("anyadirDiasPrecio",totalDias)
+            .then(resp =>{})   
+        }
       }
     }
   }
