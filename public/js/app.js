@@ -2152,6 +2152,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     editItem: function editItem(item) {
+      console.log(item.password);
+      console.log(this.clientes.password);
       this.editedItem.id = item.id;
       this.editedItem.name = item.name;
       this.editedItem.email = item.email;

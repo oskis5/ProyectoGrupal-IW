@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use DB;
 
 class UserController extends Controller
 {
@@ -41,16 +42,18 @@ class UserController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
+            //'password' => 'required|same:confirm-password',
             'roles' => 'required'
         ]);
 
         $input = $request->all();
+        /*
         if(!empty($input['password'])){ 
             $input['password'] = Hash::make($input['password']);
         }else{
             $input = array_except($input,array('password'));    
         }
+        */
 
         $user = User::find($id);
         $user->update($input);

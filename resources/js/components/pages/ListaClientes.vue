@@ -152,6 +152,8 @@
                     });
             },
             editItem(item){
+                console.log(item.password)
+                console.log(this.clientes.password)
                 this.editedItem.id = item.id
                 this.editedItem.name = item.name
                 this.editedItem.email = item.email
