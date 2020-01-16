@@ -8,11 +8,7 @@
 
                 <div class="my-auto">
                     <div class="mb-5 text-center">
-                        <img
-                        style="width: 200px; border-radius: 100%; border: 1px solid black" 
-                        :src="this.profile_img" 
-                        alt=""
-                        >
+                        <img style="width: 200px; border-radius: 100%; border: 1px solid black" :src="'images/profile_img.png'">
                     </div>
                     <div class="mb-3"><b>Nombre de usuario:</b><br> {{loggedUser.name}}</div>
                     <div class="mb-3"><b>Correo electrónico:</b><br> {{loggedUser.email}}</div>
@@ -39,8 +35,7 @@ import ItemReserva from '../ItemReserva'
 export default {
     data() {
         return {
-            reservas: [],
-            profile_img: "https://pngimage.net/wp-content/uploads/2018/05/default-user-profile-image-png-6.png"
+            reservas: []        
         }
     },
     components: {
