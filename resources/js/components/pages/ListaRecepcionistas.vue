@@ -42,7 +42,7 @@
             :total-rows="rows"
             :per-page="perPage"
         ></b-pagination>
-        <b-modal id="modal-crear" title="Nuevo Cliente" hide-footer>
+        <b-modal id="modal-crear" title="Nuevo Recepcionista" hide-footer>
             <b-form >
                 <b-card >
                     <b-form-group label="Nombre:" description="" class="mt-3">
@@ -59,7 +59,7 @@
             </b-form>
         </b-modal>
 
-        <b-modal ref="modal-editar" id="modal-editar" title="Editar Cliente" hide-footer>
+        <b-modal ref="modal-editar" id="modal-editar" title="Editar Recepcionista" hide-footer>
             <b-form >
                 <b-card >
                     <b-form-group label="Nombre:" description="" class="mt-3">

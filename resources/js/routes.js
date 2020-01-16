@@ -6,6 +6,7 @@ import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import ListaClientes from './components/pages/ListaClientes'
+import ListaRecepcionistas from './components/pages/ListaRecepcionistas'
 import Reserva from './components/pages/Reserva';
 
 const originalPush = Router.prototype.push;
@@ -60,6 +61,11 @@ const router = new Router({
             path: '/ProyectoGrupal-IW/public/listaClientes',
             name: 'listaClientes',
             component: ListaClientes,
+        },
+        {
+            path: '/ProyectoGrupal-IW/public/listaRecepcionistas',
+            name: 'listaRecepcionistas',
+            component: ListaRecepcionistas,
         }
         /*,
         {
