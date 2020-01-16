@@ -100,141 +100,150 @@
 </template>
 <script>
 export default {
-    name : 'Reserva',
-    data(){
-        return {
-            form: 
-            {
-                f_inicio: '',
-                f_fin: '',
-                tipoEstancia: null,
-                tipoReserva : null,
-            },
-                tipoEstancias:[{text: 'Selecciona tipo de estancia', value: null}, { text : 'Habitación simple' , value : 1}
-                 ,{text : 'Habitación doble', value :  2 },{text: 'Suite', value: 3},
-                 {text : 'Sala reuniones' , value: 4}],
-                tipoReservas:[{text: 'Selecciona tipo de pensión', value: null},{text : 'Solo estancia', value: 1} , {text:'Desayuno incluido', value:2}, 
-                {text:'Media pensión', value: 3}, {text:'Pensión completa', value: 4}],
-                alertaEstanciaVisible : false,
-                alertaReservaVisible :  false,
-                nombreCollapse : '',
-                alertaSubtmitVisible : false,
-                visibleSuite : false,
-                visibleDoble : false,
-                visibleIndividual : false,
-                visibleConferencia : false,
-                rolUser : ''
-        }
-    },
-    created : function(){
-      if(this.$route.params){
-        if(this.$route.params.fecha != null){
-          this.form.f_inicio = this.$route.params.fecha;
-        }else if(this.$route.params.tipoHab != null){
-          this.form.tipoEstancia = parseInt(this.$route.params.tipoHab);
-          this.visibleCollapseDesdeRouter();
-        }else if(this.$route.params.tipoPension != null){
-          this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
-        }
-      }
-    },
-    computed : {
-        precio : function(){
-          return this.$store.state.reserva.precioReserva + this.$store.state.reserva.precioReservaPension
-                  + this.$store.state.reserva.temporada.precioTemporada
-      }
-    },
-    methods:{
-        calcularTotal : function(event){
-            if(event == "tipo-estancia"){
-              if(this.form.tipoEstancia == null){
-                  this.alertaEstanciaVisible = true
-              }else{
-                this.$root.$emit('bv::toggle::collapse', this.nombreCollapse)
-                this.switchNombreCollapse();
-                this.$root.$emit('bv::toggle::collapse', this.nombreCollapse)
-                this.alertaEstanciaVisible = false
-                  this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
-                    .then(resp =>{
-                    })
-              }
-            }else if(event == "tipo-reserva"){
-              if(this.form.tipoReserva == null){
-                  this.alertaReservaVisible = true;
-              }else{
-                this.alertaReservaVisible = false;
-                this.$store.dispatch("buscarTipoPension",this.form.tipoReserva)
-                  .then(resp =>{
-                  })
-              }
-            }      
-        },
-        switchNombreCollapse: function(){
-          switch(this.form.tipoEstancia){
-            case 1:
-            this.nombreCollapse = 'collapse-foto-individual'
-            this.visibleDoble = false
-            this.visibleSuite = false
-            this.visibleConferencia = false
-              break;
-            case 2:
-            this.nombreCollapse = 'collapse-foto-doble'
-            this.visibleSuite = false
-            this.visibleConferencia = false
-            this.visibleIndividual =  false
-              break;
-            case 3:
-            this.nombreCollapse = 'collapse-foto-suite'
-            this.visibleConferencia = false
-            this.visibleConferencia = false
-            this.visibleIndividual =  false
-              break;
-            case 4:
-            this.nombreCollapse = 'collapse-foto-sala-conferencias'
-            this.visibleSuite = false
-            this.visibleDoble = false
-            this.visibleIndividual =  false
-              break;
-          }
-        },
-        calcularTemporada : function(){ //Solo vamos a fijarnos en la fecha de inicio para la temporada
-           var fechaForm =  new Date(this.form.f_inicio)
-           this.$store.dispatch("buscarTemporadas",fechaForm)
-                    .then(resp =>{
-                    })
-        },
-        onSubmit(evt){
-         if(this.form.f_inicio=='' || this.form.f_fin =='' || this.form.tipoEstancia == null || this.form.tipoReserva == null){
-              this.alertaSubtmitVisible = true
-          }else{
-              this.alertaSubtmitVisible = false
-              this.$refs['modal-confirmar'].show()
-        }
+  name : 'Reserva',
+  data(){
+    return {
+      form: {
+        f_inicio: '',
+        f_fin: '',
+        tipoEstancia: null,
+        tipoReserva : null,
       },
-      confirmReserva(){
-        this.$store.dispatch("realizarReserva",this.form)
-                      .then(resp =>{
-                      })    
-      },
-      hideModal(){
-        this.$refs['modal-confirmar'].hide()
-      },
-      visibleCollapseDesdeRouter(){
-        switch(this.form.tipoEstancia){
-            case 1:
-              this.visibleIndividual =  true
-              break;
-            case 2:
-              this.visibleDoble = true
-              break;
-            case 3:
-              this.visibleSuite = true
-              break;
-            case 4:
-              this.visibleConferencia = true
-              break;
-          }
+      tipoEstancias: [
+        { text: 'Selecciona tipo de estancia', value: null }, 
+        { text : 'Habitación simple' , value : 1 },
+        { text : 'Habitación doble', value : 2 },
+        { text: 'Suite', value: 3 },
+        { text : 'Sala reuniones' , value: 4 }
+      ],
+      tipoReservas:[
+        { text: 'Selecciona tipo de pensión', value: null },
+        { text : 'Solo estancia', value: 1 }, 
+        { text:'Desayuno incluido', value: 2 }, 
+        { text:'Media pensión', value: 3 }, 
+        { text:'Pensión completa', value: 4 }
+      ],
+      alertaEstanciaVisible : false,
+      alertaReservaVisible :  false,
+      nombreCollapse : '',
+      alertaSubtmitVisible : false,
+      visibleSuite : false,
+      visibleDoble : false,
+      visibleIndividual : false,
+      visibleConferencia : false,
+      rolUser : ''
+    }
+  },
+  created : function(){
+    if(this.$route.params){
+      if(this.$route.params.fecha != null){
+        this.form.f_inicio = this.$route.params.fecha;
+      }else if(this.$route.params.tipoHab != null){
+        this.form.tipoEstancia = parseInt(this.$route.params.tipoHab);
+        this.visibleCollapseDesdeRouter();
+      }else if(this.$route.params.tipoPension != null){
+        this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
       }
     }
+  },
+  computed : {
+    precio : function() {
+      return 
+        this.$store.state.reserva.precioReserva 
+        + this.$store.state.reserva.precioReservaPension
+        + this.$store.state.reserva.temporada.precioTemporada
+    }
+  },
+  methods:{
+    calcularTotal : function(event) {
+      if (event == "tipo-estancia") {
+        if (this.form.tipoEstancia == null) {
+          this.alertaEstanciaVisible = true
+        } else {
+          this.$root.$emit('bv::toggle::collapse', this.nombreCollapse)
+          this.switchNombreCollapse();
+          this.$root.$emit('bv::toggle::collapse', this.nombreCollapse)
+          this.alertaEstanciaVisible = false
+          
+          this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
+          .then(resp =>{})
+        }
+      } else if (event == "tipo-reserva") {
+        if(this.form.tipoReserva == null){
+            this.alertaReservaVisible = true;
+        } else {
+          this.alertaReservaVisible = false;
+          this.$store.dispatch("buscarTipoPension",this.form.tipoReserva)
+          .then(resp =>{})
+        }
+      }      
+    },
+    switchNombreCollapse: function(){
+      switch(this.form.tipoEstancia){
+        case 1:
+        this.nombreCollapse = 'collapse-foto-individual'
+        this.visibleDoble = false
+        this.visibleSuite = false
+        this.visibleConferencia = false
+          break;
+        case 2:
+        this.nombreCollapse = 'collapse-foto-doble'
+        this.visibleSuite = false
+        this.visibleConferencia = false
+        this.visibleIndividual =  false
+          break;
+        case 3:
+        this.nombreCollapse = 'collapse-foto-suite'
+        this.visibleConferencia = false
+        this.visibleConferencia = false
+        this.visibleIndividual =  false
+          break;
+        case 4:
+        this.nombreCollapse = 'collapse-foto-sala-conferencias'
+        this.visibleSuite = false
+        this.visibleDoble = false
+        this.visibleIndividual =  false
+          break;
+      }
+    },
+    calcularTemporada : function(){ //Solo vamos a fijarnos en la fecha de inicio para la temporada
+        var fechaForm =  new Date(this.form.f_inicio)
+        this.$store.dispatch("buscarTemporadas",fechaForm)
+                .then(resp =>{
+                })
+    },
+    onSubmit(evt){
+      if(this.form.f_inicio=='' || this.form.f_fin =='' || this.form.tipoEstancia == null || this.form.tipoReserva == null){
+          this.alertaSubtmitVisible = true
+      }else{
+          this.alertaSubtmitVisible = false
+          this.$refs['modal-confirmar'].show()
+    }
+  },
+    confirmReserva(){
+      this.$store.dispatch("realizarReserva",this.form)
+                    .then(resp =>{
+                    })    
+    },
+    hideModal(){
+      this.$refs['modal-confirmar'].hide()
+    },
+    visibleCollapseDesdeRouter(){
+      switch(this.form.tipoEstancia){
+          case 1:
+            this.visibleIndividual =  true
+            break;
+          case 2:
+            this.visibleDoble = true
+            break;
+          case 3:
+            this.visibleSuite = true
+            break;
+          case 4:
+            this.visibleConferencia = true
+            break;
+        }
+    }
+  }
 }
 </script>

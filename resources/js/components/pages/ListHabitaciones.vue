@@ -41,7 +41,7 @@
         <!--Nube de etiquetas -->
         <div class="nube-etiquetas container">
           <ul id="ListHabitaciones" class="hab-list list-unstyled list-inline text-left">
-            <li class="list-inline-item" v-for="etiqueta in etiquetas">
+            <li class="list-inline-item" v-for="etiqueta in etiquetas" :key="etiqueta">
                 <span class="badge badge-pill badge-secondary px-4">{{etiqueta}}</span>
             </li>
           </ul>
@@ -50,7 +50,7 @@
         <!--Lista de habitaciones -->
         <div class="hab-list-cont container">
           <ul id="ListHabitaciones" class="hab-list list-unstyled">
-            <li v-for="item in habitaciones">
+            <li v-for="item in habitaciones" :key="item">
                 <Habitacion :item="item" img="https://www.hotelmiguelangel.com/files/hotel/hotel-miguel-angel-madrid/HABITACION-STANDARD_1.jpg" :fecha="fecha"/>
             </li>
           </ul>
