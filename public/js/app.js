@@ -2162,7 +2162,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this3 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('api/users').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('api/clientes').then(function (response) {
       _this3.clientes = response.data;
     })["catch"](function (error) {
       console.log(error);
@@ -2550,7 +2550,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this3 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('api/users').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('api/recepcionistas').then(function (response) {
       _this3.clientes = response.data;
     })["catch"](function (error) {
       console.log(error);

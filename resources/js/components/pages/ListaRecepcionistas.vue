@@ -160,7 +160,7 @@
             }
         },
         mounted() {
-            axios.get('api/users')
+            axios.get('api/recepcionistas')
             .then(response => {
                     this.clientes = response.data;
                 }).catch(error => {
