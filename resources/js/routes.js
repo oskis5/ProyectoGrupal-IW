@@ -6,15 +6,17 @@ import Home from './components/pages/Home';
 import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import Reserva from './components/pages/Reserva';
+import ListHabitaciones from './components/pages/ListHabitaciones';
 
 Vue.use(Router);
 
+/*
 const ifNotAuthenticated = (to, from, next) => {
     if (!store.getters.isLoggedIn) {
       next()
       return
     }
-    next('/')
+    next('/ProyectoGrupal-IW/public/login')
 }
 
 const ifAuthenticated = (to, from, next) => {  
@@ -24,36 +26,52 @@ const ifAuthenticated = (to, from, next) => {
     }
     next('/ProyectoGrupal-IW/public/login')
 }
-
+*/
   
-const router= new Router({
+const router = new Router({
     mode: 'history',
     routes: [
         {
             path: '/ProyectoGrupal-IW/public/reservas',
             name: 'reservas',
             component: Reserva,
-            beforeEnter: ifNotAuthenticated
+            meta: { 
+                requiresAuth: true
+            }
         },
         {
             path: '/ProyectoGrupal-IW/public/',
             name: 'home',
             component: Home,
-            beforeEnter: ifNotAuthenticated
         },
         {
             path: '/ProyectoGrupal-IW/public/login',
             name: 'login',
             component: Login,
-            beforeEnter: ifNotAuthenticated
         },
         {
             path: '/ProyectoGrupal-IW/public/register',
             name: 'register',
             component: Register,
-            beforeEnter: ifNotAuthenticated
+        },
+        {
+            path: '/ProyectoGrupal-IW/public/habitaciones',
+            name: 'ListHabitaciones',
+            component: ListHabitaciones,
         }
     ]
+})
+
+router.beforeEach((to, from, next) => {
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+        if (store.getters.isLoggedIn) {
+            next()
+            return
+        }
+        next('/ProyectoGrupal-IW/public/login') 
+    } else {
+        next() 
+    }
 })
 
 export default router;
