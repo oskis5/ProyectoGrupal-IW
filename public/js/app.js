@@ -2538,29 +2538,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2569,7 +2546,9 @@ __webpack_require__.r(__webpack_exports__);
         f_inicio: '',
         f_fin: '',
         tipoEstancia: null,
-        tipoReserva: null
+        tipoReserva: null,
+        idEstancia: null,
+        userId: null
       },
       tipoEstancias: [{
         text: 'Selecciona tipo de estancia',
@@ -2610,25 +2589,35 @@ __webpack_require__.r(__webpack_exports__);
       visibleSuite: false,
       visibleDoble: false,
       visibleIndividual: false,
-      visibleConferencia: false // 'Catering'],
-
+      visibleConferencia: false,
+      rolUser: ''
     };
   },
   created: function created() {
     if (this.$route.params) {
       if (this.$route.params.fecha != null) {
         this.form.f_inicio = this.$route.params.fecha;
-      } else if (this.$route.params.tipoHab != null) {
+      }
+
+      if (this.$route.params.tipoHab != null) {
         this.form.tipoEstancia = parseInt(this.$route.params.tipoHab);
         this.visibleCollapseDesdeRouter();
-      } else if (this.$route.params.tipoPension != null) {
+      }
+
+      if (this.$route.params.tipoPension != null) {
         this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
       }
+
+      if (this.$route.params.habId != null) {
+        this.form.idEstancia = this.$route.params.habId;
+        console.log("Id habitacion " + this.$route.params.habId);
+      } //console.log("Id habitacion " + this.$route.params.habId)
+
     }
   },
   computed: {
     precio: function precio() {
-      return this.$store.state.reserva.precioReserva + this.$store.state.reserva.precioReservaPension + this.$store.state.reserva.temporada.precioTemporada;
+      return (this.$store.state.reserva.precioReserva + this.$store.state.reserva.precioReservaPension + this.$store.state.reserva.temporada.precioTemporada) * this.$store.state.reserva.diasReserva;
     }
   },
   methods: {
@@ -2642,6 +2631,7 @@ __webpack_require__.r(__webpack_exports__);
           this.$root.$emit('bv::toggle::collapse', this.nombreCollapse);
           this.alertaEstanciaVisible = false;
           this.$store.dispatch("buscarHabitacion", this.form.tipoEstancia).then(function (resp) {});
+          this.$store.dispatch("devolverHabitacionDisponible", this.form.tipoEstancia).then();
         }
       } else if (event == "tipo-reserva") {
         if (this.form.tipoReserva == null) {
@@ -2697,7 +2687,12 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     confirmReserva: function confirmReserva() {
+      if (this.$store.getters.userRole == 'Cliente') {
+        this.form.userId = this.$store.getters.loggedUser.id;
+      }
+
       this.$store.dispatch("realizarReserva", this.form).then(function (resp) {});
+      this.hideModal();
     },
     hideModal: function hideModal() {
       this.$refs['modal-confirmar'].hide();
@@ -2719,6 +2714,20 @@ __webpack_require__.r(__webpack_exports__);
         case 4:
           this.visibleConferencia = true;
           break;
+      }
+    },
+    calcularDiasReservas: function calcularDiasReservas() {
+      if (this.form.f_inicio != '' && this.form.f_fin != '') {
+        var oneDay = 24 * 60 * 60 * 1000;
+        var fechaInicioForm = new Date(this.form.f_inicio);
+        var fechaFinForm = new Date(this.form.f_fin);
+        console.log(Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay))); //anyadirDiasPrecio dispatch
+
+        var totalDias = Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay));
+
+        if (totalDias != 0) {
+          this.$store.dispatch("anyadirDiasPrecio", totalDias).then(function (resp) {});
+        }
       }
     }
   }
@@ -37003,7 +37012,8 @@ var render = function() {
                     params: {
                       tipoPension: this.tipoPension,
                       fecha: this.fecha,
-                      tipoHab: this.item.tipo.id
+                      tipoHab: this.item.tipo.id,
+                      habId: this.item.id
                     }
                   }
                 }
@@ -37271,7 +37281,7 @@ var render = function() {
           attrs: { id: "ListHabitaciones" }
         },
         _vm._l(_vm.etiquetas, function(etiqueta) {
-          return _c("li", { staticClass: "list-inline-item" }, [
+          return _c("li", { key: etiqueta, staticClass: "list-inline-item" }, [
             _c(
               "span",
               { staticClass: "badge badge-pill badge-secondary px-4" },
@@ -37293,6 +37303,7 @@ var render = function() {
         _vm._l(_vm.habitaciones, function(item) {
           return _c(
             "li",
+            { key: item.id },
             [
               _c("Habitacion", {
                 attrs: {
@@ -37662,7 +37673,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n            ¡Seleccione una opción correcta!\n          "
+                        "\n          ¡Seleccione una opción correcta!\n        "
                       )
                     ]
                   )
@@ -37714,7 +37725,7 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n            ¡Seleccione una opción correcta!\n          "
+                        "\n          ¡Seleccione una opción correcta!\n        "
                       )
                     ]
                   )
@@ -37773,6 +37784,11 @@ var render = function() {
                       type: "date",
                       placeholder: "Seleccione fecha fin"
                     },
+                    on: {
+                      change: function($event) {
+                        return _vm.calcularDiasReservas()
+                      }
+                    },
                     model: {
                       value: _vm.form.f_fin,
                       callback: function($$v) {
@@ -37818,7 +37834,7 @@ var render = function() {
                 },
                 [
                   _vm._v(
-                    "\n              ¡Debe seleccionar todos los campos!\n          "
+                    "\n            ¡Debe seleccionar todos los campos!\n        "
                   )
                 ]
               )
@@ -37855,7 +37871,7 @@ var render = function() {
                     },
                     [
                       _c("p", { staticClass: "card-text" }, [
-                        _vm._v("\n            Suite!\n          ")
+                        _vm._v("\n          Suite!\n        ")
                       ])
                     ]
                   )
@@ -37890,7 +37906,7 @@ var render = function() {
                     [
                       _c("p", { staticClass: "card-text" }, [
                         _vm._v(
-                          "\n            Habitación para dos personas\n          "
+                          "\n          Habitación para dos personas\n        "
                         )
                       ])
                     ]
@@ -37925,9 +37941,7 @@ var render = function() {
                     },
                     [
                       _c("p", { staticClass: "card-text" }, [
-                        _vm._v(
-                          "\n            Habitación individual\n          "
-                        )
+                        _vm._v("\n          Habitación individual\n        ")
                       ])
                     ]
                   )
@@ -37962,7 +37976,7 @@ var render = function() {
                     [
                       _c("p", { staticClass: "card-text" }, [
                         _vm._v(
-                          "\n            Sala de conferencias para congresos o reuniones!\n          "
+                          "\n          Sala de conferencias para congresos o reuniones!\n        "
                         )
                       ])
                     ]
@@ -54889,7 +54903,6 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/auth/";
     register: function register(_ref3, user) {
       var commit = _ref3.commit;
       return new Promise(function (resolve, reject) {
-        commit('auth_request');
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
           url: API_URL + 'signup',
           data: user,
@@ -54936,13 +54949,15 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
   state: {
     status: '',
     precioReserva: 0,
+    diasReserva: 1,
     precioReservaPension: 0,
     temporada: {
       fecha_inicio: "",
       fecha_fin: "",
       precioTemporada: 0,
       temporadaId: 0
-    }
+    },
+    habitacionReserva: null
   },
   mutations: {
     incrementarPrecio: function incrementarPrecio(state, valor) {
@@ -54960,6 +54975,12 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
     ponerFechas: function ponerFechas(state, fechas) {
       state.temporada.fecha_inicio = fechas.f_incio;
       state.temporada.fecha_fin = fechas.f_fin;
+    },
+    ponerDias: function ponerDias(state, dias) {
+      state.diasReserva = dias;
+    },
+    establecerHabitacion: function establecerHabitacion(state, idHabitacion) {
+      state.habitacionReserva = idHabitacion;
     }
   },
   actions: {
@@ -55020,22 +55041,37 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
       console.log(datosReserva.f_inicio);
       console.log(state.temporada.temporadaId);
       console.log(state.temporada.precioReserva + state.temporada.precioReservaPension + state.tem);
+      var cond = state.habitacionReserva;
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
           method: 'POST',
           url: API_URL + "reservas",
           data: {
-            estancia_id: datosReserva.tipoEstancia,
-            cliente_id: 1,
+            estancia_id: state.habitacionReserva != null ? state.habitacionReserva : datosReserva.idEstancia,
+            cliente_id: datosReserva.userId,
             tipo_id: datosReserva.tipoEstancia,
             temporada_id: state.temporada.temporadaId,
             f_entrada: datosReserva.f_inicio,
             f_salida: datosReserva.f_fin,
-            precio_total: state.precioReserva + state.precioReservaPension + state.temporada.precioTemporada
+            precio_total: (state.precioReserva + state.precioReservaPension + state.temporada.precioTemporada) * state.diasReserva
           }
         }).then(function (resp) {
           console.log(resp);
         });
+      });
+    },
+    anyadirDiasPrecio: function anyadirDiasPrecio(context, dias) {
+      context.commit('ponerDias', dias);
+    },
+    devolverHabitacionDisponible: function devolverHabitacionDisponible(context, tipoEstancia) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "estancias").then(function (response) {
+        for (var i = 0; i < response.data.length; i++) {
+          if (tipoEstancia == response.data[i].tipo_id) {
+            console.log("id habitacion dentro " + response.data[i].tipo_id);
+            context.commit('establecerHabitacion', response.data[i].tipo_id);
+            break;
+          }
+        }
       });
     }
   }
@@ -55061,8 +55097,8 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\Aplicaciones\xampp\htdocs\ProyectoGrupal-IW\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\Aplicaciones\xampp\htdocs\ProyectoGrupal-IW\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ProyectoGrupal-IW\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ProyectoGrupal-IW\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

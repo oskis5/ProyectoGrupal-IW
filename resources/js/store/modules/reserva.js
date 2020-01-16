@@ -6,8 +6,10 @@ export default {
     state: {
         status : '',
         precioReserva: 0,
+        diasReserva: 1,
         precioReservaPension: 0,
-        temporada : {fecha_inicio: "" , fecha_fin : "" , precioTemporada: 0 , temporadaId: 0}
+        temporada : {fecha_inicio: "" , fecha_fin : "" , precioTemporada: 0 , temporadaId: 0},
+        habitacionReserva : null
     },
     mutations:
     {
@@ -26,6 +28,12 @@ export default {
         ponerFechas(state,fechas){
             state.temporada.fecha_inicio = fechas.f_incio;
             state.temporada.fecha_fin = fechas.f_fin;
+        },
+        ponerDias(state,dias){
+            state.diasReserva = dias;
+        },
+        establecerHabitacion(state,idHabitacion){
+            state.habitacionReserva = idHabitacion
         }
     },
     actions:
@@ -87,23 +95,44 @@ export default {
             console.log(datosReserva.f_inicio);
             console.log(state.temporada.temporadaId)
             console.log(state.temporada.precioReserva + state.temporada.precioReservaPension + state.tem)
+            var cond = state.habitacionReserva 
+            
             return new Promise((resolve,reject)=>{
                 axios({
                     method: 'POST',
                     url: API_URL + "reservas",
                     data : {
-                        estancia_id: datosReserva.tipoEstancia,
-                        cliente_id : 1,
+                        estancia_id: ((state.habitacionReserva != null)? state.habitacionReserva : datosReserva.idEstancia),
+                        cliente_id : datosReserva.userId,
                         tipo_id : datosReserva.tipoEstancia,
                         temporada_id: state.temporada.temporadaId,
                         f_entrada: datosReserva.f_inicio,
                         f_salida: datosReserva.f_fin,
-                        precio_total: state.precioReserva + state.precioReservaPension + state.temporada.precioTemporada 
+                        precio_total: (state.precioReserva 
+                            + state.precioReservaPension 
+                            + state.temporada.precioTemporada) 
+                            * state.diasReserva
                     }
                 })
                 .then(resp =>{
                     console.log(resp)
                 })
+            })
+        },
+        anyadirDiasPrecio(context,dias){
+            context.commit('ponerDias', dias)
+        },
+        devolverHabitacionDisponible(context,tipoEstancia){
+            axios.get(API_URL + "estancias")
+            .then(response =>{
+                for(let i=0; i< response.data.length; i++){
+                    if(tipoEstancia == response.data[i].tipo_id){
+                        console.log("id habitacion dentro " + response.data[i].tipo_id)
+                        context.commit('establecerHabitacion',response.data[i].tipo_id)
+                        break;
+                    }
+
+                }
             })
         }
     }

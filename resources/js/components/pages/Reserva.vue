@@ -44,6 +44,7 @@
               v-model="form.f_fin"
               required
               type = date
+              @change="calcularDiasReservas()"
               placeholder="Seleccione fecha fin"
             ></b-form-input>
           </b-form-group>
@@ -108,6 +109,8 @@ export default {
         f_fin: '',
         tipoEstancia: null,
         tipoReserva : null,
+        idEstancia : null,
+        userId: null
       },
       tipoEstancias: [
         { text: 'Selecciona tipo de estancia', value: null }, 
@@ -131,27 +134,35 @@ export default {
       visibleDoble : false,
       visibleIndividual : false,
       visibleConferencia : false,
-      rolUser : ''
+      rolUser : '',
     }
   },
   created : function(){
     if(this.$route.params){
       if(this.$route.params.fecha != null){
         this.form.f_inicio = this.$route.params.fecha;
-      }else if(this.$route.params.tipoHab != null){
+      }
+      if(this.$route.params.tipoHab != null){
         this.form.tipoEstancia = parseInt(this.$route.params.tipoHab);
         this.visibleCollapseDesdeRouter();
-      }else if(this.$route.params.tipoPension != null){
+      }
+      if(this.$route.params.tipoPension != null){
         this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
       }
+      if(this.$route.params.habId != null){
+         this.form.idEstancia = this.$route.params.habId
+         console.log("Id habitacion " + this.$route.params.habId)
+      }
+       //console.log("Id habitacion " + this.$route.params.habId)
+
     }
   },
   computed : {
     precio : function() {
-      return 
-        this.$store.state.reserva.precioReserva 
+      return (this.$store.state.reserva.precioReserva 
         + this.$store.state.reserva.precioReservaPension
-        + this.$store.state.reserva.temporada.precioTemporada
+        + this.$store.state.reserva.temporada.precioTemporada)
+        * this.$store.state.reserva.diasReserva
     }
   },
   methods:{
@@ -167,6 +178,9 @@ export default {
           
           this.$store.dispatch("buscarHabitacion",this.form.tipoEstancia)
           .then(resp =>{})
+          this.$store.dispatch("devolverHabitacionDisponible",this.form.tipoEstancia)
+          .then()
+    
         }
       } else if (event == "tipo-reserva") {
         if(this.form.tipoReserva == null){
@@ -221,9 +235,13 @@ export default {
     }
   },
     confirmReserva(){
+      if(this.$store.getters.userRole == 'Cliente'){
+        this.form.userId = this.$store.getters.loggedUser.id
+      }
       this.$store.dispatch("realizarReserva",this.form)
                     .then(resp =>{
-                    })    
+                    })
+      this.hideModal()
     },
     hideModal(){
       this.$refs['modal-confirmar'].hide()
@@ -243,6 +261,20 @@ export default {
             this.visibleConferencia = true
             break;
         }
+    },
+    calcularDiasReservas(){
+      if(this.form.f_inicio != '' && this.form.f_fin != ''){
+        var oneDay = 24 * 60 * 60 * 1000;
+        var fechaInicioForm =  new Date(this.form.f_inicio)
+        var fechaFinForm = new Date(this.form.f_fin)
+        console.log(Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay)))
+        //anyadirDiasPrecio dispatch
+        var totalDias = Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay));
+        if(totalDias != 0){
+            this.$store.dispatch("anyadirDiasPrecio",totalDias)
+            .then(resp =>{})   
+        }
+      }
     }
   }
 }
