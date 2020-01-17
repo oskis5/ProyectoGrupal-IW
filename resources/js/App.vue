@@ -8,6 +8,9 @@
       </router-link>
       
       <b-navbar-nav class="ml-auto">
+        <b-nav-item v-if="isLoggedIn && userRole == 'Webmaster'" :to="{name: 'listaClientes'}">Lista Clientes</b-nav-item>
+        <b-nav-item v-if="isLoggedIn && userRole == 'Webmaster'" :to="{name: 'listaRecepcionistas'}">Lista Recepcionistas </b-nav-item>
+        <b-nav-item v-if="isLoggedIn && userRole == 'Webmaster'" :to="{name: 'listaHabitaciones'}">Lista Habitaciones</b-nav-item>
         <b-nav-item-dropdown v-if="isLoggedIn" right>
           <template v-slot:button-content>
             <span style="padding-right: 10px; font-size: 20px">{{loggedUser.name}}</span>
@@ -36,7 +39,8 @@ export default {
   },
   computed : {
     isLoggedIn : function(){ return this.$store.getters.isLoggedIn },
-    loggedUser : function(){ return this.$store.getters.loggedUser }
+    loggedUser : function(){ return this.$store.getters.loggedUser },
+    userRole : function(){ return this.$store.getters.userRole },
   },
   methods: {
       logout: function () { 

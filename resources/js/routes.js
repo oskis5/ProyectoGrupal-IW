@@ -62,16 +62,25 @@ const router = new Router({
             path: '/ProyectoGrupal-IW/public/listaClientes',
             name: 'listaClientes',
             component: ListaClientes,
+            meta: { 
+                requiresAuth: true
+            }
         },
         {
             path: '/ProyectoGrupal-IW/public/listaRecepcionistas',
             name: 'listaRecepcionistas',
             component: ListaRecepcionistas,
+            meta: { 
+                requiresAuth: true
+            }
         },
         {
             path: '/ProyectoGrupal-IW/public/listaHabitacionesWM',
             name: 'listaHabitacionesWM',
             component: ListaHabitacionesWM,
+            meta: { 
+                requiresAuth: true
+            }
         }
         /*,
         {

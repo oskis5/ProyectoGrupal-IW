@@ -1868,6 +1868,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'app',
@@ -1880,6 +1883,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     loggedUser: function loggedUser() {
       return this.$store.getters.loggedUser;
+    },
+    userRole: function userRole() {
+      return this.$store.getters.userRole;
     }
   },
   methods: {
@@ -36358,6 +36364,30 @@ var render = function() {
             "b-navbar-nav",
             { staticClass: "ml-auto" },
             [
+              _vm.isLoggedIn && _vm.userRole == "Webmaster"
+                ? _c(
+                    "b-nav-item",
+                    { attrs: { to: { name: "listaClientes" } } },
+                    [_vm._v("Lista Clientes")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.isLoggedIn && _vm.userRole == "Webmaster"
+                ? _c(
+                    "b-nav-item",
+                    { attrs: { to: { name: "listaRecepcionistas" } } },
+                    [_vm._v("Lista Recepcionistas ")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.isLoggedIn && _vm.userRole == "Webmaster"
+                ? _c(
+                    "b-nav-item",
+                    { attrs: { to: { name: "listaHabitaciones" } } },
+                    [_vm._v("Lista Habitaciones")]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
               _vm.isLoggedIn
                 ? _c(
                     "b-nav-item-dropdown",
@@ -55619,15 +55649,24 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/ProyectoGrupal-IW/public/listaClientes',
     name: 'listaClientes',
-    component: _components_pages_ListaClientes__WEBPACK_IMPORTED_MODULE_6__["default"]
+    component: _components_pages_ListaClientes__WEBPACK_IMPORTED_MODULE_6__["default"],
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/ProyectoGrupal-IW/public/listaRecepcionistas',
     name: 'listaRecepcionistas',
-    component: _components_pages_ListaRecepcionistas__WEBPACK_IMPORTED_MODULE_7__["default"]
+    component: _components_pages_ListaRecepcionistas__WEBPACK_IMPORTED_MODULE_7__["default"],
+    meta: {
+      requiresAuth: true
+    }
   }, {
     path: '/ProyectoGrupal-IW/public/listaHabitacionesWM',
     name: 'listaHabitacionesWM',
-    component: _components_pages_ListaHabitacionesWM__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _components_pages_ListaHabitacionesWM__WEBPACK_IMPORTED_MODULE_8__["default"],
+    meta: {
+      requiresAuth: true
+    }
   }
   /*,
   {
