@@ -36,6 +36,9 @@ Route::post('users', 'UserController@store');
 Route::put('users/{id}', 'UserController@update');
 Route::delete('users/{id}', 'UserController@delete');
 
+
+Route::get('emails/{email}','UserController@recuperarUsuarioMail');
+
 //reservas
 Route::get('reservas', 'ReservaController@index');
 Route::get('reservas/{id}','ReservaController@show');

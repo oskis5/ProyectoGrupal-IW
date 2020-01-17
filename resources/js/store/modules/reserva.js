@@ -9,7 +9,8 @@ export default {
         diasReserva: 1,
         precioReservaPension: 0,
         temporada : {fecha_inicio: "" , fecha_fin : "" , precioTemporada: 0 , temporadaId: 0},
-        habitacionReserva : null
+        habitacionReserva : null,
+        userId: null
     },
     mutations:
     {
@@ -34,6 +35,9 @@ export default {
         },
         establecerHabitacion(state,idHabitacion){
             state.habitacionReserva = idHabitacion
+        },
+        establecerUser(state,idUser){
+            state.userId = idUser
         }
     },
     actions:
@@ -103,7 +107,7 @@ export default {
                     url: API_URL + "reservas",
                     data : {
                         estancia_id: ((state.habitacionReserva != null)? state.habitacionReserva : datosReserva.idEstancia),
-                        cliente_id : datosReserva.userId,
+                        cliente_id : ((state.userId != null )? state.userId : datosReserva.userId),
                         tipo_id : datosReserva.tipoEstancia,
                         temporada_id: state.temporada.temporadaId,
                         f_entrada: datosReserva.f_inicio,
@@ -134,6 +138,19 @@ export default {
 
                 }
             })
+        },
+        buscarUserPorMail(context,emailUser){
+            return new Promise((resolve,reject) =>{
+                axios.get(API_URL + "emails/" + emailUser)
+                .then(response =>{
+                    context.commit('establecerUser', response.data.id)
+                    resolve(response.data)
+                })
+            .catch(exception =>{
+                console.log("error " + exception)
+                reject(exception)
+            })
+        })    
         }
     }
 }

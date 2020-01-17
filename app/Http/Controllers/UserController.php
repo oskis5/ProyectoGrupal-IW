@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use DB;
 
 class UserController extends Controller
 {
@@ -67,5 +68,11 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json(null, 204);
+    }
+
+    public function recuperarUsuarioMail($email){
+        //$user = DB::table('users')->where('email' , $email)->value('id');
+        $user = DB::table('users')->where('email' , $email)->first();
+        return response()->json($user, 200);
     }
 }

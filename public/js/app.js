@@ -2538,6 +2538,68 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Reserva',
   data: function data() {
@@ -2549,6 +2611,11 @@ __webpack_require__.r(__webpack_exports__);
         tipoReserva: null,
         idEstancia: null,
         userId: null
+      },
+      registrar: {
+        email: '',
+        nombre: '',
+        password: ''
       },
       tipoEstancias: [{
         text: 'Selecciona tipo de estancia',
@@ -2584,13 +2651,16 @@ __webpack_require__.r(__webpack_exports__);
       }],
       alertaEstanciaVisible: false,
       alertaReservaVisible: false,
+      alertaBuscarUser: false,
       nombreCollapse: '',
       alertaSubtmitVisible: false,
       visibleSuite: false,
       visibleDoble: false,
       visibleIndividual: false,
       visibleConferencia: false,
-      rolUser: ''
+      rolUser: '',
+      emailUsuario: '',
+      nombreUsuario: ''
     };
   },
   created: function created() {
@@ -2618,6 +2688,10 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     precio: function precio() {
       return (this.$store.state.reserva.precioReserva + this.$store.state.reserva.precioReservaPension + this.$store.state.reserva.temporada.precioTemporada) * this.$store.state.reserva.diasReserva;
+    },
+    user: function user() {
+      console.log(this.$store.getters.userRole);
+      return this.$store.getters.userRole == 'Recepcion' || this.$store.getters.userRole == 'Webmaster';
     }
   },
   methods: {
@@ -2687,8 +2761,10 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     confirmReserva: function confirmReserva() {
+      //Solo si es cliente puede realizar reservas para el
       if (this.$store.getters.userRole == 'Cliente') {
         this.form.userId = this.$store.getters.loggedUser.id;
+      } else {//this.alertaBuscarUser = true
       }
 
       this.$store.dispatch("realizarReserva", this.form).then(function (resp) {});
@@ -2720,8 +2796,7 @@ __webpack_require__.r(__webpack_exports__);
       if (this.form.f_inicio != '' && this.form.f_fin != '') {
         var oneDay = 24 * 60 * 60 * 1000;
         var fechaInicioForm = new Date(this.form.f_inicio);
-        var fechaFinForm = new Date(this.form.f_fin);
-        console.log(Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay))); //anyadirDiasPrecio dispatch
+        var fechaFinForm = new Date(this.form.f_fin); //anyadirDiasPrecio dispatch
 
         var totalDias = Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay));
 
@@ -2729,6 +2804,13 @@ __webpack_require__.r(__webpack_exports__);
           this.$store.dispatch("anyadirDiasPrecio", totalDias).then(function (resp) {});
         }
       }
+    },
+    search: function search() {
+      var _this = this;
+
+      this.$store.dispatch("buscarUserPorMail", this.emailUsuario).then(function (resp) {
+        _this.nombreUsuario = resp.name;
+      });
     }
   }
 });
@@ -37616,6 +37698,197 @@ var render = function() {
     "b-container",
     { staticStyle: { "text-align": "left" }, attrs: { fluid: "" } },
     [
+      _vm.user == true
+        ? _c(
+            "div",
+            [
+              _c(
+                "b-button",
+                {
+                  directives: [
+                    {
+                      name: "b-toggle",
+                      rawName: "v-b-toggle",
+                      value: "collapse-user",
+                      expression: "'collapse-user'"
+                    }
+                  ],
+                  staticClass: "m-1"
+                },
+                [_vm._v("Realizar reserva de un Usuario")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-alert",
+                {
+                  attrs: { variant: "danger", dismissible: "" },
+                  model: {
+                    value: _vm.alertaBuscarUser,
+                    callback: function($$v) {
+                      _vm.alertaBuscarUser = $$v
+                    },
+                    expression: "alertaBuscarUser"
+                  }
+                },
+                [_vm._v("\n          ¡Debe buscar un usuario!\n        ")]
+              ),
+              _vm._v(" "),
+              _c(
+                "b-collapse",
+                { attrs: { id: "collapse-user" } },
+                [
+                  _c(
+                    "b-row",
+                    { staticStyle: { "padding-top": "20px" } },
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            {
+                              staticClass: "mb-0",
+                              attrs: {
+                                label:
+                                  "Busqueda el usuario en la base de datos",
+                                "label-for": "search"
+                              }
+                            },
+                            [
+                              _c("b-form-input", {
+                                attrs: {
+                                  id: "search",
+                                  placeholder: "Introduzca el email del cliente"
+                                },
+                                model: {
+                                  value: _vm.emailUsuario,
+                                  callback: function($$v) {
+                                    _vm.emailUsuario = $$v
+                                  },
+                                  expression: "emailUsuario"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            {
+                              staticStyle: { "margin-top": "10px" },
+                              on: { click: _vm.search }
+                            },
+                            [_vm._v("Buscar datos usuario")]
+                          ),
+                          _vm._v(" "),
+                          _c("h3", [
+                            _vm._v(
+                              "Nombre usuario: " + _vm._s(_vm.nombreUsuario)
+                            )
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            {
+                              staticClass: "mb-0",
+                              attrs: { label: "Nombre", "label-for": "nombre" }
+                            },
+                            [
+                              _c("b-form-input", {
+                                attrs: {
+                                  id: "nombre",
+                                  placeholder:
+                                    "Introduzca el nombre del cliente"
+                                },
+                                model: {
+                                  value: _vm.emailUsuario,
+                                  callback: function($$v) {
+                                    _vm.emailUsuario = $$v
+                                  },
+                                  expression: "emailUsuario"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-group",
+                            {
+                              staticClass: "mb-0",
+                              attrs: { label: "email", "label-for": "email" }
+                            },
+                            [
+                              _c("b-form-input", {
+                                attrs: {
+                                  id: "email",
+                                  placeholder: "Introduzca el email del cliente"
+                                },
+                                model: {
+                                  value: _vm.emailUsuario,
+                                  callback: function($$v) {
+                                    _vm.emailUsuario = $$v
+                                  },
+                                  expression: "emailUsuario"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-form-group",
+                            {
+                              staticClass: "mb-0",
+                              attrs: {
+                                label: "paswword",
+                                "label-for": "password"
+                              }
+                            },
+                            [
+                              _c("b-form-input", {
+                                attrs: {
+                                  id: "password",
+                                  placeholder:
+                                    "Introduzca la password del cliente"
+                                },
+                                model: {
+                                  value: _vm.emailUsuario,
+                                  callback: function($$v) {
+                                    _vm.emailUsuario = $$v
+                                  },
+                                  expression: "emailUsuario"
+                                }
+                              })
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-button",
+                            { staticStyle: { "margin-top": "10px" } },
+                            [_vm._v("Crear")]
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        : _vm._e(),
+      _vm._v(" "),
       _c(
         "b-row",
         [
@@ -54957,7 +55230,8 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
       precioTemporada: 0,
       temporadaId: 0
     },
-    habitacionReserva: null
+    habitacionReserva: null,
+    userId: null
   },
   mutations: {
     incrementarPrecio: function incrementarPrecio(state, valor) {
@@ -54981,6 +55255,9 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
     },
     establecerHabitacion: function establecerHabitacion(state, idHabitacion) {
       state.habitacionReserva = idHabitacion;
+    },
+    establecerUser: function establecerUser(state, idUser) {
+      state.userId = idUser;
     }
   },
   actions: {
@@ -55048,7 +55325,7 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
           url: API_URL + "reservas",
           data: {
             estancia_id: state.habitacionReserva != null ? state.habitacionReserva : datosReserva.idEstancia,
-            cliente_id: datosReserva.userId,
+            cliente_id: state.userId != null ? state.userId : datosReserva.userId,
             tipo_id: datosReserva.tipoEstancia,
             temporada_id: state.temporada.temporadaId,
             f_entrada: datosReserva.f_inicio,
@@ -55072,6 +55349,17 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
             break;
           }
         }
+      });
+    },
+    buscarUserPorMail: function buscarUserPorMail(context, emailUser) {
+      return new Promise(function (resolve, reject) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "emails/" + emailUser).then(function (response) {
+          context.commit('establecerUser', response.data.id);
+          resolve(response.data);
+        })["catch"](function (exception) {
+          console.log("error " + exception);
+          reject(exception);
+        });
       });
     }
   }
