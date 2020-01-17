@@ -2,7 +2,7 @@
 
 <template>
   <div id="app">
-    <b-navbar toggleable="lg" type="light" variant="light" class="py-0">
+    <b-navbar fixed="top" toggleable="lg" type="light" variant="light" class="py-0">
       <router-link class="navbar-brand my-0" :to="{name: 'home'}">
         <img alt="Vue logo" :src="'images/logo-h.png'" class="img-fluid" style="height: 70px">
       </router-link>
@@ -25,7 +25,7 @@
       </b-navbar-nav>
     </b-navbar>
 
-    <router-view></router-view>
+    <router-view style="margin-top: 100px"></router-view>
 
     
   </div>
