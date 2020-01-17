@@ -1,5 +1,67 @@
 <template>
     <b-container fluid style="text-align: left">
+      <div v-if="user == true">
+        <b-button v-b-toggle="'collapse-user'" class="m-1">Realizar reserva de un Usuario</b-button>
+        <b-alert v-model="alertaBuscarUser" variant="danger" dismissible>
+              ¡Debe buscar un usuario!
+            </b-alert>
+          <b-collapse id="collapse-user">
+            <b-row style="padding-top: 20px">
+                <b-col>
+                  <b-form-group
+                    class="mb-0"
+                    label="Busqueda el usuario en la base de datos"
+                    label-for="search"
+                  >
+                    <b-form-input
+                      id="search"
+                      v-model="emailUsuario"
+                      placeholder="Introduzca el email del cliente"
+                    ></b-form-input>
+                </b-form-group>
+                <b-button style="margin-top: 10px" @click="search">Buscar datos usuario</b-button>
+                  <h3>Nombre usuario: {{nombreUsuario}}</h3>
+                    
+                </b-col>
+                <b-col>
+                    <b-form-group
+                        class="mb-0"
+                        label="Nombre"
+                        label-for="nombre"
+                      >
+                        <b-form-input
+                          id="nombre"
+                          v-model="emailUsuario"
+                          placeholder="Introduzca el nombre del cliente"
+                        ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                        class="mb-0"
+                        label="email"
+                        label-for="email"
+                      >
+                        <b-form-input
+                          id="email"
+                          v-model="emailUsuario"
+                          placeholder="Introduzca el email del cliente"
+                        ></b-form-input>
+                    </b-form-group>
+                    <b-form-group
+                        class="mb-0"
+                        label="paswword"
+                        label-for="password"
+                      >
+                        <b-form-input
+                          id="password"
+                          v-model="emailUsuario"
+                          placeholder="Introduzca la password del cliente"
+                        ></b-form-input>
+                    </b-form-group>
+                    <b-button style="margin-top: 10px">Crear</b-button>
+                </b-col>
+              </b-row>
+            </b-collapse>
+      </div>
       <b-row> 
         <b-col>
           <b-form-group id="tipo-estancia" label="Tipo estancia" label-for="tipo-estancia" >
@@ -112,6 +174,11 @@ export default {
         idEstancia : null,
         userId: null
       },
+      registrar : {
+        email: '',
+        nombre: '',
+        password: '',
+      },
       tipoEstancias: [
         { text: 'Selecciona tipo de estancia', value: null }, 
         { text : 'Habitación simple' , value : 1 },
@@ -128,6 +195,7 @@ export default {
       ],
       alertaEstanciaVisible : false,
       alertaReservaVisible :  false,
+      alertaBuscarUser :  false,
       nombreCollapse : '',
       alertaSubtmitVisible : false,
       visibleSuite : false,
@@ -135,6 +203,8 @@ export default {
       visibleIndividual : false,
       visibleConferencia : false,
       rolUser : '',
+      emailUsuario: '',
+      nombreUsuario: ''
     }
   },
   created : function(){
@@ -163,6 +233,11 @@ export default {
         + this.$store.state.reserva.precioReservaPension
         + this.$store.state.reserva.temporada.precioTemporada)
         * this.$store.state.reserva.diasReserva
+    },
+    user : function(){
+      console.log(this.$store.getters.userRole)
+      return (this.$store.getters.userRole == 'Recepcion' || 
+      this.$store.getters.userRole == 'Webmaster')
     }
   },
   methods:{
@@ -235,12 +310,14 @@ export default {
     }
   },
     confirmReserva(){
+      //Solo si es cliente puede realizar reservas para el
       if(this.$store.getters.userRole == 'Cliente'){
         this.form.userId = this.$store.getters.loggedUser.id
+      }else{
+          //this.alertaBuscarUser = true
       }
       this.$store.dispatch("realizarReserva",this.form)
-                    .then(resp =>{
-                    })
+      .then(resp =>{})
       this.hideModal()
     },
     hideModal(){
@@ -267,7 +344,6 @@ export default {
         var oneDay = 24 * 60 * 60 * 1000;
         var fechaInicioForm =  new Date(this.form.f_inicio)
         var fechaFinForm = new Date(this.form.f_fin)
-        console.log(Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay)))
         //anyadirDiasPrecio dispatch
         var totalDias = Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay));
         if(totalDias != 0){
@@ -275,6 +351,12 @@ export default {
             .then(resp =>{})   
         }
       }
+    },
+    search(){
+      this.$store.dispatch("buscarUserPorMail",this.emailUsuario)
+            .then(resp =>{
+              this.nombreUsuario = resp.name
+            }) 
     }
   }
 }
