@@ -20,7 +20,7 @@ class CreateEstanciaTable extends Migration
             $table->integer('planta');
             $table->integer('puerta');
             $table->string('nombre');
-            $table->mediumText('descripcion');
+            $table->mediumText('descripcion')->nullable();
             $table->boolean('reservada');
             $table->float('precio_base');
 
