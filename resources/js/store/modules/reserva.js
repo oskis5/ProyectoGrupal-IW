@@ -96,9 +96,6 @@ export default {
             })
         },
         realizarReserva({state,context},datosReserva){
-            console.log(datosReserva.f_inicio);
-            console.log(state.temporada.temporadaId)
-            console.log(state.temporada.precioReserva + state.temporada.precioReservaPension + state.tem)
             var cond = state.habitacionReserva 
             
             return new Promise((resolve,reject)=>{
@@ -119,7 +116,7 @@ export default {
                     }
                 })
                 .then(resp =>{
-                    console.log(resp)
+                    //console.log(resp)
                 })
             })
         },
@@ -131,7 +128,6 @@ export default {
             .then(response =>{
                 for(let i=0; i< response.data.length; i++){
                     if(tipoEstancia == response.data[i].tipo_id){
-                        console.log("id habitacion dentro " + response.data[i].tipo_id)
                         context.commit('establecerHabitacion',response.data[i].tipo_id)
                         break;
                     }

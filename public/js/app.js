@@ -1984,6 +1984,105 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ItemReserva.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ItemReserva.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'ItemReserva',
+  props: ['reserva'],
+  data: function data() {
+    return {
+      estancia: {},
+      tipo: {},
+      temporada: {}
+    };
+  },
+  created: function created() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function created$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            this.getDatos();
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, null, this);
+  },
+  methods: {
+    getDatos: function getDatos() {
+      var estancia, tipo, temporada, f_entrada, f_salida;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function getDatos$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias/' + this.reserva.estancia_id));
+
+            case 2:
+              estancia = _context2.sent;
+              _context2.next = 5;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(estancia.json());
+
+            case 5:
+              this.estancia = _context2.sent;
+              _context2.next = 8;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/tipoestancias/' + this.reserva.tipo_id));
+
+            case 8:
+              tipo = _context2.sent;
+              _context2.next = 11;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(tipo.json());
+
+            case 11:
+              this.tipo = _context2.sent;
+              _context2.next = 14;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/temporadas/' + this.reserva.temporada_id));
+
+            case 14:
+              temporada = _context2.sent;
+              _context2.next = 17;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(temporada.json());
+
+            case 17:
+              this.temporada = _context2.sent;
+              f_entrada = new Date(this.reserva.f_entrada);
+              this.reserva.f_entrada = f_entrada.toLocaleDateString("es-ES");
+              f_salida = new Date(this.reserva.f_salida);
+              this.reserva.f_salida = f_salida.toLocaleDateString("es-ES");
+
+            case 22:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, null, this);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Home.vue?vue&type=script&lang=js&":
 /*!*********************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Home.vue?vue&type=script&lang=js& ***!
@@ -2364,6 +2463,110 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Perfil.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Perfil.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _ItemReserva__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../ItemReserva */ "./resources/js/components/ItemReserva.vue");
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      reservas: []
+    };
+  },
+  components: {
+    reserva: _ItemReserva__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
+  computed: {
+    loggedUser: function loggedUser() {
+      return this.$store.getters.loggedUser;
+    }
+  },
+  created: function created() {
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function created$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            this.getReservas();
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, null, this);
+  },
+  methods: {
+    getReservas: function getReservas() {
+      var res, reservas;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function getReservas$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/users/' + this.loggedUser.id + '/reservas'));
+
+            case 2:
+              res = _context2.sent;
+              _context2.next = 5;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(res.json());
+
+            case 5:
+              reservas = _context2.sent;
+              this.reservas = reservas;
+
+            case 7:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, null, this);
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Register.vue?vue&type=script&lang=js&":
 /*!*************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Register.vue?vue&type=script&lang=js& ***!
@@ -2437,34 +2640,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2680,9 +2855,7 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.$route.params.habId != null) {
         this.form.idEstancia = this.$route.params.habId;
-        console.log("Id habitacion " + this.$route.params.habId);
-      } //console.log("Id habitacion " + this.$route.params.habId)
-
+      }
     }
   },
   computed: {
@@ -2690,7 +2863,6 @@ __webpack_require__.r(__webpack_exports__);
       return (this.$store.state.reserva.precioReserva + this.$store.state.reserva.precioReservaPension + this.$store.state.reserva.temporada.precioTemporada) * this.$store.state.reserva.diasReserva;
     },
     user: function user() {
-      console.log(this.$store.getters.userRole);
       return this.$store.getters.userRole == 'Recepcion' || this.$store.getters.userRole == 'Webmaster';
     }
   },
@@ -2764,7 +2936,6 @@ __webpack_require__.r(__webpack_exports__);
       //Solo si es cliente puede realizar reservas para el
       if (this.$store.getters.userRole == 'Cliente') {
         this.form.userId = this.$store.getters.loggedUser.id;
-      } else {//this.alertaBuscarUser = true
       }
 
       this.$store.dispatch("realizarReserva", this.form).then(function (resp) {});
@@ -2805,12 +2976,23 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
     },
+    manejadorFechas: function manejadorFechas() {
+      this.calcularDiasReservas();
+      this.calcularTemporada();
+    },
     search: function search() {
       var _this = this;
 
-      this.$store.dispatch("buscarUserPorMail", this.emailUsuario).then(function (resp) {
-        _this.nombreUsuario = resp.name;
-      });
+      if (this.emailUsuario != "") {
+        this.$store.dispatch("buscarUserPorMail", this.emailUsuario).then(function (resp) {
+          _this.nombreUsuario = resp.name;
+          _this.userId = resp.id;
+
+          if (_this.nombreUsuario == null && _this.emailUsuario) {
+            _this.alertaBuscarUser = true;
+          }
+        });
+      }
     }
   }
 });
@@ -36893,9 +37075,11 @@ var render = function() {
                     },
                     [
                       _vm._v(" "),
-                      _c("b-dropdown-item", { attrs: { href: "#" } }, [
-                        _vm._v("Mi perfil")
-                      ]),
+                      _c(
+                        "b-dropdown-item",
+                        { attrs: { to: { name: "perfil" } } },
+                        [_vm._v("Mi perfil")]
+                      ),
                       _vm._v(" "),
                       _c(
                         "b-dropdown-item",
@@ -37108,6 +37292,55 @@ var render = function() {
       ]
     )
   ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ItemReserva.vue?vue&type=template&id=f6c302ec&":
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ItemReserva.vue?vue&type=template&id=f6c302ec& ***!
+  \**************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "b-card",
+    {
+      attrs: {
+        "bg-variant": "light",
+        header: _vm.estancia.nombre,
+        "header-bg-variant": "secondary",
+        "header-text-variant": "white"
+      }
+    },
+    [
+      _vm._v(
+        "\n    Fechas: " +
+          _vm._s(_vm.reserva.f_entrada) +
+          " - " +
+          _vm._s(_vm.reserva.f_salida) +
+          " "
+      ),
+      _c("br"),
+      _vm._v("\n    Tipo de estancia: " + _vm._s(_vm.tipo.nombre) + " "),
+      _c("br"),
+      _vm._v("\n    Temporada: " + _vm._s(_vm.temporada.nombre) + " "),
+      _c("br"),
+      _vm._v("\n    Precio final: " + _vm._s(_vm.reserva.precio_total) + "€\n")
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -37540,6 +37773,128 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Perfil.vue?vue&type=template&id=02eecee2&":
+/*!***************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Perfil.vue?vue&type=template&id=02eecee2& ***!
+  \***************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container mx-auto my-4" }, [
+    _c(
+      "div",
+      { staticClass: "row" },
+      [
+        _c(
+          "b-card",
+          { staticClass: "col p-0", attrs: { "no-body": "" } },
+          [
+            _c(
+              "b-card-header",
+              {
+                attrs: {
+                  "header-tag": "nav",
+                  "header-bg-variant": "dark",
+                  "header-text-variant": "white"
+                }
+              },
+              [_c("b", [_vm._v("Mis datos")])]
+            ),
+            _vm._v(" "),
+            _c("div", { staticClass: "my-auto" }, [
+              _c("div", { staticClass: "mb-5 text-center" }, [
+                _c("img", {
+                  staticStyle: {
+                    width: "200px",
+                    "border-radius": "100%",
+                    border: "1px solid black"
+                  },
+                  attrs: { src: "images/profile_img.png" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "mb-3" }, [
+                _c("b", [_vm._v("Nombre de usuario:")]),
+                _c("br"),
+                _vm._v(" " + _vm._s(_vm.loggedUser.name))
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "mb-3" }, [
+                _c("b", [_vm._v("Correo electrónico:")]),
+                _c("br"),
+                _vm._v(" " + _vm._s(_vm.loggedUser.email))
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "mb-3" }, [
+                _c("b", [_vm._v("Reservas realizadas:")]),
+                _vm._v(" " + _vm._s(_vm.reservas.length))
+              ])
+            ])
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "b-card",
+          {
+            staticClass: "col p-0",
+            staticStyle: { "max-height": "85vh" },
+            attrs: { "no-body": "" }
+          },
+          [
+            _c(
+              "b-card-header",
+              {
+                attrs: {
+                  "header-tag": "nav",
+                  "header-bg-variant": "dark",
+                  "header-text-variant": "white"
+                }
+              },
+              [_c("b", [_vm._v("Histórico de reservas")])]
+            ),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticStyle: { "overflow-y": "auto" } },
+              _vm._l(_vm.reservas, function(item) {
+                return _c(
+                  "div",
+                  { key: item.id, staticClass: "text-left" },
+                  [
+                    _c("reserva", {
+                      staticClass: "m-2",
+                      attrs: { reserva: item }
+                    })
+                  ],
+                  1
+                )
+              }),
+              0
+            )
+          ],
+          1
+        )
+      ],
+      1
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Register.vue?vue&type=template&id=62ff28b9&":
 /*!*****************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/Register.vue?vue&type=template&id=62ff28b9& ***!
@@ -37696,61 +38051,45 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "b-container",
-    { staticStyle: { "text-align": "left" }, attrs: { fluid: "" } },
+    {
+      staticClass: "w-75 mx-auto my-4",
+      staticStyle: { "text-align": "left" },
+      attrs: { fluid: "" }
+    },
     [
-      _vm.user == true
-        ? _c(
-            "div",
+      _c(
+        "b-card",
+        [
+          _c(
+            "b-row",
             [
               _c(
-                "b-button",
-                {
-                  directives: [
-                    {
-                      name: "b-toggle",
-                      rawName: "v-b-toggle",
-                      value: "collapse-user",
-                      expression: "'collapse-user'"
-                    }
-                  ],
-                  staticClass: "m-1"
-                },
-                [_vm._v("Realizar reserva de un Usuario")]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-alert",
-                {
-                  attrs: { variant: "danger", dismissible: "" },
-                  model: {
-                    value: _vm.alertaBuscarUser,
-                    callback: function($$v) {
-                      _vm.alertaBuscarUser = $$v
-                    },
-                    expression: "alertaBuscarUser"
-                  }
-                },
-                [_vm._v("\n          ¡Debe buscar un usuario!\n        ")]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-collapse",
-                { attrs: { id: "collapse-user" } },
+                "b-col",
                 [
-                  _c(
-                    "b-row",
-                    { staticStyle: { "padding-top": "20px" } },
-                    [
-                      _c(
-                        "b-col",
+                  _vm.user == true
+                    ? _c(
+                        "div",
                         [
+                          _c(
+                            "b-alert",
+                            {
+                              attrs: { variant: "danger", dismissible: "" },
+                              model: {
+                                value: _vm.alertaBuscarUser,
+                                callback: function($$v) {
+                                  _vm.alertaBuscarUser = $$v
+                                },
+                                expression: "alertaBuscarUser"
+                              }
+                            },
+                            [_vm._v("Ese usuario no existe")]
+                          ),
+                          _vm._v(" "),
                           _c(
                             "b-form-group",
                             {
-                              staticClass: "mb-0",
                               attrs: {
-                                label:
-                                  "Busqueda el usuario en la base de datos",
+                                label: "Email del cliente",
                                 "label-for": "search"
                               }
                             },
@@ -37760,6 +38099,7 @@ var render = function() {
                                   id: "search",
                                   placeholder: "Introduzca el email del cliente"
                                 },
+                                on: { blur: _vm.search },
                                 model: {
                                   value: _vm.emailUsuario,
                                   callback: function($$v) {
@@ -37770,536 +38110,433 @@ var render = function() {
                               })
                             ],
                             1
-                          ),
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c(
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "tipo-estancia",
+                            label: "Tipo de habitación",
+                            "label-for": "tipo-estancia"
+                          }
+                        },
+                        [
+                          _c("b-form-select", {
+                            directives: [
+                              {
+                                name: "b-toggle",
+                                rawName: "v-b-toggle.collapse-foto",
+                                modifiers: { "collapse-foto": true }
+                              }
+                            ],
+                            attrs: {
+                              id: "tipo-estancia",
+                              options: _vm.tipoEstancias,
+                              required: ""
+                            },
+                            on: {
+                              change: function($event) {
+                                return _vm.calcularTotal("tipo-estancia")
+                              }
+                            },
+                            model: {
+                              value: _vm.form.tipoEstancia,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "tipoEstancia", $$v)
+                              },
+                              expression: "form.tipoEstancia"
+                            }
+                          }),
                           _vm._v(" "),
                           _c(
-                            "b-button",
+                            "b-alert",
                             {
-                              staticStyle: { "margin-top": "10px" },
-                              on: { click: _vm.search }
+                              attrs: { variant: "danger", dismissible: "" },
+                              model: {
+                                value: _vm.alertaEstanciaVisible,
+                                callback: function($$v) {
+                                  _vm.alertaEstanciaVisible = $$v
+                                },
+                                expression: "alertaEstanciaVisible"
+                              }
                             },
-                            [_vm._v("Buscar datos usuario")]
-                          ),
-                          _vm._v(" "),
-                          _c("h3", [
-                            _vm._v(
-                              "Nombre usuario: " + _vm._s(_vm.nombreUsuario)
-                            )
-                          ])
+                            [
+                              _vm._v(
+                                "\n              ¡Seleccione una opción correcta!\n            "
+                              )
+                            ]
+                          )
                         ],
                         1
                       ),
                       _vm._v(" "),
                       _c(
-                        "b-col",
+                        "b-form-group",
+                        {
+                          attrs: {
+                            id: "tipo-reserva",
+                            label: "Tipo de pensión",
+                            "label-for": "tipo-reserva"
+                          }
+                        },
                         [
-                          _c(
-                            "b-form-group",
-                            {
-                              staticClass: "mb-0",
-                              attrs: { label: "Nombre", "label-for": "nombre" }
+                          _c("b-form-select", {
+                            attrs: {
+                              id: "tipo-reserva",
+                              options: _vm.tipoReservas,
+                              required: ""
                             },
-                            [
-                              _c("b-form-input", {
-                                attrs: {
-                                  id: "nombre",
-                                  placeholder:
-                                    "Introduzca el nombre del cliente"
-                                },
-                                model: {
-                                  value: _vm.emailUsuario,
-                                  callback: function($$v) {
-                                    _vm.emailUsuario = $$v
-                                  },
-                                  expression: "emailUsuario"
-                                }
-                              })
-                            ],
-                            1
-                          ),
+                            on: {
+                              change: function($event) {
+                                return _vm.calcularTotal("tipo-reserva")
+                              }
+                            },
+                            model: {
+                              value: _vm.form.tipoReserva,
+                              callback: function($$v) {
+                                _vm.$set(_vm.form, "tipoReserva", $$v)
+                              },
+                              expression: "form.tipoReserva"
+                            }
+                          }),
                           _vm._v(" "),
                           _c(
-                            "b-form-group",
+                            "b-alert",
                             {
-                              staticClass: "mb-0",
-                              attrs: { label: "email", "label-for": "email" }
-                            },
-                            [
-                              _c("b-form-input", {
-                                attrs: {
-                                  id: "email",
-                                  placeholder: "Introduzca el email del cliente"
+                              attrs: { variant: "danger", dismissible: "" },
+                              model: {
+                                value: _vm.alertaReservaVisible,
+                                callback: function($$v) {
+                                  _vm.alertaReservaVisible = $$v
                                 },
-                                model: {
-                                  value: _vm.emailUsuario,
-                                  callback: function($$v) {
-                                    _vm.emailUsuario = $$v
-                                  },
-                                  expression: "emailUsuario"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-form-group",
-                            {
-                              staticClass: "mb-0",
-                              attrs: {
-                                label: "paswword",
-                                "label-for": "password"
+                                expression: "alertaReservaVisible"
                               }
                             },
                             [
-                              _c("b-form-input", {
-                                attrs: {
-                                  id: "password",
-                                  placeholder:
-                                    "Introduzca la password del cliente"
-                                },
-                                model: {
-                                  value: _vm.emailUsuario,
-                                  callback: function($$v) {
-                                    _vm.emailUsuario = $$v
-                                  },
-                                  expression: "emailUsuario"
-                                }
-                              })
-                            ],
-                            1
-                          ),
-                          _vm._v(" "),
-                          _c(
-                            "b-button",
-                            { staticStyle: { "margin-top": "10px" } },
-                            [_vm._v("Crear")]
+                              _vm._v(
+                                "\n              ¡Seleccione una opción correcta!\n            "
+                              )
+                            ]
                           )
                         ],
                         1
                       )
                     ],
                     1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _c(
-        "b-row",
-        [
-          _c(
-            "b-col",
-            [
-              _c(
-                "b-form-group",
-                {
-                  attrs: {
-                    id: "tipo-estancia",
-                    label: "Tipo estancia",
-                    "label-for": "tipo-estancia"
-                  }
-                },
-                [
-                  _c("b-form-select", {
-                    directives: [
-                      {
-                        name: "b-toggle",
-                        rawName: "v-b-toggle.collapse-foto",
-                        modifiers: { "collapse-foto": true }
-                      }
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    [
+                      _c(
+                        "b-container",
+                        { staticClass: "text-left", attrs: { fluid: "" } },
+                        [
+                          _c(
+                            "b-row",
+                            [
+                              _c(
+                                "b-col",
+                                { staticClass: "p-0 pr-1" },
+                                [
+                                  _c(
+                                    "b-form-group",
+                                    {
+                                      attrs: {
+                                        id: "f-inicio",
+                                        label: "Fecha inicio",
+                                        "label-for": "f-inicio"
+                                      }
+                                    },
+                                    [
+                                      _c("b-form-input", {
+                                        attrs: {
+                                          id: "f-inicio",
+                                          required: "",
+                                          type: "date",
+                                          placeholder: "Seleccione fecha inicio"
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            return _vm.manejadorFechas()
+                                          }
+                                        },
+                                        model: {
+                                          value: _vm.form.f_inicio,
+                                          callback: function($$v) {
+                                            _vm.$set(_vm.form, "f_inicio", $$v)
+                                          },
+                                          expression: "form.f_inicio"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "b-col",
+                                { staticClass: "p-0 pl-1" },
+                                [
+                                  _c(
+                                    "b-form-group",
+                                    {
+                                      attrs: {
+                                        id: "f-final",
+                                        label: "Fecha final",
+                                        "label-for": "f-final"
+                                      }
+                                    },
+                                    [
+                                      _c("b-form-input", {
+                                        attrs: {
+                                          id: "f-final",
+                                          required: "",
+                                          type: "date",
+                                          placeholder: "Seleccione fecha fin"
+                                        },
+                                        on: {
+                                          change: function($event) {
+                                            return _vm.manejadorFechas()
+                                          }
+                                        },
+                                        model: {
+                                          value: _vm.form.f_fin,
+                                          callback: function($$v) {
+                                            _vm.$set(_vm.form, "f_fin", $$v)
+                                          },
+                                          expression: "form.f_fin"
+                                        }
+                                      })
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
                     ],
-                    attrs: {
-                      id: "tipo-estancia",
-                      options: _vm.tipoEstancias,
-                      required: ""
-                    },
-                    on: {
-                      change: function($event) {
-                        return _vm.calcularTotal("tipo-estancia")
-                      }
-                    },
-                    model: {
-                      value: _vm.form.tipoEstancia,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "tipoEstancia", $$v)
-                      },
-                      expression: "form.tipoEstancia"
-                    }
-                  }),
+                    1
+                  ),
                   _vm._v(" "),
                   _c(
                     "b-alert",
                     {
                       attrs: { variant: "danger", dismissible: "" },
                       model: {
-                        value: _vm.alertaEstanciaVisible,
+                        value: _vm.alertaSubtmitVisible,
                         callback: function($$v) {
-                          _vm.alertaEstanciaVisible = $$v
+                          _vm.alertaSubtmitVisible = $$v
                         },
-                        expression: "alertaEstanciaVisible"
+                        expression: "alertaSubtmitVisible"
                       }
                     },
-                    [
-                      _vm._v(
-                        "\n          ¡Seleccione una opción correcta!\n        "
-                      )
-                    ]
+                    [_vm._v("¡Faltan campos por rellenar!")]
                   )
                 ],
                 1
               ),
               _vm._v(" "),
               _c(
-                "b-form-group",
-                {
-                  attrs: {
-                    id: "tipo-reserva",
-                    label: "Tipo de pensión",
-                    "label-for": "tipo-reserva"
-                  }
-                },
+                "b-col",
+                { staticClass: "text-center" },
                 [
-                  _c("b-form-select", {
-                    attrs: {
-                      id: "tipo-reserva",
-                      options: _vm.tipoReservas,
-                      required: ""
-                    },
-                    on: {
-                      change: function($event) {
-                        return _vm.calcularTotal("tipo-reserva")
+                  _c(
+                    "b-collapse",
+                    {
+                      staticClass: "mt-2",
+                      attrs: { id: "collapse-foto-suite" },
+                      model: {
+                        value: _vm.visibleSuite,
+                        callback: function($$v) {
+                          _vm.visibleSuite = $$v
+                        },
+                        expression: "visibleSuite"
                       }
                     },
-                    model: {
-                      value: _vm.form.tipoReserva,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "tipoReserva", $$v)
-                      },
-                      expression: "form.tipoReserva"
-                    }
-                  }),
+                    [
+                      _c("img", {
+                        attrs: { src: "images/Suite.jpg", width: "600px" }
+                      }),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v("\n            Suite!\n          ")
+                      ])
+                    ]
+                  ),
                   _vm._v(" "),
                   _c(
-                    "b-alert",
+                    "b-collapse",
                     {
-                      attrs: { variant: "danger", dismissible: "" },
+                      staticClass: "mt-2",
+                      attrs: { id: "collapse-foto-doble" },
                       model: {
-                        value: _vm.alertaReservaVisible,
+                        value: _vm.visibleDoble,
                         callback: function($$v) {
-                          _vm.alertaReservaVisible = $$v
+                          _vm.visibleDoble = $$v
                         },
-                        expression: "alertaReservaVisible"
+                        expression: "visibleDoble"
                       }
                     },
                     [
-                      _vm._v(
-                        "\n          ¡Seleccione una opción correcta!\n        "
-                      )
+                      _c("img", {
+                        attrs: { src: "images/DosPersonas.jpg", width: "600px" }
+                      }),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(
+                          "\n            Habitación para dos personas\n          "
+                        )
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-collapse",
+                    {
+                      staticClass: "mt-2",
+                      attrs: { id: "collapse-foto-individual" },
+                      model: {
+                        value: _vm.visibleIndividual,
+                        callback: function($$v) {
+                          _vm.visibleIndividual = $$v
+                        },
+                        expression: "visibleIndividual"
+                      }
+                    },
+                    [
+                      _c("img", {
+                        attrs: { src: "images/Individual.jpg", width: "600px" }
+                      }),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(
+                          "\n            Habitación individual\n          "
+                        )
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-collapse",
+                    {
+                      staticClass: "mt-2",
+                      attrs: { id: "collapse-foto-sala-conferencias" },
+                      model: {
+                        value: _vm.visibleConferencia,
+                        callback: function($$v) {
+                          _vm.visibleConferencia = $$v
+                        },
+                        expression: "visibleConferencia"
+                      }
+                    },
+                    [
+                      _c("img", {
+                        attrs: {
+                          src: "images/Conferencias.jpg",
+                          width: "600px"
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("p", { staticClass: "card-text" }, [
+                        _vm._v(
+                          "\n            Sala de conferencias para congresos o reuniones!\n          "
+                        )
+                      ])
                     ]
                   )
                 ],
                 1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-form-group",
-                {
-                  attrs: {
-                    id: "f-inicio",
-                    label: "Fecha inicio:",
-                    "label-for": "f-inicio"
-                  }
-                },
-                [
-                  _c("b-form-input", {
-                    attrs: {
-                      id: "f-inicio",
-                      required: "",
-                      type: "date",
-                      placeholder: "Seleccione fecha inicio"
-                    },
-                    on: {
-                      change: function($event) {
-                        return _vm.calcularTemporada()
-                      }
-                    },
-                    model: {
-                      value: _vm.form.f_inicio,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "f_inicio", $$v)
-                      },
-                      expression: "form.f_inicio"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-form-group",
-                {
-                  attrs: {
-                    id: "f-final",
-                    label: "Fecha final:",
-                    "label-for": "f-final"
-                  }
-                },
-                [
-                  _c("b-form-input", {
-                    attrs: {
-                      id: "f-final",
-                      required: "",
-                      type: "date",
-                      placeholder: "Seleccione fecha fin"
-                    },
-                    on: {
-                      change: function($event) {
-                        return _vm.calcularDiasReservas()
-                      }
-                    },
-                    model: {
-                      value: _vm.form.f_fin,
-                      callback: function($$v) {
-                        _vm.$set(_vm.form, "f_fin", $$v)
-                      },
-                      expression: "form.f_fin"
-                    }
-                  })
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "h4",
-                {
-                  attrs: { value: _vm.precio },
-                  on: { input: _vm.calcularTotal }
-                },
-                [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-button",
-                {
-                  ref: "btnSubmit",
-                  attrs: { type: "submit", variant: "outline-primary" },
-                  on: { click: _vm.onSubmit }
-                },
-                [_vm._v("Confirmar reserva")]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-alert",
-                {
-                  attrs: { variant: "danger", dismissible: "" },
-                  model: {
-                    value: _vm.alertaSubtmitVisible,
-                    callback: function($$v) {
-                      _vm.alertaSubtmitVisible = $$v
-                    },
-                    expression: "alertaSubtmitVisible"
-                  }
-                },
-                [
-                  _vm._v(
-                    "\n            ¡Debe seleccionar todos los campos!\n        "
-                  )
-                ]
               )
             ],
             1
           ),
           _vm._v(" "),
           _c(
-            "b-col",
+            "b-row",
             [
               _c(
-                "b-collapse",
-                {
-                  staticClass: "mt-2",
-                  attrs: { id: "collapse-foto-suite" },
-                  model: {
-                    value: _vm.visibleSuite,
-                    callback: function($$v) {
-                      _vm.visibleSuite = $$v
-                    },
-                    expression: "visibleSuite"
-                  }
-                },
+                "b-col",
                 [
                   _c(
-                    "b-card",
+                    "h4",
                     {
-                      attrs: {
-                        "img-src":
-                          "https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$",
-                        "img-alt": "Card image",
-                        "img-top": ""
-                      }
+                      attrs: { value: _vm.precio },
+                      on: { input: _vm.calcularTotal }
                     },
-                    [
-                      _c("p", { staticClass: "card-text" }, [
-                        _vm._v("\n          Suite!\n        ")
-                      ])
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-collapse",
-                {
-                  staticClass: "mt-2",
-                  attrs: { id: "collapse-foto-doble" },
-                  model: {
-                    value: _vm.visibleDoble,
-                    callback: function($$v) {
-                      _vm.visibleDoble = $$v
-                    },
-                    expression: "visibleDoble"
-                  }
-                },
-                [
+                    [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
+                  ),
+                  _vm._v(" "),
                   _c(
-                    "b-card",
+                    "b-button",
                     {
-                      attrs: {
-                        "img-src":
-                          "https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg",
-                        "img-alt": "Card image",
-                        "img-top": ""
-                      }
+                      ref: "btnSubmit",
+                      attrs: { type: "submit", variant: "outline-primary" },
+                      on: { click: _vm.onSubmit }
                     },
-                    [
-                      _c("p", { staticClass: "card-text" }, [
-                        _vm._v(
-                          "\n          Habitación para dos personas\n        "
-                        )
-                      ])
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-collapse",
-                {
-                  staticClass: "mt-2",
-                  attrs: { id: "collapse-foto-individual" },
-                  model: {
-                    value: _vm.visibleIndividual,
-                    callback: function($$v) {
-                      _vm.visibleIndividual = $$v
-                    },
-                    expression: "visibleIndividual"
-                  }
-                },
-                [
-                  _c(
-                    "b-card",
-                    {
-                      attrs: {
-                        "img-src":
-                          "https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg",
-                        "img-alt": "Card image",
-                        "img-top": ""
-                      }
-                    },
-                    [
-                      _c("p", { staticClass: "card-text" }, [
-                        _vm._v("\n          Habitación individual\n        ")
-                      ])
-                    ]
-                  )
-                ],
-                1
-              ),
-              _vm._v(" "),
-              _c(
-                "b-collapse",
-                {
-                  staticClass: "mt-2",
-                  attrs: { id: "collapse-foto-sala-conferencias" },
-                  model: {
-                    value: _vm.visibleConferencia,
-                    callback: function($$v) {
-                      _vm.visibleConferencia = $$v
-                    },
-                    expression: "visibleConferencia"
-                  }
-                },
-                [
-                  _c(
-                    "b-card",
-                    {
-                      attrs: {
-                        "img-src":
-                          "https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg",
-                        "img-alt": "Card image",
-                        "img-top": ""
-                      }
-                    },
-                    [
-                      _c("p", { staticClass: "card-text" }, [
-                        _vm._v(
-                          "\n          Sala de conferencias para congresos o reuniones!\n        "
-                        )
-                      ])
-                    ]
+                    [_vm._v("Confirmar reserva")]
                   )
                 ],
                 1
               )
             ],
             1
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        [
+          ),
+          _vm._v(" "),
           _c(
-            "b-modal",
-            {
-              ref: "modal-confirmar",
-              attrs: {
-                size: "xl",
-                "hide-footer": "",
-                title: "¿Confirmar datos?"
-              }
-            },
+            "div",
             [
-              _c("div", { staticClass: "d-block text-center" }, [
-                _c("h3", [_vm._v("Confirme o decline")])
-              ]),
-              _vm._v(" "),
               _c(
-                "b-button",
+                "b-modal",
                 {
-                  staticClass: "mt-3",
-                  attrs: { variant: "success", block: "" },
-                  on: { click: _vm.confirmReserva }
+                  ref: "modal-confirmar",
+                  attrs: {
+                    size: "xl",
+                    "hide-footer": "",
+                    title: "¿Confirmar datos?"
+                  }
                 },
-                [_vm._v("Confimar")]
-              ),
-              _vm._v(" "),
-              _c(
-                "b-button",
-                {
-                  staticClass: "mt-2",
-                  attrs: { variant: "danger", block: "" },
-                  on: { click: _vm.hideModal }
-                },
-                [_vm._v("No confirmar")]
+                [
+                  _c("div", { staticClass: "d-block text-center" }, [
+                    _c("h3", [_vm._v("Confirme o decline")])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      staticClass: "mt-3",
+                      attrs: { variant: "success", block: "" },
+                      on: { click: _vm.confirmReserva }
+                    },
+                    [_vm._v("Confimar")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-button",
+                    {
+                      staticClass: "mt-2",
+                      attrs: { variant: "danger", block: "" },
+                      on: { click: _vm.hideModal }
+                    },
+                    [_vm._v("No confirmar")]
+                  )
+                ],
+                1
               )
             ],
             1
@@ -54608,6 +54845,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/ItemReserva.vue":
+/*!*************************************************!*\
+  !*** ./resources/js/components/ItemReserva.vue ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ItemReserva_vue_vue_type_template_id_f6c302ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ItemReserva.vue?vue&type=template&id=f6c302ec& */ "./resources/js/components/ItemReserva.vue?vue&type=template&id=f6c302ec&");
+/* harmony import */ var _ItemReserva_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ItemReserva.vue?vue&type=script&lang=js& */ "./resources/js/components/ItemReserva.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _ItemReserva_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ItemReserva_vue_vue_type_template_id_f6c302ec___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ItemReserva_vue_vue_type_template_id_f6c302ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/ItemReserva.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/ItemReserva.vue?vue&type=script&lang=js&":
+/*!**************************************************************************!*\
+  !*** ./resources/js/components/ItemReserva.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemReserva_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./ItemReserva.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ItemReserva.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemReserva_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/ItemReserva.vue?vue&type=template&id=f6c302ec&":
+/*!********************************************************************************!*\
+  !*** ./resources/js/components/ItemReserva.vue?vue&type=template&id=f6c302ec& ***!
+  \********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemReserva_vue_vue_type_template_id_f6c302ec___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./ItemReserva.vue?vue&type=template&id=f6c302ec& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ItemReserva.vue?vue&type=template&id=f6c302ec&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemReserva_vue_vue_type_template_id_f6c302ec___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ItemReserva_vue_vue_type_template_id_f6c302ec___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/pages/Home.vue":
 /*!************************************************!*\
   !*** ./resources/js/components/pages/Home.vue ***!
@@ -54833,6 +55139,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/pages/Perfil.vue":
+/*!**************************************************!*\
+  !*** ./resources/js/components/pages/Perfil.vue ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Perfil_vue_vue_type_template_id_02eecee2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Perfil.vue?vue&type=template&id=02eecee2& */ "./resources/js/components/pages/Perfil.vue?vue&type=template&id=02eecee2&");
+/* harmony import */ var _Perfil_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Perfil.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/Perfil.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Perfil_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Perfil_vue_vue_type_template_id_02eecee2___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Perfil_vue_vue_type_template_id_02eecee2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/pages/Perfil.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Perfil.vue?vue&type=script&lang=js&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/pages/Perfil.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Perfil_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Perfil.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Perfil.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Perfil_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/Perfil.vue?vue&type=template&id=02eecee2&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/pages/Perfil.vue?vue&type=template&id=02eecee2& ***!
+  \*********************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Perfil_vue_vue_type_template_id_02eecee2___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./Perfil.vue?vue&type=template&id=02eecee2& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/Perfil.vue?vue&type=template&id=02eecee2&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Perfil_vue_vue_type_template_id_02eecee2___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Perfil_vue_vue_type_template_id_02eecee2___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/pages/Register.vue":
 /*!****************************************************!*\
   !*** ./resources/js/components/pages/Register.vue ***!
@@ -54989,6 +55364,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_Register__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/Register */ "./resources/js/components/pages/Register.vue");
 /* harmony import */ var _components_pages_Reserva__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/Reserva */ "./resources/js/components/pages/Reserva.vue");
 /* harmony import */ var _components_pages_ListHabitaciones__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/ListHabitaciones */ "./resources/js/components/pages/ListHabitaciones.vue");
+/* harmony import */ var _components_pages_Perfil__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/pages/Perfil */ "./resources/js/components/pages/Perfil.vue");
+
 
 
 
@@ -55022,6 +55399,13 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/ProyectoGrupal-IW/public/reservas',
     name: 'reservas',
     component: _components_pages_Reserva__WEBPACK_IMPORTED_MODULE_6__["default"],
+    meta: {
+      requiresAuth: true
+    }
+  }, {
+    path: '/ProyectoGrupal-IW/public/perfil',
+    name: 'perfil',
+    component: _components_pages_Perfil__WEBPACK_IMPORTED_MODULE_8__["default"],
     meta: {
       requiresAuth: true
     }
@@ -55315,9 +55699,6 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
     realizarReserva: function realizarReserva(_ref, datosReserva) {
       var state = _ref.state,
           context = _ref.context;
-      console.log(datosReserva.f_inicio);
-      console.log(state.temporada.temporadaId);
-      console.log(state.temporada.precioReserva + state.temporada.precioReservaPension + state.tem);
       var cond = state.habitacionReserva;
       return new Promise(function (resolve, reject) {
         axios__WEBPACK_IMPORTED_MODULE_0___default()({
@@ -55332,8 +55713,7 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
             f_salida: datosReserva.f_fin,
             precio_total: (state.precioReserva + state.precioReservaPension + state.temporada.precioTemporada) * state.diasReserva
           }
-        }).then(function (resp) {
-          console.log(resp);
+        }).then(function (resp) {//console.log(resp)
         });
       });
     },
@@ -55344,7 +55724,6 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(API_URL + "estancias").then(function (response) {
         for (var i = 0; i < response.data.length; i++) {
           if (tipoEstancia == response.data[i].tipo_id) {
-            console.log("id habitacion dentro " + response.data[i].tipo_id);
             context.commit('establecerHabitacion', response.data[i].tipo_id);
             break;
           }
@@ -55385,8 +55764,8 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\ProyectoGrupal-IW\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\ProyectoGrupal-IW\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! D:\Aplicaciones\xampp\htdocs\ProyectoGrupal-IW\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! D:\Aplicaciones\xampp\htdocs\ProyectoGrupal-IW\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

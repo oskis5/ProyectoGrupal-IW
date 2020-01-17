@@ -1,152 +1,126 @@
 <template>
-    <b-container fluid style="text-align: left">
-      <div v-if="user == true">
-        <b-button v-b-toggle="'collapse-user'" class="m-1">Realizar reserva de un Usuario</b-button>
-        <b-alert v-model="alertaBuscarUser" variant="danger" dismissible>
-              ¡Debe buscar un usuario!
-            </b-alert>
-          <b-collapse id="collapse-user">
-            <b-row style="padding-top: 20px">
-                <b-col>
-                  <b-form-group
-                    class="mb-0"
-                    label="Busqueda el usuario en la base de datos"
-                    label-for="search"
-                  >
+  <b-container fluid style="text-align: left" class="w-75 mx-auto my-4">
+    <b-card>
+      <b-row>
+        <!-- Begin::Formulario -->
+        <b-col>
+          <!-- Buscador de users por email -->
+          <div v-if="user == true">
+            <b-alert v-model="alertaBuscarUser" variant="danger" dismissible>Ese usuario no existe</b-alert>
+            <b-form-group label="Email del cliente" label-for="search">
+              <b-form-input
+                id="search"
+                v-model="emailUsuario"
+                placeholder="Introduzca el email del cliente"
+                @blur="search"
+              ></b-form-input>
+            </b-form-group>           
+          </div>
+          
+          <!-- Selectores de tipo de estancia -->
+          <div>
+            <b-form-group id="tipo-estancia" label="Tipo de habitación" label-for="tipo-estancia" >
+              <b-form-select
+                id="tipo-estancia"
+                v-model="form.tipoEstancia"
+                v-b-toggle.collapse-foto
+                :options="tipoEstancias"
+                @change="calcularTotal('tipo-estancia')"
+                required
+              ></b-form-select>
+              <b-alert v-model="alertaEstanciaVisible" variant="danger" dismissible>
+                ¡Seleccione una opción correcta!
+              </b-alert>
+            </b-form-group>
+            <b-form-group id="tipo-reserva" label="Tipo de pensión" label-for="tipo-reserva">
+              <b-form-select
+                id="tipo-reserva"
+                v-model="form.tipoReserva"
+                :options="tipoReservas"
+                @change="calcularTotal('tipo-reserva')"
+                required
+              ></b-form-select>
+              <!--  v-bind="calcularTotal('tipo-reserva')" -->
+              <b-alert v-model="alertaReservaVisible" variant="danger" dismissible>
+                ¡Seleccione una opción correcta!
+              </b-alert>
+            </b-form-group>
+          </div>
+          
+          <!-- Fecha de reserva -->
+          <div>
+            <b-container fluid class="text-left">
+              <b-row>
+                <b-col class="p-0 pr-1">
+                  <b-form-group id="f-inicio" label="Fecha inicio" label-for="f-inicio">
                     <b-form-input
-                      id="search"
-                      v-model="emailUsuario"
-                      placeholder="Introduzca el email del cliente"
+                      id="f-inicio"
+                      v-model="form.f_inicio"
+                      required
+                      type = date
+                      @change="manejadorFechas()"
+                      placeholder="Seleccione fecha inicio"
                     ></b-form-input>
-                </b-form-group>
-                <b-button style="margin-top: 10px" @click="search">Buscar datos usuario</b-button>
-                  <h3>Nombre usuario: {{nombreUsuario}}</h3>
-                    
+                  </b-form-group>
                 </b-col>
-                <b-col>
-                    <b-form-group
-                        class="mb-0"
-                        label="Nombre"
-                        label-for="nombre"
-                      >
-                        <b-form-input
-                          id="nombre"
-                          v-model="emailUsuario"
-                          placeholder="Introduzca el nombre del cliente"
-                        ></b-form-input>
-                    </b-form-group>
-                    <b-form-group
-                        class="mb-0"
-                        label="email"
-                        label-for="email"
-                      >
-                        <b-form-input
-                          id="email"
-                          v-model="emailUsuario"
-                          placeholder="Introduzca el email del cliente"
-                        ></b-form-input>
-                    </b-form-group>
-                    <b-form-group
-                        class="mb-0"
-                        label="paswword"
-                        label-for="password"
-                      >
-                        <b-form-input
-                          id="password"
-                          v-model="emailUsuario"
-                          placeholder="Introduzca la password del cliente"
-                        ></b-form-input>
-                    </b-form-group>
-                    <b-button style="margin-top: 10px">Crear</b-button>
+                <b-col class="p-0 pl-1">
+                  <b-form-group id="f-final" label="Fecha final" label-for="f-final">
+                    <b-form-input
+                      id="f-final"
+                      v-model="form.f_fin"
+                      required
+                      type = date
+                      @change="manejadorFechas()"
+                      placeholder="Seleccione fecha fin"
+                    ></b-form-input>
+                  </b-form-group>
                 </b-col>
               </b-row>
-            </b-collapse>
-      </div>
-      <b-row> 
-        <b-col>
-          <b-form-group id="tipo-estancia" label="Tipo estancia" label-for="tipo-estancia" >
-            <b-form-select
-              id="tipo-estancia"
-              v-model="form.tipoEstancia"
-              v-b-toggle.collapse-foto
-              :options="tipoEstancias"
-              @change="calcularTotal('tipo-estancia')"
-              required
-            ></b-form-select>
-            <b-alert v-model="alertaEstanciaVisible" variant="danger" dismissible>
-              ¡Seleccione una opción correcta!
-            </b-alert>
-          </b-form-group>
-          <b-form-group id="tipo-reserva" label="Tipo de pensión" label-for="tipo-reserva">
-            <b-form-select
-              id="tipo-reserva"
-              v-model="form.tipoReserva"
-              :options="tipoReservas"
-              @change="calcularTotal('tipo-reserva')"
-              required
-            ></b-form-select>
-            <!--  v-bind="calcularTotal('tipo-reserva')" -->
-            <b-alert v-model="alertaReservaVisible" variant="danger" dismissible>
-              ¡Seleccione una opción correcta!
-            </b-alert>
-          </b-form-group>
-          <b-form-group id="f-inicio" label="Fecha inicio:" label-for="f-inicio">
-            <b-form-input
-              id="f-inicio"
-              v-model="form.f_inicio"
-              required
-              type = date
-              @change="calcularTemporada()"
-              placeholder="Seleccione fecha inicio"
-            ></b-form-input>
-          </b-form-group>
-          <b-form-group id="f-final" label="Fecha final:" label-for="f-final">
-            <b-form-input
-              id="f-final"
-              v-model="form.f_fin"
-              required
-              type = date
-              @change="calcularDiasReservas()"
-              placeholder="Seleccione fecha fin"
-            ></b-form-input>
-          </b-form-group>
-          <h4 :value="precio" @input="calcularTotal">Valor total reserva {{ precio }}</h4>
-          <b-button ref="btnSubmit" @click="onSubmit" type="submit" variant="outline-primary">Confirmar reserva</b-button> 
-            <b-alert v-model="alertaSubtmitVisible" variant="danger" dismissible>
-                ¡Debe seleccionar todos los campos!
-            </b-alert>
-        </b-col> 
-        <b-col>
-        <b-collapse id="collapse-foto-suite" class="mt-2" v-model="visibleSuite">
-          <b-card img-src="https://s7d2.scene7.com/is/image/ritzcarlton/50554432-Junior%20Suite%20Ocean%20View%20bedroom%20corner?$XlargeViewport100pct$" img-alt="Card image" img-top>
+            </b-container>
+          </div>
+          <b-alert v-model="alertaSubtmitVisible" variant="danger" dismissible>¡Faltan campos por rellenar!</b-alert>
+        </b-col>
+        <!-- End::Formulario -->
+        <!-- Begin::Imagen -->
+        <b-col class="text-center">
+          <b-collapse id="collapse-foto-suite" class="mt-2" v-model="visibleSuite">
+            <img :src="'images/Suite.jpg'" width="600px">
             <p class="card-text">
               Suite!
             </p>
-          </b-card>
-        </b-collapse>
-        <b-collapse id="collapse-foto-doble" class="mt-2" v-model="visibleDoble">
-          <b-card img-src="https://www.hotelprismabarcelona.com/wp-content/uploads/2018/04/Habitacio%CC%81n-Doble-cama-matrimonio-2_192.jpg" img-alt="Card image" img-top>
+          </b-collapse>
+
+          <b-collapse id="collapse-foto-doble" class="mt-2" v-model="visibleDoble">     
+            <img :src="'images/DosPersonas.jpg'" width="600px">
             <p class="card-text">
               Habitación para dos personas
             </p>
-          </b-card>
-        </b-collapse>
-        <b-collapse id="collapse-foto-individual" class="mt-2" v-model="visibleIndividual">
-          <b-card img-src="https://media-cdn.tripadvisor.com/media/photo-s/0e/a2/c1/9a/detalle-de-la-habitacion.jpg" img-alt="Card image" img-top>
+          </b-collapse>
+
+          <b-collapse id="collapse-foto-individual" class="mt-2" v-model="visibleIndividual">
+            <img :src="'images/Individual.jpg'" width="600px">
             <p class="card-text">
               Habitación individual
             </p>
-          </b-card>
-        </b-collapse>
-        <b-collapse id="collapse-foto-sala-conferencias" class="mt-2" v-model="visibleConferencia">
-          <b-card img-src="https://s3-eu-west-1.amazonaws.com/spaceson/uploads/room_image/image/2504/slider_7_Sal_n_Conferencias.jpg" img-alt="Card image" img-top>
+          </b-collapse>
+
+          <b-collapse id="collapse-foto-sala-conferencias" class="mt-2" v-model="visibleConferencia">
+            <img :src="'images/Conferencias.jpg'" width="600px">
             <p class="card-text">
               Sala de conferencias para congresos o reuniones!
             </p>
-          </b-card>
-        </b-collapse>
-      </b-col> 
-      </b-row> 
+          </b-collapse>
+        </b-col>
+        <!-- End::Imagen -->
+      </b-row>
+      <b-row>
+        <b-col>
+          <h4 :value="precio" @input="calcularTotal">Valor total reserva {{ precio }}</h4>
+          <b-button ref="btnSubmit" @click="onSubmit" type="submit" variant="outline-primary">Confirmar reserva</b-button> 
+        </b-col> 
+      </b-row>
+      
+      <!-- Modal de confirmación -->
       <div>
         <b-modal size="xl" ref="modal-confirmar" hide-footer title="¿Confirmar datos?">
           <div class="d-block text-center">
@@ -155,11 +129,9 @@
           <b-button class="mt-3" variant="success" block @click="confirmReserva">Confimar</b-button>
           <b-button class="mt-2" variant="danger" block @click="hideModal">No confirmar</b-button>
         </b-modal>
-  
       </div>
-    </b-container>
-
-
+    </b-card>
+  </b-container>
 </template>
 <script>
 export default {
@@ -220,11 +192,8 @@ export default {
         this.form.tipoReserva = parseInt(this.$route.params.tipoPension);
       }
       if(this.$route.params.habId != null){
-         this.form.idEstancia = this.$route.params.habId
-         console.log("Id habitacion " + this.$route.params.habId)
-      }
-       //console.log("Id habitacion " + this.$route.params.habId)
-
+        this.form.idEstancia = this.$route.params.habId
+      }    
     }
   },
   computed : {
@@ -235,7 +204,6 @@ export default {
         * this.$store.state.reserva.diasReserva
     },
     user : function(){
-      console.log(this.$store.getters.userRole)
       return (this.$store.getters.userRole == 'Recepcion' || 
       this.$store.getters.userRole == 'Webmaster')
     }
@@ -296,28 +264,26 @@ export default {
       }
     },
     calcularTemporada : function(){ //Solo vamos a fijarnos en la fecha de inicio para la temporada
-        var fechaForm =  new Date(this.form.f_inicio)
-        this.$store.dispatch("buscarTemporadas",fechaForm)
-                .then(resp =>{
-                })
+      var fechaForm =  new Date(this.form.f_inicio)
+      this.$store.dispatch("buscarTemporadas",fechaForm)
+      .then(resp =>{})
     },
     onSubmit(evt){
       if(this.form.f_inicio=='' || this.form.f_fin =='' || this.form.tipoEstancia == null || this.form.tipoReserva == null){
-          this.alertaSubtmitVisible = true
+        this.alertaSubtmitVisible = true
       }else{
-          this.alertaSubtmitVisible = false
-          this.$refs['modal-confirmar'].show()
-    }
-  },
+        this.alertaSubtmitVisible = false
+        this.$refs['modal-confirmar'].show()
+      }
+    },
     confirmReserva(){
       //Solo si es cliente puede realizar reservas para el
       if(this.$store.getters.userRole == 'Cliente'){
         this.form.userId = this.$store.getters.loggedUser.id
-      }else{
-          //this.alertaBuscarUser = true
       }
+
       this.$store.dispatch("realizarReserva",this.form)
-      .then(resp =>{})
+      .then(resp =>{ })
       this.hideModal()
     },
     hideModal(){
@@ -342,7 +308,7 @@ export default {
     calcularDiasReservas(){
       if(this.form.f_inicio != '' && this.form.f_fin != ''){
         var oneDay = 24 * 60 * 60 * 1000;
-        var fechaInicioForm =  new Date(this.form.f_inicio)
+        var fechaInicioForm = new Date(this.form.f_inicio)
         var fechaFinForm = new Date(this.form.f_fin)
         //anyadirDiasPrecio dispatch
         var totalDias = Math.round(Math.abs((fechaInicioForm - fechaFinForm) / oneDay));
@@ -352,11 +318,19 @@ export default {
         }
       }
     },
+    manejadorFechas(){
+      this.calcularDiasReservas()
+      this.calcularTemporada()
+    },
     search(){
-      this.$store.dispatch("buscarUserPorMail",this.emailUsuario)
-            .then(resp =>{
-              this.nombreUsuario = resp.name
-            }) 
+      if (this.emailUsuario != "") {
+        this.$store.dispatch("buscarUserPorMail", this.emailUsuario)
+        .then(resp => { 
+          this.nombreUsuario = resp.name
+          this.userId = resp.id
+          if (this.nombreUsuario == null && this.emailUsuario) { this.alertaBuscarUser = true }
+        })
+      }
     }
   }
 }
