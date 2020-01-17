@@ -38518,7 +38518,6 @@ var render = function() {
                     params: {
                       tipoPension: this.tipoPension,
                       fecha: this.fecha,
-                      fechaSalida: _vm.fechaSalida,
                       tipoHab: this.item.tipo.id
                     }
                   }
@@ -41753,7 +41752,7 @@ var render = function() {
                       attrs: { value: _vm.precio },
                       on: { input: _vm.calcularTotal }
                     },
-                    [_vm._v("Valor total reserva " + _vm._s(_vm.precio))]
+                    [_vm._v("Valor total reserva " + _vm._s(_vm.precio) + "€")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -59376,8 +59375,8 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\sw\xampp\htdocs\ProyectoGrupal-IW\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\sw\xampp\htdocs\ProyectoGrupal-IW\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\xampp\htdocs\ProyectoGrupal-IW\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\ProyectoGrupal-IW\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

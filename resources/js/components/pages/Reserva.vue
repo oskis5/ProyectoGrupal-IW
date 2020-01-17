@@ -115,7 +115,7 @@
       </b-row>
       <b-row>
         <b-col>
-          <h4 :value="precio" @input="calcularTotal">Valor total reserva {{ precio }}</h4>
+          <h4 :value="precio" @input="calcularTotal">Valor total reserva {{ precio }}€</h4>
           <b-button ref="btnSubmit" @click="onSubmit" type="submit" variant="outline-primary">Confirmar reserva</b-button> 
         </b-col> 
       </b-row>
