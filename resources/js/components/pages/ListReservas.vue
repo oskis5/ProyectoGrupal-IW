@@ -1,6 +1,6 @@
 <template>
-    <div class="container">
-        <h1 class="text-left">Informe de reservas</h1>
+    <div class="container mt-5">
+    </br>
         <div class="row justify-content-center align-items-start">
             <div class="container p-2 col-12 col-md-6">
                 <p class="text-left">Mostrando: <b>{{reservas.length}} de {{reservas.length + reservasCont.length}} filas</b></p>
