@@ -64,6 +64,9 @@ const router = new Router({
             path: '/ProyectoGrupal-IW/public/listReservas-wm',
             name: 'ListReservas',
             component: ListReservas,
+            meta: { 
+                requiresAuth: true
+            }
         }
     ]
 })

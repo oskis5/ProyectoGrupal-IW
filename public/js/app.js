@@ -55867,7 +55867,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/ProyectoGrupal-IW/public/listReservas-wm',
     name: 'ListReservas',
-    component: _components_pages_ListReservas__WEBPACK_IMPORTED_MODULE_8__["default"]
+    component: _components_pages_ListReservas__WEBPACK_IMPORTED_MODULE_8__["default"],
+    meta: {
+      requiresAuth: true
+    }
   }]
 });
 router.beforeEach(function (to, from, next) {
