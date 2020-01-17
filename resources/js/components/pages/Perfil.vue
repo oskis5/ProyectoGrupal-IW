@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto my-4">
+    <div class="container mx-auto mb-4">
         <div class="row">
             <b-card no-body class="col p-0">
                 <b-card-header header-tag="nav" header-bg-variant="dark" header-text-variant="white">

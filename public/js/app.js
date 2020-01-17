@@ -38228,7 +38228,12 @@ var render = function() {
         "b-navbar",
         {
           staticClass: "py-0",
-          attrs: { toggleable: "lg", type: "light", variant: "light" }
+          attrs: {
+            fixed: "top",
+            toggleable: "lg",
+            type: "light",
+            variant: "light"
+          }
         },
         [
           _c(
@@ -38355,7 +38360,7 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _c("router-view")
+      _c("router-view", { staticStyle: { "margin-top": "100px" } })
     ],
     1
   )
@@ -38518,7 +38523,8 @@ var render = function() {
                     params: {
                       tipoPension: this.tipoPension,
                       fecha: this.fecha,
-                      tipoHab: this.item.tipo.id
+                      tipoHab: this.item.tipo.id,
+                      habId: this.item.id
                     }
                   }
                 }
@@ -41061,7 +41067,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container mx-auto my-4" }, [
+  return _c("div", { staticClass: "container mx-auto mb-4" }, [
     _c(
       "div",
       { staticClass: "row" },
@@ -41325,7 +41331,7 @@ var render = function() {
   return _c(
     "b-container",
     {
-      staticClass: "w-75 mx-auto my-4",
+      staticClass: "w-75 mx-auto mb-4",
       staticStyle: { "text-align": "left" },
       attrs: { fluid: "" }
     },
@@ -59375,8 +59381,8 @@ var API_URL = "http://localhost/ProyectoGrupal-IW/public/api/";
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\xampp\htdocs\ProyectoGrupal-IW\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\ProyectoGrupal-IW\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\sw\xampp\htdocs\ProyectoGrupal-IW\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\sw\xampp\htdocs\ProyectoGrupal-IW\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

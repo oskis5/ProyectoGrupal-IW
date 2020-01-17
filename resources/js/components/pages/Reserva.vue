@@ -1,5 +1,5 @@
 <template>
-  <b-container fluid style="text-align: left" class="w-75 mx-auto my-4">
+  <b-container fluid style="text-align: left" class="w-75 mx-auto mb-4">
     <b-card>
       <b-row>
         <!-- Begin::Formulario -->
