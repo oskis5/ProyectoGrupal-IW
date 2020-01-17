@@ -55,7 +55,6 @@ export default {
         },
         register({commit}, user) {
             return new Promise((resolve, reject) => {
-                commit('auth_request')
                 axios({url: API_URL + 'signup', data: user, method: 'POST' })
                 .then(resp => {
                     resolve(resp)

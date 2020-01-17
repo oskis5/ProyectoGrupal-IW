@@ -8,6 +8,7 @@
       </router-link>
       
       <b-navbar-nav class="ml-auto">
+      <b-nav-item v-if="isLoggedIn && userRole == 'Webmaster'" :to="{name: 'ListReservas'}">Informes reservas</b-nav-item>
         <b-nav-item v-if="isLoggedIn && userRole == 'Webmaster'" :to="{name: 'listaClientes'}">Lista Clientes</b-nav-item>
         <b-nav-item v-if="isLoggedIn && userRole == 'Webmaster'" :to="{name: 'listaRecepcionistas'}">Lista Recepcionistas </b-nav-item>
         <b-nav-item v-if="isLoggedIn && userRole == 'Webmaster'" :to="{name: 'listaHabitacionesWM'}">Lista Habitaciones</b-nav-item>
@@ -15,7 +16,7 @@
           <template v-slot:button-content>
             <span style="padding-right: 10px; font-size: 20px">{{loggedUser.name}}</span>
           </template>
-          <b-dropdown-item href="#">Mi perfil</b-dropdown-item>
+          <b-dropdown-item :to="{name: 'perfil'}">Mi perfil</b-dropdown-item>
           <b-dropdown-item v-on:click="logout()">Cerrar sesión</b-dropdown-item>
         </b-nav-item-dropdown>
 

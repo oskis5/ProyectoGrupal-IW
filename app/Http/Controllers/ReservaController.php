@@ -23,6 +23,15 @@ class ReservaController extends Controller
         }
     }
 
+    public function reservasDeUser($id) {
+        $reserva = Reserva::where('cliente_id', '=', $id)->get();
+        if ($reserva == null){
+            return response()->json('Recurso no disponible' , 404);
+        }else{
+            return response()->json($reserva, 200);
+        }
+    }
+
     public function delete(Request $request, $id){
         $reserva = Reserva::findOrFail($id);
         $reserva->delete();

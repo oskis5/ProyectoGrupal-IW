@@ -38,9 +38,13 @@ Route::delete('users/{id}', 'UserController@delete');
 Route::get('clientes', 'UserController@showClientes');
 Route::get('recepcionistas', 'UserController@showRecepcionistas');
 
+
+Route::get('emails/{email}','UserController@recuperarUsuarioMail');
+
 //reservas
 Route::get('reservas', 'ReservaController@index');
 Route::get('reservas/{id}','ReservaController@show');
+Route::get('users/{id}/reservas','ReservaController@reservasDeUser');
 Route::post('reservas','ReservaController@store');
 Route::put('reservas/{id}', 'ReservaController@update');
 Route::delete('reservas/{id}','ReservaController@delete');

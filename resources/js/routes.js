@@ -10,6 +10,7 @@ import ListaRecepcionistas from './components/pages/ListaRecepcionistas'
 import ListaHabitacionesWM from './components/pages/ListaHabitacionesWM'
 import Reserva from './components/pages/Reserva';
 import ListHabitaciones from './components/pages/ListHabitaciones';
+import Perfil from './components/pages/Perfil';
 import ListReservas from './components/pages/ListReservas';
 
 const originalPush = Router.prototype.push;
@@ -18,24 +19,6 @@ Router.prototype.push = function push(location) {
 };
 
 Vue.use(Router);
-
-/*
-const ifNotAuthenticated = (to, from, next) => {
-    if (!store.getters.isLoggedIn) {
-      next()
-      return
-    }
-    next('/ProyectoGrupal-IW/public/login')
-}
-
-const ifAuthenticated = (to, from, next) => {  
-    if (store.getters.isLoggedIn) {
-      next()
-      return
-    }
-    next('/ProyectoGrupal-IW/public/login')
-}
-*/
   
 const router = new Router({
     mode: 'history',
@@ -44,6 +27,14 @@ const router = new Router({
             path: '/ProyectoGrupal-IW/public/reservas',
             name: 'reservas',
             component: Reserva,
+            meta: { 
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/ProyectoGrupal-IW/public/perfil',
+            name: 'perfil',
+            component: Perfil,
             meta: { 
                 requiresAuth: true
             }
