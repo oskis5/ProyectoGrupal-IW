@@ -283,7 +283,7 @@ export default {
       }
 
       this.$store.dispatch("realizarReserva",this.form)
-      .then(resp =>{ })
+      .then(resp =>{ this.$router.push('/ProyectoGrupal-IW/public/home') })
       this.hideModal()
     },
     hideModal(){
