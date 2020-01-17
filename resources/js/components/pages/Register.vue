@@ -39,7 +39,8 @@ export default {
       let data = {
         name: this.name,
         email: this.email,
-        password: this.password
+        password: this.password,
+        roles: "Cliente"
       }
       this.$store.dispatch('register', data)
       .then(() => this.$router.push('/ProyectoGrupal-IW/public/login'))

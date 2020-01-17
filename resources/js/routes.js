@@ -9,6 +9,8 @@ import ListaClientes from './components/pages/ListaClientes'
 import ListaRecepcionistas from './components/pages/ListaRecepcionistas'
 import ListaHabitacionesWM from './components/pages/ListaHabitacionesWM'
 import Reserva from './components/pages/Reserva';
+import ListHabitaciones from './components/pages/ListHabitaciones';
+import ListReservas from './components/pages/ListReservas';
 
 const originalPush = Router.prototype.push;
 Router.prototype.push = function push(location) {
@@ -17,6 +19,7 @@ Router.prototype.push = function push(location) {
 
 Vue.use(Router);
 
+/*
 const ifNotAuthenticated = (to, from, next) => {
     if (!store.getters.isLoggedIn) {
       next()
@@ -32,7 +35,7 @@ const ifAuthenticated = (to, from, next) => {
     }
     next('/ProyectoGrupal-IW/public/login')
 }
-
+*/
   
 const router = new Router({
     mode: 'history',
@@ -41,7 +44,9 @@ const router = new Router({
             path: '/ProyectoGrupal-IW/public/reservas',
             name: 'reservas',
             component: Reserva,
-            beforeEnter: ifNotAuthenticated
+            meta: { 
+                requiresAuth: true
+            }
         },
         {
             path: '/ProyectoGrupal-IW/public/',
@@ -81,17 +86,20 @@ const router = new Router({
             meta: { 
                 requiresAuth: true
             }
-        }
-        /*,
-        {
-            path: '/secure',
-            name: 'secure',
-            component: Secure,
-            meta: { 
-              requiresAuth: true
-            }
         },
-        */
+        {
+            path: '/ProyectoGrupal-IW/public/habitaciones',
+            name: 'ListHabitaciones',
+            component: ListHabitaciones,
+        },
+        {
+            path: '/ProyectoGrupal-IW/public/listReservas-wm',
+            name: 'ListReservas',
+            component: ListReservas,
+            meta: { 
+                requiresAuth: true
+            }
+        }
     ]
 })
 

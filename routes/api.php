@@ -39,6 +39,7 @@ Route::get('clientes', 'UserController@showClientes');
 Route::get('recepcionistas', 'UserController@showRecepcionistas');
 
 //reservas
+Route::get('reservas', 'ReservaController@index');
 Route::get('reservas/{id}','ReservaController@show');
 Route::post('reservas','ReservaController@store');
 Route::put('reservas/{id}', 'ReservaController@update');
