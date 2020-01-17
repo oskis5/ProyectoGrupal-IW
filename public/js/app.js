@@ -2260,14 +2260,128 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      name: "",
-      email: "",
-      password: "",
-      roles: "",
+      nombre: "",
+      puerta: null,
+      planta: null,
+      descripcion: ' ',
+      camas: null,
+      precio_base: null,
+      tipo_id: "",
+      metros_cuadrados: null,
+      capacidad: null,
+      reservada: null,
+      tipoHabitacion: "",
       striped: true,
       bordered: true,
       borderless: true,
@@ -2278,11 +2392,27 @@ __webpack_require__.r(__webpack_exports__);
       currentPage: 1,
       headers: [{
         label: 'Nombre',
-        key: 'name',
+        key: 'nombre',
         sortable: true
       }, {
-        label: 'Email',
-        key: 'email',
+        label: 'Planta',
+        key: 'planta',
+        sortable: true
+      }, {
+        label: 'Puerta',
+        key: 'puerta',
+        sortable: true
+      }, {
+        label: 'Reservada',
+        key: 'reservada',
+        sortable: true
+      }, {
+        label: 'Tipo',
+        key: 'tipo_id',
+        sortable: true
+      }, {
+        label: 'Precio',
+        key: 'precio_base',
         sortable: true
       }, {
         label: 'Opciones',
@@ -2291,11 +2421,37 @@ __webpack_require__.r(__webpack_exports__);
       habitaciones: [],
       editedItem: {
         id: null,
-        name: "",
-        email: "",
-        password: "",
-        roles: 'habitacion'
-      }
+        nombre: "",
+        puerta: null,
+        planta: null,
+        descripcion: ' ',
+        camas: 0,
+        precio_base: null,
+        tipo_id: "",
+        metros_cuadrados: 0,
+        capacidad: 0,
+        reservada: null
+      },
+      opciones: [{
+        value: 1,
+        text: 'Sencilla'
+      }, {
+        value: 2,
+        text: 'Doble'
+      }, {
+        value: 3,
+        text: 'Suite'
+      }, {
+        value: 4,
+        text: 'Sala reuniones'
+      }],
+      options: [{
+        text: 'Sí',
+        value: 1
+      }, {
+        text: 'No',
+        value: 0
+      }]
     };
   },
   computed: {
@@ -2307,29 +2463,50 @@ __webpack_require__.r(__webpack_exports__);
     create: function create() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/users', {
-        name: this.name,
-        email: this.email,
-        password: this.password,
-        roles: 'habitacion'
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('api/estancias', {
+        nombre: this.nombre,
+        planta: this.planta,
+        puerta: this.puerta,
+        descripcion: this.descripcion,
+        precio_base: this.precio_base,
+        tipo_id: this.tipo_id,
+        reservada: 0,
+        metros_cuadrados: this.metros_cuadrados != null ? this.metros_cuadrados : 0,
+        camas: this.camas != null ? this.camas : 0,
+        capacidad: this.capacidad != null ? this.capacidad : 0 //((state.habitacionReserva != null)? state.habitacionReserva : datosReserva.idEstancia)
+
       }).then(function (response) {
         //this.$router.push({ name: 'listahabitaciones' })
         _this.$root.$emit('bv::hide::modal', 'modal-crear', '#btnguardar'); //this.$forceUpdate(); 
+        //location.reload();
 
 
-        location.reload();
+        _this.$refs.recargar.refresh();
       })["catch"](function (error) {
         console.log(error);
       });
     },
+
+    /*
+    ChangeView: function ChangeView(action){
+        if(action){
+            this.$refs.recargar.refresh();
+        }
+    },*/
     update: function update() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('api/users/' + this.editedItem.id, {
-        name: this.editedItem.name,
-        email: this.editedItem.email,
-        password: this.editedItem.password,
-        roles: 'habitacion'
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.put('api/estancias/' + this.editedItem.id, {
+        nombre: this.editedItem.nombre,
+        planta: this.editedItem.planta,
+        puerta: this.editedItem.puerta,
+        descripcion: this.editedItem.descripcion,
+        precio_base: this.editedItem.precio_base,
+        tipo_id: this.editedItem.tipo_id,
+        reservada: this.editedItem.reservada,
+        metros_cuadrados: this.editedItem.metros_cuadrados,
+        camas: this.editedItem.camas,
+        capacidad: this.editedItem.capacidad
       }).then(function (response) {
         _this2.$root.$emit('bv::hide::modal', 'modal-crear', '#btnguardar');
 
@@ -2339,7 +2516,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     destroy: function destroy(id) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('api/users/' + id).then(function (response) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a["delete"]('api/estancias/' + id).then(function (response) {
         location.reload();
       })["catch"](function (error) {
         console.log(error);
@@ -2347,16 +2524,24 @@ __webpack_require__.r(__webpack_exports__);
     },
     editItem: function editItem(item) {
       this.$refs['modal-editar'].show();
+      console.log(item);
       this.editedItem.id = item.id;
-      this.editedItem.name = item.name;
-      this.editedItem.email = item.email;
-      this.editedItem.password = item.password;
+      this.editedItem.nombre = item.nombre;
+      this.editedItem.planta = item.planta;
+      this.editedItem.puerta = item.puerta;
+      this.editedItem.descripcion = item.descripcion;
+      this.editedItem.precio_base = item.precio_base;
+      this.editedItem.tipo_id = item.tipo_id;
+      this.editedItem.reservada = item.reservada;
+      this.editedItem.metros_cuadrados = item.metros_cuadrados;
+      this.editedItem.camas = item.camas;
+      this.editedItem.capacidad = item.capacidad;
     }
   },
   mounted: function mounted() {
     var _this3 = this;
 
-    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('api/users').then(function (response) {
+    axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('api/estancias').then(function (response) {
       _this3.habitaciones = response.data;
     })["catch"](function (error) {
       console.log(error);
@@ -36970,6 +37155,78 @@ var render = function() {
         },
         scopedSlots: _vm._u([
           {
+            key: "cell(nombre)",
+            fn: function(data) {
+              return [_vm._v("\n       " + _vm._s(data.item.nombre) + "\n    ")]
+            }
+          },
+          {
+            key: "cell(planta)",
+            fn: function(data) {
+              return [
+                _vm._v("\n       " + _vm._s(data.item.planta) + " \n    ")
+              ]
+            }
+          },
+          {
+            key: "cell(puerta)",
+            fn: function(data) {
+              return [_vm._v("\n       " + _vm._s(data.item.puerta) + "\n    ")]
+            }
+          },
+          {
+            key: "cell(reservada)",
+            fn: function(data) {
+              return [
+                data.item.reservada == 0
+                  ? _c("p", { staticClass: "text-xs-center" }, [_vm._v("No")])
+                  : _vm._e(),
+                _vm._v(" "),
+                data.item.reservada == 1
+                  ? _c("p", { staticClass: "text-xs-center" }, [_vm._v("Sí")])
+                  : _vm._e()
+              ]
+            }
+          },
+          {
+            key: "cell(tipo_id)",
+            fn: function(data) {
+              return [
+                data.item.tipo_id == 1
+                  ? _c("p", { staticClass: "text-xs-center" }, [
+                      _vm._v("Sencilla")
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                data.item.tipo_id == 2
+                  ? _c("p", { staticClass: "text-xs-center" }, [
+                      _vm._v("Doble")
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                data.item.tipo_id == 3
+                  ? _c("p", { staticClass: "text-xs-center" }, [
+                      _vm._v("Suite")
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                data.item.tipo_id == 4
+                  ? _c("p", { staticClass: "text-xs-center" }, [
+                      _vm._v("Sala reuniones")
+                    ])
+                  : _vm._e()
+              ]
+            }
+          },
+          {
+            key: "cell(precio_base)",
+            fn: function(data) {
+              return [
+                _vm._v("\n       " + _vm._s(data.item.precio_base) + " €\n    ")
+              ]
+            }
+          },
+          {
             key: "cell(opciones)",
             fn: function(row) {
               return [
@@ -37036,19 +37293,16 @@ var render = function() {
                 [
                   _c(
                     "b-form-group",
-                    {
-                      staticClass: "mt-3",
-                      attrs: { label: "Nombre:", description: "" }
-                    },
+                    { attrs: { label: "Nombre:", description: "" } },
                     [
                       _c("b-form-input", {
-                        attrs: { name: "name", type: "text" },
+                        attrs: { name: "nombre", type: "text" },
                         model: {
-                          value: _vm.name,
+                          value: _vm.nombre,
                           callback: function($$v) {
-                            _vm.name = $$v
+                            _vm.nombre = $$v
                           },
-                          expression: "name"
+                          expression: "nombre"
                         }
                       })
                     ],
@@ -37057,23 +37311,16 @@ var render = function() {
                   _vm._v(" "),
                   _c(
                     "b-form-group",
-                    {
-                      staticClass: "mt-3",
-                      attrs: { label: "Correo electrónico:", description: "" }
-                    },
+                    { attrs: { label: "Descripción:", description: "" } },
                     [
-                      _c("b-form-input", {
-                        attrs: {
-                          name: "email",
-                          type: "email",
-                          placeholder: "email@example.com"
-                        },
+                      _c("b-form-textarea", {
+                        attrs: { name: "descripcion" },
                         model: {
-                          value: _vm.email,
+                          value: _vm.descripcion,
                           callback: function($$v) {
-                            _vm.email = $$v
+                            _vm.descripcion = $$v
                           },
-                          expression: "email"
+                          expression: "descripcion"
                         }
                       })
                     ],
@@ -37081,33 +37328,193 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c(
-                    "b-form-group",
-                    {
-                      staticClass: "mt-4",
-                      attrs: {
-                        label: "Contraseña:",
-                        description:
-                          "La contraseña debe tener un mínimo de 6 caracteres"
-                      }
-                    },
+                    "b-row",
                     [
-                      _c("b-form-input", {
-                        attrs: {
-                          name: "password",
-                          type: "password",
-                          placeholder: "******"
-                        },
-                        model: {
-                          value: _vm.password,
-                          callback: function($$v) {
-                            _vm.password = $$v
-                          },
-                          expression: "password"
-                        }
-                      })
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Planta:", description: "" } },
+                            [
+                              _c("b-form-input", {
+                                attrs: { name: "planta", type: "text" },
+                                model: {
+                                  value: _vm.planta,
+                                  callback: function($$v) {
+                                    _vm.planta = $$v
+                                  },
+                                  expression: "planta"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Puerta:", description: "" } },
+                            [
+                              _c("b-form-input", {
+                                attrs: { name: "puerta", type: "text" },
+                                model: {
+                                  value: _vm.puerta,
+                                  callback: function($$v) {
+                                    _vm.puerta = $$v
+                                  },
+                                  expression: "puerta"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
                   ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Precio:", description: "" } },
+                            [
+                              _c("b-form-input", {
+                                attrs: { name: "precio_base", type: "text" },
+                                model: {
+                                  value: _vm.precio_base,
+                                  callback: function($$v) {
+                                    _vm.precio_base = $$v
+                                  },
+                                  expression: "precio_base"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Tipo :", description: "" } },
+                            [
+                              _c("b-form-select", {
+                                attrs: {
+                                  name: "tipo_id",
+                                  options: _vm.opciones
+                                },
+                                model: {
+                                  value: _vm.tipo_id,
+                                  callback: function($$v) {
+                                    _vm.tipo_id = $$v
+                                  },
+                                  expression: "tipo_id"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.tipo_id != 0 && _vm.tipo_id != 4
+                    ? _c(
+                        "b-row",
+                        [
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-form-group",
+                                { attrs: { label: "Camas:", description: "" } },
+                                [
+                                  _c("b-form-input", {
+                                    attrs: { name: "camas", type: "text" },
+                                    model: {
+                                      value: _vm.camas,
+                                      callback: function($$v) {
+                                        _vm.camas = $$v
+                                      },
+                                      expression: "camas"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: { label: "Metros^2:", description: "" }
+                                },
+                                [
+                                  _c("b-form-input", {
+                                    attrs: { name: "metros", type: "text" },
+                                    model: {
+                                      value: _vm.metros_cuadrados,
+                                      callback: function($$v) {
+                                        _vm.metros_cuadrados = $$v
+                                      },
+                                      expression: "metros_cuadrados"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.tipo_id == 4
+                    ? _c(
+                        "b-form-group",
+                        { attrs: { label: "Capacidad:", description: "" } },
+                        [
+                          _c("b-form-input", {
+                            attrs: { name: "capacidad", type: "text" },
+                            model: {
+                              value: _vm.capacidad,
+                              callback: function($$v) {
+                                _vm.capacidad = $$v
+                              },
+                              expression: "capacidad"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "b-button",
@@ -37156,20 +37563,75 @@ var render = function() {
                 "b-card",
                 [
                   _c(
-                    "b-form-group",
-                    {
-                      staticClass: "mt-3",
-                      attrs: { label: "Nombre:", description: "" }
-                    },
+                    "b-row",
                     [
-                      _c("b-form-input", {
-                        attrs: { name: "name", type: "text" },
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Nombre:", description: "" } },
+                            [
+                              _c("b-form-input", {
+                                attrs: { name: "nombre", type: "text" },
+                                model: {
+                                  value: _vm.editedItem.nombre,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editedItem, "nombre", $$v)
+                                  },
+                                  expression: "editedItem.nombre"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Reservada:", description: "" } },
+                            [
+                              _c("b-form-radio-group", {
+                                attrs: {
+                                  id: "btn-radios-2",
+                                  options: _vm.options,
+                                  name: "radio-inline"
+                                },
+                                model: {
+                                  value: _vm.editedItem.reservada,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editedItem, "reservada", $$v)
+                                  },
+                                  expression: "editedItem.reservada"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "b-form-group",
+                    { attrs: { label: "Descripción:", description: "" } },
+                    [
+                      _c("b-form-textarea", {
+                        attrs: { name: "descripcion", required: "" },
                         model: {
-                          value: _vm.editedItem.name,
+                          value: _vm.editedItem.descripcion,
                           callback: function($$v) {
-                            _vm.$set(_vm.editedItem, "name", $$v)
+                            _vm.$set(_vm.editedItem, "descripcion", $$v)
                           },
-                          expression: "editedItem.name"
+                          expression: "editedItem.descripcion"
                         }
                       })
                     ],
@@ -37177,29 +37639,197 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c(
-                    "b-form-group",
-                    {
-                      staticClass: "mt-3",
-                      attrs: { label: "Correo electrónico:", description: "" }
-                    },
+                    "b-row",
                     [
-                      _c("b-form-input", {
-                        attrs: {
-                          name: "email",
-                          type: "email",
-                          placeholder: "email@example.com"
-                        },
-                        model: {
-                          value: _vm.editedItem.email,
-                          callback: function($$v) {
-                            _vm.$set(_vm.editedItem, "email", $$v)
-                          },
-                          expression: "editedItem.email"
-                        }
-                      })
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Planta:", description: "" } },
+                            [
+                              _c("b-form-input", {
+                                attrs: { name: "planta", type: "text" },
+                                model: {
+                                  value: _vm.editedItem.planta,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editedItem, "planta", $$v)
+                                  },
+                                  expression: "editedItem.planta"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Puerta:", description: "" } },
+                            [
+                              _c("b-form-input", {
+                                attrs: { name: "puerta", type: "text" },
+                                model: {
+                                  value: _vm.editedItem.puerta,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editedItem, "puerta", $$v)
+                                  },
+                                  expression: "editedItem.puerta"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
                     ],
                     1
                   ),
+                  _vm._v(" "),
+                  _c(
+                    "b-row",
+                    [
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Precio:", description: "" } },
+                            [
+                              _c("b-form-input", {
+                                attrs: { name: "precio_base", type: "text" },
+                                model: {
+                                  value: _vm.editedItem.precio_base,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editedItem, "precio_base", $$v)
+                                  },
+                                  expression: "editedItem.precio_base"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "b-col",
+                        [
+                          _c(
+                            "b-form-group",
+                            { attrs: { label: "Tipo:", description: "" } },
+                            [
+                              _c("b-form-select", {
+                                attrs: {
+                                  name: "tipo_id",
+                                  options: _vm.opciones
+                                },
+                                model: {
+                                  value: _vm.editedItem.tipo_id,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.editedItem, "tipo_id", $$v)
+                                  },
+                                  expression: "editedItem.tipo_id"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _vm.editedItem.tipo_id != 0 && _vm.editedItem.tipo_id != 4
+                    ? _c(
+                        "b-row",
+                        [
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-form-group",
+                                { attrs: { label: "Camas:", description: "" } },
+                                [
+                                  _c("b-form-input", {
+                                    attrs: { name: "camas", type: "text" },
+                                    model: {
+                                      value: _vm.editedItem.camas,
+                                      callback: function($$v) {
+                                        _vm.$set(_vm.editedItem, "camas", $$v)
+                                      },
+                                      expression: "editedItem.camas"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "b-col",
+                            [
+                              _c(
+                                "b-form-group",
+                                {
+                                  attrs: { label: "Metros^2:", description: "" }
+                                },
+                                [
+                                  _c("b-form-input", {
+                                    attrs: { name: "metros", type: "text" },
+                                    model: {
+                                      value: _vm.editedItem.metros_cuadrados,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "metros_cuadrados",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.metros_cuadrados"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _vm.editedItem.tipo_id == 4
+                    ? _c(
+                        "b-form-group",
+                        { attrs: { label: "Capacidad:", description: "" } },
+                        [
+                          _c("b-form-input", {
+                            attrs: { name: "capacidad", type: "text" },
+                            model: {
+                              value: _vm.editedItem.capacidad,
+                              callback: function($$v) {
+                                _vm.$set(_vm.editedItem, "capacidad", $$v)
+                              },
+                              expression: "editedItem.capacidad"
+                            }
+                          })
+                        ],
+                        1
+                      )
+                    : _vm._e(),
                   _vm._v(" "),
                   _c(
                     "b-button",
