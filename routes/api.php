@@ -35,6 +35,8 @@ Route::get('users/{id}','UserController@show');
 Route::post('users', 'UserController@store');
 Route::put('users/{id}', 'UserController@update');
 Route::delete('users/{id}', 'UserController@delete');
+Route::get('clientes', 'UserController@showClientes');
+Route::get('recepcionistas', 'UserController@showRecepcionistas');
 
 
 Route::get('emails/{email}','UserController@recuperarUsuarioMail');

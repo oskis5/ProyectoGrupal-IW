@@ -19,6 +19,16 @@ class UserController extends Controller
         return response()->json($user, 200);
     }
 
+    public function showClientes(){
+        $users = DB::select('select u.* from users u, model_has_roles m where u.id = m.model_id and m.role_id = 3');
+        return response()->json($users, 200);
+    }
+
+    public function showRecepcionistas(){
+        $users = DB::select('select u.* from users u, model_has_roles m where u.id = m.model_id and m.role_id = 2');
+        return response()->json($users, 200);
+    }
+
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -41,17 +51,19 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|same:confirm-password',
+            'email' => 'required|email',
+            //'password' => 'required|same:confirm-password',
             'roles' => 'required'
         ]);
 
         $input = $request->all();
+        /*
         if(!empty($input['password'])){ 
             $input['password'] = Hash::make($input['password']);
         }else{
             $input = array_except($input,array('password'));    
         }
+        */
 
         $user = User::find($id);
         $user->update($input);
