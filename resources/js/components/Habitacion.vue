@@ -27,7 +27,7 @@
             </select> 
             <p class="hab-precio col-2 offset-2 offset-sm-0 col-sm-6 my-0"><strong>{{item.precio_base + item.tipo.precio_tipo}}€</strong></p>
             <button type="button" @click="datosState" class="hab-boton-reserva btn btn-secondary col-12 mt-3 mt-sm-0 col-sm-2">
-                <router-link :to="{ name: 'reservas', params: { tipoPension: this.tipoPension , fecha: this.fecha, tipoHab: this.item.tipo.id}}">
+                <router-link :to="{ name: 'reservas', params: { tipoPension: this.tipoPension , fecha: this.fecha, fechaSalida:fechaSalida, tipoHab: this.item.tipo.id}}">
                     Reservar
                 </router-link>
             </button>
@@ -40,7 +40,7 @@
 <script>
 export default {
   name: 'Habitacion',
-  props: ['item','img', 'fecha'],
+  props: ['item','img', 'fecha', 'fechaSalida'],
   data(){
       return{
           tipoPension: 2

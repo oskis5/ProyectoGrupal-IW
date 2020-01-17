@@ -1963,7 +1963,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Habitacion',
-  props: ['item', 'img', 'fecha'],
+  props: ['item', 'img', 'fecha', 'fechaSalida'],
   data: function data() {
     return {
       tipoPension: 2
@@ -2198,6 +2198,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'ListHabitaciones',
@@ -2313,13 +2321,16 @@ __webpack_require__.r(__webpack_exports__);
               } //Verifica fecha
 
 
-              if (this.fecha) {
+              if (this.fecha && this.fechaSalida) {
                 hoy = new Date();
                 d = new Date(this.fecha);
+                dSalida = new Date(this.fechaSalida);
 
-                if (hoy.getTime() > d.getTime()) {
+                if (hoy.getTime() > d.getTime() || hoy.getTime() > dSalida.getTime()) {
                   this.errors.push("Seleccione una fecha válida.");
                 }
+              } else if (this.fecha || this.fechaSalida) {
+                this.errors.push("Seleccione un rango de fechas válida.");
               }
 
               if (!(this.errors.length == 0)) {
@@ -2421,6 +2432,194 @@ __webpack_require__.r(__webpack_exports__);
         default:
           return "Todas";
       }
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListReservas.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/ListReservas.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _Habitacion_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Habitacion.vue */ "./resources/js/components/Habitacion.vue");
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: 'ListReservas',
+  data: function data() {
+    return {
+      reservas: [],
+      reservasCont: [],
+      detalle: {},
+      show: false
+    };
+  },
+  created: function created() {
+    var res, reservas, estancias, clientes;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function created$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/reservas'));
+
+          case 2:
+            res = _context.sent;
+            _context.next = 5;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(res.json());
+
+          case 5:
+            reservas = _context.sent;
+            _context.next = 8;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/estancias'));
+
+          case 8:
+            res = _context.sent;
+            _context.next = 11;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(res.json());
+
+          case 11:
+            estancias = _context.sent;
+            _context.next = 14;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/users'));
+
+          case 14:
+            res = _context.sent;
+            _context.next = 17;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(res.json());
+
+          case 17:
+            clientes = _context.sent;
+            reservas.forEach(function (reserva) {
+              clientes.forEach(function (cliente) {
+                if (reserva.cliente_id = cliente.id) {
+                  reserva.cliente = cliente;
+                }
+              });
+              estancias.forEach(function (estancia) {
+                if (reserva.estancia_id = estancia.id) {
+                  reserva.estancia = estancia;
+                }
+              });
+            });
+            this.reservas = reservas.slice(0, 3);
+            this.reservasCont = reservas.slice(3, reservas.length);
+
+          case 21:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, null, this);
+  },
+  methods: {
+    addRows: function addRows() {
+      this.reservas = this.reservas.concat(this.reservasCont);
+      this.reservasCont = [];
+    },
+    showDetails: function showDetails(event) {
+      var detalle, res, tipo, cliente, d_inicio, d_salida;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function showDetails$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              this.show = false;
+              detalle = this.reservas[parseInt(event.target.id)];
+              _context2.next = 4;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/tipoestancias/' + detalle.tipo_id));
+
+            case 4:
+              res = _context2.sent;
+              _context2.next = 7;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(res.json());
+
+            case 7:
+              tipo = _context2.sent;
+              _context2.next = 10;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(fetch('http://localhost/ProyectoGrupal-IW/public/api/users/' + detalle.cliente_id));
+
+            case 10:
+              res = _context2.sent;
+              _context2.next = 13;
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(res.json());
+
+            case 13:
+              cliente = _context2.sent;
+              detalle.cliente = cliente;
+              detalle.estancia.tipo = tipo;
+              console.log(detalle);
+              d_inicio = new Date(detalle.f_entrada).getTime();
+              d_salida = new Date(detalle.f_salida).getTime();
+              detalle.dias = (d_salida - d_inicio) / (1000 * 60 * 60 * 24);
+              this.detalle = detalle;
+              this.show = true;
+
+            case 22:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, null, this);
     }
   }
 });
@@ -31700,6 +31899,25 @@ exports.push([module.i, "\n.hab-counter[data-v-2adc3e34]{\r\n  font-size: 0.75re
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListReservas.vue?vue&type=style&index=0&id=dda7dce2&scoped=true&lang=css&":
+/*!************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/ListReservas.vue?vue&type=style&index=0&id=dda7dce2&scoped=true&lang=css& ***!
+  \************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "\n.table th[data-v-dda7dce2], .table td[data-v-dda7dce2]{\n    padding: 0.9rem;\n    font-size: 0.9rem;\n}\n.detail-container p[data-v-dda7dce2]{\n    margin-right: 1rem;\n}\n", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/lib/css-base.js":
 /*!*************************************************!*\
   !*** ./node_modules/css-loader/lib/css-base.js ***!
@@ -36317,6 +36535,36 @@ if(false) {}
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListReservas.vue?vue&type=style&index=0&id=dda7dce2&scoped=true&lang=css&":
+/*!****************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader??ref--6-1!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-2!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/ListReservas.vue?vue&type=style&index=0&id=dda7dce2&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListReservas.vue?vue&type=style&index=0&id=dda7dce2&scoped=true&lang=css& */ "./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListReservas.vue?vue&type=style&index=0&id=dda7dce2&scoped=true&lang=css&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/lib/addStyles.js":
 /*!****************************************************!*\
   !*** ./node_modules/style-loader/lib/addStyles.js ***!
@@ -37196,6 +37444,7 @@ var render = function() {
                     params: {
                       tipoPension: this.tipoPension,
                       fecha: this.fecha,
+                      fechaSalida: _vm.fechaSalida,
                       tipoHab: this.item.tipo.id
                     }
                   }
@@ -37839,6 +38088,19 @@ var render = function() {
       )
     ]),
     _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "container" },
+      _vm._l(_vm.errors, function(error) {
+        return _c(
+          "div",
+          { staticClass: "alert alert-danger", attrs: { role: "alert" } },
+          [_vm._v("\n        " + _vm._s(error) + "\n      ")]
+        )
+      }),
+      0
+    ),
+    _vm._v(" "),
     _c("div", { staticClass: "hab-list-cont container" }, [
       _c(
         "ul",
@@ -37869,6 +38131,190 @@ var render = function() {
   ])
 }
 var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListReservas.vue?vue&type=template&id=dda7dce2&scoped=true&":
+/*!*********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/pages/ListReservas.vue?vue&type=template&id=dda7dce2&scoped=true& ***!
+  \*********************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "container" }, [
+    _c("h1", { staticClass: "text-left" }, [_vm._v("Informe de reservas")]),
+    _vm._v(" "),
+    _c("div", { staticClass: "row justify-content-center align-items-start" }, [
+      _c("div", { staticClass: "container p-2 col-12 col-md-6" }, [
+        _c("p", { staticClass: "text-left" }, [
+          _vm._v("Mostrando: "),
+          _c("b", [
+            _vm._v(
+              _vm._s(_vm.reservas.length) +
+                " de " +
+                _vm._s(_vm.reservas.length + _vm.reservasCont.length) +
+                " filas"
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("table", { staticClass: "table table-striped table-hover" }, [
+          _vm._m(0),
+          _vm._v(" "),
+          _c(
+            "tbody",
+            _vm._l(_vm.reservas, function(r) {
+              return _c(
+                "tr",
+                { attrs: { id: r.id }, on: { click: _vm.showDetails } },
+                [
+                  _c("th", { attrs: { scope: "row", id: r.id } }, [
+                    _vm._v(_vm._s(r.id))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { attrs: { id: r.id } }, [
+                    _vm._v(_vm._s(r.cliente.name))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { attrs: { id: r.id } }, [
+                    _vm._v(_vm._s(r.estancia.nombre))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { attrs: { id: r.id } }, [
+                    _vm._v(_vm._s(new Date(r.f_entrada).toDateString()))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { attrs: { id: r.id } }, [
+                    _vm._v(_vm._s(new Date(r.f_salida).toDateString()))
+                  ]),
+                  _vm._v(" "),
+                  _c("td", { attrs: { id: r.id } }, [
+                    _vm._v(_vm._s(r.precio_total) + "€")
+                  ])
+                ]
+              )
+            }),
+            0
+          )
+        ]),
+        _vm._v(" "),
+        _vm.reservasCont.length > 0
+          ? _c(
+              "button",
+              {
+                staticClass: "btn btn-secondary",
+                attrs: { type: "button" },
+                on: { click: _vm.addRows }
+              },
+              [_vm._v("Mostrar más")]
+            )
+          : _vm._e()
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "container p-0 col-12 col-md-3 mt-4 mt-md-0" }, [
+        _c("h2", { staticClass: "text-left" }, [_vm._v("Detalles")]),
+        _vm._v(" "),
+        _vm.show
+          ? _c("div", { staticClass: "container detail-container" }, [
+              _c(
+                "div",
+                { staticClass: "row align-items-start justify-content-left" },
+                [
+                  _c("p", [
+                    _vm._v("Nombre: "),
+                    _c("b", [_vm._v(_vm._s(_vm.detalle.cliente.name))])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v("Habitación: "),
+                    _c("b", [_vm._v(_vm._s(_vm.detalle.estancia.nombre))])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v("Tipo: "),
+                    _c("b", [_vm._v(_vm._s(_vm.detalle.estancia.tipo.nombre))])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row align-items-start justify-content-left" },
+                [
+                  _c("p", [
+                    _vm._v("Días: "),
+                    _c("b", [_vm._v(_vm._s(_vm.detalle.dias))])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v("Precio total: "),
+                    _c("b", [_vm._v(_vm._s(_vm.detalle.precio_total))])
+                  ])
+                ]
+              ),
+              _vm._v(" "),
+              _c(
+                "div",
+                { staticClass: "row align-items-start justify-content-left" },
+                [
+                  _c("p", [
+                    _vm._v("Desde: "),
+                    _c("b", [
+                      _vm._v(
+                        _vm._s(new Date(_vm.detalle.f_entrada).toDateString())
+                      )
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("p", [
+                    _vm._v("Hasta: "),
+                    _c("b", [
+                      _vm._v(
+                        _vm._s(new Date(_vm.detalle.f_salida).toDateString())
+                      )
+                    ])
+                  ])
+                ]
+              )
+            ])
+          : _vm._e()
+      ])
+    ])
+  ])
+}
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("#id")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Cliente")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Estancia")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha de entrada")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Fecha de salida")]),
+        _vm._v(" "),
+        _c("th", { attrs: { scope: "col" } }, [_vm._v("Coste total")])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -55052,6 +55498,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/pages/ListReservas.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/pages/ListReservas.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _ListReservas_vue_vue_type_template_id_dda7dce2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ListReservas.vue?vue&type=template&id=dda7dce2&scoped=true& */ "./resources/js/components/pages/ListReservas.vue?vue&type=template&id=dda7dce2&scoped=true&");
+/* harmony import */ var _ListReservas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ListReservas.vue?vue&type=script&lang=js& */ "./resources/js/components/pages/ListReservas.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _ListReservas_vue_vue_type_style_index_0_id_dda7dce2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./ListReservas.vue?vue&type=style&index=0&id=dda7dce2&scoped=true&lang=css& */ "./resources/js/components/pages/ListReservas.vue?vue&type=style&index=0&id=dda7dce2&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _ListReservas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _ListReservas_vue_vue_type_template_id_dda7dce2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _ListReservas_vue_vue_type_template_id_dda7dce2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "dda7dce2",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/pages/ListReservas.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/ListReservas.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/pages/ListReservas.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReservas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListReservas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListReservas.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReservas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/ListReservas.vue?vue&type=style&index=0&id=dda7dce2&scoped=true&lang=css&":
+/*!*****************************************************************************************************************!*\
+  !*** ./resources/js/components/pages/ListReservas.vue?vue&type=style&index=0&id=dda7dce2&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReservas_vue_vue_type_style_index_0_id_dda7dce2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader??ref--6-1!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--6-2!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListReservas.vue?vue&type=style&index=0&id=dda7dce2&scoped=true&lang=css& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListReservas.vue?vue&type=style&index=0&id=dda7dce2&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReservas_vue_vue_type_style_index_0_id_dda7dce2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReservas_vue_vue_type_style_index_0_id_dda7dce2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReservas_vue_vue_type_style_index_0_id_dda7dce2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReservas_vue_vue_type_style_index_0_id_dda7dce2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_style_loader_index_js_node_modules_css_loader_index_js_ref_6_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_6_2_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReservas_vue_vue_type_style_index_0_id_dda7dce2_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
+
+/***/ }),
+
+/***/ "./resources/js/components/pages/ListReservas.vue?vue&type=template&id=dda7dce2&scoped=true&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/pages/ListReservas.vue?vue&type=template&id=dda7dce2&scoped=true& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReservas_vue_vue_type_template_id_dda7dce2_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib??vue-loader-options!./ListReservas.vue?vue&type=template&id=dda7dce2&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/pages/ListReservas.vue?vue&type=template&id=dda7dce2&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReservas_vue_vue_type_template_id_dda7dce2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ListReservas_vue_vue_type_template_id_dda7dce2_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/pages/Login.vue":
 /*!*************************************************!*\
   !*** ./resources/js/components/pages/Login.vue ***!
@@ -55277,6 +55810,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_pages_Register__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/pages/Register */ "./resources/js/components/pages/Register.vue");
 /* harmony import */ var _components_pages_Reserva__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/pages/Reserva */ "./resources/js/components/pages/Reserva.vue");
 /* harmony import */ var _components_pages_ListHabitaciones__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/pages/ListHabitaciones */ "./resources/js/components/pages/ListHabitaciones.vue");
+/* harmony import */ var _components_pages_ListReservas__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/pages/ListReservas */ "./resources/js/components/pages/ListReservas.vue");
+
 
 
 
@@ -55329,6 +55864,10 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
     path: '/ProyectoGrupal-IW/public/habitaciones',
     name: 'ListHabitaciones',
     component: _components_pages_ListHabitaciones__WEBPACK_IMPORTED_MODULE_7__["default"]
+  }, {
+    path: '/ProyectoGrupal-IW/public/listReservas-wm',
+    name: 'ListReservas',
+    component: _components_pages_ListReservas__WEBPACK_IMPORTED_MODULE_8__["default"]
   }]
 });
 router.beforeEach(function (to, from, next) {

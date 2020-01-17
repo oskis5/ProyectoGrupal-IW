@@ -7,6 +7,7 @@ import Login from './components/pages/Login';
 import Register from './components/pages/Register';
 import Reserva from './components/pages/Reserva';
 import ListHabitaciones from './components/pages/ListHabitaciones';
+import ListReservas from './components/pages/ListReservas';
 
 Vue.use(Router);
 
@@ -58,6 +59,11 @@ const router = new Router({
             path: '/ProyectoGrupal-IW/public/habitaciones',
             name: 'ListHabitaciones',
             component: ListHabitaciones,
+        },
+        {
+            path: '/ProyectoGrupal-IW/public/listReservas-wm',
+            name: 'ListReservas',
+            component: ListReservas,
         }
     ]
 })

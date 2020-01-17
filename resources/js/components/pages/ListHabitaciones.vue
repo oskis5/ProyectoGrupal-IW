@@ -40,6 +40,7 @@
               </div>
             </div>
         </form>
+        
         <!--Nube de etiquetas -->
         <div class="nube-etiquetas container">
           <ul id="ListHabitaciones" class="hab-list list-unstyled list-inline text-left">
@@ -47,6 +48,13 @@
                 <span class="badge badge-pill badge-secondary px-4">{{etiqueta}}</span>
             </li>
           </ul>
+        </div>
+
+        <!-- Errores -->
+        <div class="container">
+          <div v-for="error in errors" class="alert alert-danger" role="alert">
+            {{error}}
+          </div>
         </div>
         
         <!--Lista de habitaciones -->
@@ -127,13 +135,16 @@ export default {
       }
 
       //Verifica fecha
-      if(this.fecha){
+      if(this.fecha && this.fechaSalida){
           var hoy = new Date();
           var d = new Date(this.fecha);
+          var dSalida = new Date(this.fechaSalida);
 
-          if(hoy.getTime() > d.getTime()){
+          if(hoy.getTime() > d.getTime() || hoy.getTime() > dSalida.getTime()){
             this.errors.push("Seleccione una fecha válida.");
           }
+      }else if(this.fecha || this.fechaSalida){
+          this.errors.push("Seleccione un rango de fechas válida.");
       }
 
       if(this.errors.length == 0){
