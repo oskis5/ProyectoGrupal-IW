@@ -16,10 +16,8 @@
         responsive="sm"
         :per-page="perPage"
         :current-page="currentPage"
-        
         >
-        <!--ref="recargar"
-        @eventname="ChangeView"-->
+        
         <template v-slot:cell(nombre)="data">
            {{ data.item.nombre }}
         </template>
@@ -259,24 +257,15 @@
                     metros_cuadrados: ((this.metros_cuadrados != null)? this.metros_cuadrados: 0),
                     camas: ((this.camas != null)? this.camas: 0),
                     capacidad: ((this.capacidad != null)? this.capacidad: 0), 
-                    //((state.habitacionReserva != null)? state.habitacionReserva : datosReserva.idEstancia)
                  
                 }).then(response=> {
-                        //this.$router.push({ name: 'listahabitaciones' })
-                        this.$root.$emit('bv::hide::modal', 'modal-crear', '#btnguardar');
-                        //this.$forceUpdate(); 
-                        //location.reload();
+                        this.$root.$emit('bv::hide::modal', 'modal-crear', '#btnguardar'); 
+                        location.reload();
                         this.$refs.recargar.refresh();
                     }).catch(error => {
                         console.log(error);
                     });
             },
-            /*
-            ChangeView: function ChangeView(action){
-                if(action){
-                    this.$refs.recargar.refresh();
-                }
-            },*/
             update(){
                 axios.put('api/estancias/'+ this.editedItem.id,{
                     nombre: this.editedItem.nombre,

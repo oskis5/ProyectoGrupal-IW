@@ -2365,8 +2365,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2473,26 +2471,17 @@ __webpack_require__.r(__webpack_exports__);
         reservada: 0,
         metros_cuadrados: this.metros_cuadrados != null ? this.metros_cuadrados : 0,
         camas: this.camas != null ? this.camas : 0,
-        capacidad: this.capacidad != null ? this.capacidad : 0 //((state.habitacionReserva != null)? state.habitacionReserva : datosReserva.idEstancia)
-
+        capacidad: this.capacidad != null ? this.capacidad : 0
       }).then(function (response) {
-        //this.$router.push({ name: 'listahabitaciones' })
-        _this.$root.$emit('bv::hide::modal', 'modal-crear', '#btnguardar'); //this.$forceUpdate(); 
-        //location.reload();
+        _this.$root.$emit('bv::hide::modal', 'modal-crear', '#btnguardar');
 
+        location.reload();
 
         _this.$refs.recargar.refresh();
       })["catch"](function (error) {
         console.log(error);
       });
     },
-
-    /*
-    ChangeView: function ChangeView(action){
-        if(action){
-            this.$refs.recargar.refresh();
-        }
-    },*/
     update: function update() {
       var _this2 = this;
 
